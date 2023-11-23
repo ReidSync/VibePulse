@@ -11,7 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct JournalHome {
   struct State: Equatable {
-    
+    var journals: IdentifiedArrayOf<Journal> = []
   }
   
   enum Action {
@@ -25,8 +25,7 @@ struct JournalHome {
         return .none
       }
     }
-  }
-  
+  } 
   
 }
 

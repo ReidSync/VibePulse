@@ -14,10 +14,17 @@ struct JournalHomeView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       NavigationStack {
-        VStack {
-          Spacer()
-          CreateButton() {
-            print("create")
+        ZStack {
+          List {
+            ForEach(viewStore.journals) { journal in
+              Text(journal.title)
+            }
+          }          
+          VStack {
+            Spacer()
+            CreateButton() {
+              print("create")
+            }
           }
         }
       }
@@ -50,7 +57,7 @@ struct CreateButton: View {
 
 #Preview {
   JournalHomeView(
-    store: Store(initialState: JournalHome.State()) {
+    store: Store(initialState: JournalHome.State(journals: [.mock])) {
       JournalHome()
     })
 }

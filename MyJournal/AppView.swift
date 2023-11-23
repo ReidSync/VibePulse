@@ -22,7 +22,6 @@ struct AppView: View {
           )
         }
       }
-      .navigationTitle("My Journals")
     }
   }
 }
