@@ -1,15 +1,15 @@
 //
-//  AppView.swift
+//  JournalHomeView.swift
 //  MyJournal
 //
-//  Created by Reid on 2023/11/22.
+//  Created by Reid on 2023/11/23.
 //
 
 import SwiftUI
 import ComposableArchitecture
 
-struct AppView: View {
-  let store: StoreOf<AppFeature>
+struct JournalHomeView: View {
+  let store: StoreOf<JournalHome>
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -48,10 +48,9 @@ struct CreateButton: View {
   }
 }
 
-
 #Preview {
-  AppView(
-    store: Store(initialState: AppFeature.State()) {
-    AppFeature()
-  })
+  JournalHomeView(
+    store: Store(initialState: JournalHome.State()) {
+      JournalHome()
+    })
 }
