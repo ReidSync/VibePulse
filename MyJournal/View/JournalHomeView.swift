@@ -12,24 +12,27 @@ struct JournalHomeView: View {
   let store: StoreOf<JournalHome>
   
   var body: some View {
-    WithViewStore(self.store, observe: { $0 }) { viewStore in
-      NavigationStack {
-        ZStack {
-          List {
-            ForEach(viewStore.journals) { journal in
+    WithViewStore(self.store, observe: \.journals) { viewStore in
+      ZStack {
+        List {
+          ForEach(viewStore.state) { journal in
+            NavigationLink(
+              state: AppFeature.Path.State.editor(JournalEditor.State(journal: journal))
+            ){
               Text(journal.title)
-            }
-          }          
-          VStack {
-            Spacer()
-            CreateButton() {
-              print("create")
             }
           }
         }
+        
+        VStack {
+          Spacer()
+          CreateButton() {
+            viewStore.send(.createButtonTapped)
+          }
+        }
       }
-      .navigationTitle("My Journals")
     }
+    .navigationTitle("My Journals")
   }
 }
 

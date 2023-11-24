@@ -18,10 +18,15 @@ struct JournalHome {
     case createButtonTapped
   }
   
+  @Dependency(\.uuid) var uuid
+  
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
       case .createButtonTapped:
+        state.journals.append(
+          Journal(id: self.uuid(), title: "Title...", date: Date(), contents: "test contents...!!!")
+        )
         return .none
       }
     }
