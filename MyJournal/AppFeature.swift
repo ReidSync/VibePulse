@@ -24,6 +24,12 @@ struct AppFeature {
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
+      case let .path(.element(_, .editor(.delegate(delegateAction)))):
+        switch delegateAction {
+        case .journalUpdated(let journal):
+          state.journalHome.journals[id: journal.id] = journal
+          return .none
+        }
         
       case .path:
         return .none

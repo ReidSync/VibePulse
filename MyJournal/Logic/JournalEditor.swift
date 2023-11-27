@@ -24,11 +24,16 @@ struct JournalEditor {
     case done
     case updateContents(String)
     case view(Action.ViewAction)
+    case delegate(Action.Delegate)
     
     public enum ViewAction: BindableAction {
       case binding(BindingAction<State>)
     }
     
+    @CasePathable
+    enum Delegate {
+      case journalUpdated(Journal)
+    }
   }
   
   var body: some Reducer<State, Action> {
@@ -48,6 +53,10 @@ struct JournalEditor {
         return .none
       }
     }
+    .onChange(of: \.journal) { oldValue, newValue in
+      Reduce { state, action in
+          .send(.delegate(.journalUpdated(newValue)))
+      }
     }
   }
 }
