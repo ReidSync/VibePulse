@@ -19,7 +19,19 @@ struct JournalHomeView: View {
             NavigationLink(
               state: AppFeature.Path.State.editor(JournalEditor.State(journal: journal))
             ){
-              Text(journal.title)
+              VStack(alignment: .leading) {
+                Text(journal.title)
+                  .font(.system(size: 18, weight: .bold))
+                HStack {
+                  Image(systemName: "calendar")
+                    .resizable()
+                    .frame(width: 11, height: 11)
+                  Text(journal.date, style: .date)
+                    .font(.system(size: 11, weight: .light))
+                  Text(journal.date, style: .time)
+                    .font(.system(size: 11, weight: .light))
+                }
+              }
             }
           }
         }
@@ -31,8 +43,32 @@ struct JournalHomeView: View {
           }
         }
       }
+      .navigationTitle("My Journals")
+      .sheet(
+        store: self.store.scope(state: \.$destination, action: { .destination($0) }),
+        state: \.sheetToAdd,
+        action: { .sheetToAdd($0) }
+      ) { store in
+        NavigationStack {
+          JournalMetaView(store: store)
+            .navigationTitle("New Journal")
+            .toolbar {
+              ToolbarItem(placement: .cancellationAction) {
+                Button("Dismiss") {
+                  viewStore.send(.dismissAddingNewJournal)
+                }
+              }
+              ToolbarItem(placement: .confirmationAction) {
+                Button("Add") {
+                  viewStore.send(.addNewJournal)
+                }
+              }
+            }
+        }
+      }
     }
-    .navigationTitle("My Journals")
+    
+    
   }
 }
 

@@ -12,7 +12,7 @@ struct Journal: Equatable, Identifiable, Codable {
   let id: UUID
   var title = ""
   var date: Date
-  var contents: String
+  var contents: String = ""
 }
 
 
