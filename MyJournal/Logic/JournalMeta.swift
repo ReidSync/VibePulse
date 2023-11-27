@@ -20,7 +20,7 @@ struct JournalMeta {
     }
   }
   
-  enum Action: BindableAction, Equatable, Sendable {
+  enum Action: BindableAction {
     case binding(BindingAction<State>)
   }
   
