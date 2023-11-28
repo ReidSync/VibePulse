@@ -13,6 +13,21 @@ struct JournalHome {
   struct State: Equatable {
     @PresentationState var destination: Destination.State?
     var journals: IdentifiedArrayOf<Journal> = []
+    
+    init(destination: Destination.State? = nil) {
+      self.destination = destination
+      
+      do {
+        @Dependency(\.fileIOClient.load) var loadJournals
+        self.journals = try JSONDecoder().decode(IdentifiedArray.self, from: loadJournals(.journalDataUrl))
+      }
+      catch is DecodingError {
+        NSLog("Failed to load data (decoding data failed)")
+      }
+      catch {
+        NSLog("Failed to load data (Unknown)")
+      }
+    }
   }
   
   enum Action {
@@ -41,7 +56,7 @@ struct JournalHome {
       case .addNewJournal:
         guard case let .sheetToAdd(meta) = state.destination else {
           return .none
-        }        
+        }
         
         state.journals.append(meta.journal)
         state.destination = nil

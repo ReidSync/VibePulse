@@ -96,7 +96,14 @@ struct CreateButton: View {
 
 #Preview {
   JournalHomeView(
-    store: Store(initialState: JournalHome.State(journals: [.mock])) {
+    store: Store(initialState: JournalHome.State()) {
       JournalHome()
-    })
+    } withDependencies: {
+      $0.fileIOClient.load = { _ in
+        try JSONEncoder().encode([
+          Journal.mock
+        ])
+      }
+    }
+  )
 }
