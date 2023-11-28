@@ -21,6 +21,13 @@ struct AppFeature {
     case journalHome(JournalHome.Action)
   }
   
+  @Dependency(\.continuousClock) var clock
+  @Dependency(\.fileIOClient.save) var saveJournals
+  
+  private enum CancelID {
+    case saveDebounce
+  }
+  
   var body: some Reducer<State, Action> {
     Reduce { state, action in
       switch action {
@@ -43,6 +50,17 @@ struct AppFeature {
     
     Scope(state: \.journalHome, action: \.journalHome) {
       JournalHome()
+    }
+    
+    Reduce { state, action in
+      return .run { [journals = state.journalHome.journals] _ in
+        try await withTaskCancellation(id: CancelID.saveDebounce, cancelInFlight: true) {
+          try await self.clock.sleep(for: .seconds(1))
+          print("save")
+          try await self.saveJournals(JSONEncoder().encode(journals), .journalDataUrl)
+        }
+      }
+      catch: { _, _ in }
     }
   }
 }
