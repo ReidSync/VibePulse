@@ -11,19 +11,7 @@ import ComposableArchitecture
 struct JournalEditorView: View {
   var store: StoreOf<JournalEditor>
   
-  struct ViewState: Equatable {
-    @BindingViewState var contents: String
-  }
-  
   var body: some View {
-    //    WithViewStore(
-    //      self.store,
-    //      observe: \.view,
-    //      send: { .view($0) }) { viewStore in
-    //      VStack {
-    //        TextEditor(text: viewStore.$contents)
-    //      }
-    //    }
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       VStack(spacing: 0) {
         HStack {
@@ -49,22 +37,36 @@ struct JournalEditorView: View {
               .foregroundColor(.palleteE)
             Spacer()
             Button {
-              print("edit")
+              viewStore.send(.edit)
             } label: {
               Image(systemName: "gear")
             }
           }
         }
       }
+      .sheet(
+        store: self.store.scope(state: \.$destination, action: { .destination($0) }),
+        state: \.sheetToEdit,
+        action: { .sheetToEdit($0) }
+      ) { store in
+        NavigationStack {
+          JournalMetaView(store: store)
+            .navigationTitle("Edit my journal")
+            .toolbar {
+              ToolbarItem(placement: .cancellationAction) {
+                Button("Dismiss") {
+                  viewStore.send(.dismissEditingMyJournal)
+                }
+              }
+              ToolbarItem(placement: .confirmationAction) {
+                Button("Done") {
+                  viewStore.send(.doneEditingMyJournal)
+                }
+              }
+            }
+        }
+      }
     }
-  }
-}
-
-extension BindingViewStore<JournalEditor.State> {
-  var view: JournalEditorView.ViewState {
-    JournalEditorView.ViewState(
-      contents: self.$contents
-    )
   }
 }
 
