@@ -16,22 +16,44 @@ struct JournalEditorView: View {
   }
   
   var body: some View {
-    WithViewStore(
-      self.store,
-      observe: \.view,
-      send: { .view($0) }) { viewStore in
-      VStack {
-        TextEditor(text: viewStore.$contents)
+    //    WithViewStore(
+    //      self.store,
+    //      observe: \.view,
+    //      send: { .view($0) }) { viewStore in
+    //      VStack {
+    //        TextEditor(text: viewStore.$contents)
+    //      }
+    //    }
+    WithViewStore(self.store, observe: { $0 }) { viewStore in
+      VStack(spacing: 0) {
+        HStack {
+          Text(viewStore.journal.title)
+            .font(.system(size: 25, weight: .bold))
+            .foregroundColor(.palleteD)
+          Spacer()
+        }
+        TextEditor(text: viewStore.binding(
+          get: \.journal.contents,
+          send: JournalEditor.Action.updateContents)
+        )
+      }
+      .padding(.leading, 15)
+      .navigationBarTitleDisplayMode(.inline)
+      .toolbar {
+        ToolbarItem(placement: .principal) {
+          HStack {
+            Image(systemName: "sun.min.fill")
+            Text(viewStore.journal.date, style: .date)
+              .font(.system(size: 23, weight: .bold))
+              .foregroundColor(.palleteE)
+            Spacer()
+            Button("Edit") {
+              print("edit")
+            }
+          }
+        }
       }
     }
-//    WithViewStore(self.store, observe: { $0 }) { viewStore in
-//        VStack {
-//          TextEditor(text: viewStore.binding(
-//            get: \.journal.contents,
-//            send: JournalEditor.Action.update)
-//          )
-//        }
-//      }
   }
 }
 
