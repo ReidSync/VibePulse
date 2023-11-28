@@ -28,6 +28,7 @@ struct AppView: View {
         )
       }
     }
+    .accentColor(.palleteA)
   }
 }
 

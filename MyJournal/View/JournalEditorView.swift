@@ -38,17 +38,20 @@ struct JournalEditorView: View {
         )
       }
       .padding(.leading, 15)
-      .navigationBarTitleDisplayMode(.inline)
+      .navigationBarTitleDisplayMode(.inline)      
       .toolbar {
         ToolbarItem(placement: .principal) {
           HStack {
             Image(systemName: "sun.min.fill")
+              .foregroundColor(.palleteA)
             Text(viewStore.journal.date, style: .date)
               .font(.system(size: 23, weight: .bold))
               .foregroundColor(.palleteE)
             Spacer()
-            Button("Edit") {
+            Button {
               print("edit")
+            } label: {
+              Image(systemName: "gear")
             }
           }
         }
