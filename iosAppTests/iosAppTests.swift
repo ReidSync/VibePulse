@@ -1,14 +1,14 @@
 //
-//  MyJournalTests.swift
+//  iosAppTests.swift
 //  MyJournalTests
 //
 //  Created by Reid on 2023/11/22.
 //
 
 import XCTest
-@testable import MyJournal
+@testable import iosApp
 
-final class MyJournalTests: XCTestCase {
+final class iosAppTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
