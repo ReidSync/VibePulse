@@ -23,6 +23,7 @@ struct JournalEditor {
   }
   
   enum Action {
+    case task
     case edit
     case dismissEditingMyJournal
     case doneEditingMyJournal
@@ -41,11 +42,20 @@ struct JournalEditor {
     }
   }
   
+  @Dependency(\.keyboardResponder) var keyboardResponder
+  
   var body: some Reducer<State, Action> {
     BindingReducer(action: \.view)
     
     Reduce { state, action in
       switch action {
+      case .task:
+        return .run { send in
+          for await _ in await self.keyboardResponder.enabled() {
+            print("Keyboard showed up \(keyboardResponder.height())")
+            //await send(.userDidTakeScreenshotNotification)
+          }
+        }
       case .edit:
         state.destination = .sheetToEdit(JournalMeta.State(journal: state.journal))
         return .none

@@ -44,6 +44,9 @@ struct JournalEditorView: View {
           }
         }
       }
+      .task {
+        await viewStore.send(.task).finish()
+      }
       .sheet(
         store: self.store.scope(state: \.$destination, action: { .destination($0) }),
         state: \.sheetToEdit,
