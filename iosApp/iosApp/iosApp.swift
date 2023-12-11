@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 @main
-struct MyJournalApp: App {
+struct iosApp: App {
   var body: some Scene {
     WindowGroup {
       AppView(
