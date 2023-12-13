@@ -13,9 +13,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.reidsync.vibepulse.android.model.HOME
-import com.reidsync.vibepulse.android.model.JOURNAL_EDITOR
-import com.reidsync.vibepulse.android.model.JOURNAL_META
+import com.reidsync.vibepulse.android.data.HOME
+import com.reidsync.vibepulse.android.data.JOURNAL_EDITOR
+import com.reidsync.vibepulse.android.data.JOURNAL_META
 import com.reidsync.vibepulse.android.ui.HomeScreen
 import com.reidsync.vibepulse.android.viewModel.HomeScreenViewModel
 

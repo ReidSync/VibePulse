@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.android.model
+package com.reidsync.vibepulse.android.data
 
 /**
  * Created by Reid on 2023/12/12.
