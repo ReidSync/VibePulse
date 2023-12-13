@@ -15,18 +15,20 @@ import kotlinx.coroutines.flow.asStateFlow
  * Copyright (c) 2023 Reid Byun. All rights reserved.
  */
 
-class HomeScreenViewModel: ViewModel() {
+class HomeViewModel: ViewModel() {
 	private val _uiState = MutableStateFlow(HomeScreenUIState())
 	val uiState: StateFlow<HomeScreenUIState> = _uiState.asStateFlow()
 
 	companion object {
 		val Factory: ViewModelProvider.Factory = viewModelFactory {
 			initializer {
-				HomeScreenViewModel()
+				HomeViewModel()
 			}
 		}
 	}
 }
+
+
 data class HomeScreenUIState(
 	//val journals: List<Journal> = emptyList()
 	val journals: List<Journal> = listOf(
