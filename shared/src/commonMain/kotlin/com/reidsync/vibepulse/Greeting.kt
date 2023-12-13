@@ -1,4 +1,4 @@
-package com.reidsync.vibeforge
+package com.reidsync.vibepulse
 
 class Greeting {
     private val platform: Platform = getPlatform()

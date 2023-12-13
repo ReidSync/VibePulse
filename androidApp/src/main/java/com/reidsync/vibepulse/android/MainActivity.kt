@@ -1,10 +1,9 @@
-package com.reidsync.vibeforge.android
+package com.reidsync.vibepulse.android
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -14,11 +13,11 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.reidsync.vibeforge.android.model.HOME
-import com.reidsync.vibeforge.android.model.JOURNAL_EDITOR
-import com.reidsync.vibeforge.android.model.JOURNAL_META
-import com.reidsync.vibeforge.android.ui.HomeScreen
-import com.reidsync.vibeforge.android.viewModel.HomeScreenViewModel
+import com.reidsync.vibepulse.android.model.HOME
+import com.reidsync.vibepulse.android.model.JOURNAL_EDITOR
+import com.reidsync.vibepulse.android.model.JOURNAL_META
+import com.reidsync.vibepulse.android.ui.HomeScreen
+import com.reidsync.vibepulse.android.viewModel.HomeScreenViewModel
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {

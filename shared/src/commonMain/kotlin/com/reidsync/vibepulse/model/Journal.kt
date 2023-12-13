@@ -1,7 +1,7 @@
-package com.reidsync.vibeforge.model
+package com.reidsync.vibepulse.model
 
-import com.reidsync.vibeforge.primitives.uuid.UUID
-import com.reidsync.vibeforge.primitives.uuid.randomUUID
+import com.reidsync.vibepulse.primitives.uuid.UUID
+import com.reidsync.vibepulse.primitives.uuid.randomUUID
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone

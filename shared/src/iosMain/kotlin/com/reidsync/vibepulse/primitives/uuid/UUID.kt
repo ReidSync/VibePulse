@@ -1,4 +1,4 @@
-package com.reidsync.vibeforge.primitives.uuid
+package com.reidsync.vibepulse.primitives.uuid
 
 /**
  * Created by Reid on 2023/12/12.

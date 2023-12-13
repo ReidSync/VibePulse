@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.reidsync.vibeforge.android"
+    namespace = "com.reidsync.vibepulse.android"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.reidsync.vibeforge.android"
+        applicationId = "com.reidsync.vibepulse.android"
         minSdk = 24
         targetSdk = 34
         versionCode = 1

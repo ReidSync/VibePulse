@@ -37,7 +37,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.reidsync.vibeforge"
+    namespace = "com.reidsync.vibepulse"
     compileSdk = 34
     defaultConfig {
         minSdk = 24

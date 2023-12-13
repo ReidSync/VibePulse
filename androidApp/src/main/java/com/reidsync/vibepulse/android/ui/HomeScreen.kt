@@ -1,4 +1,4 @@
-package com.reidsync.vibeforge.android.ui
+package com.reidsync.vibepulse.android.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -35,18 +35,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.reidsync.vibeforge.android.MyApplicationTheme
-import com.reidsync.vibeforge.android.R
-import com.reidsync.vibeforge.android.viewModel.HomeScreenViewModel
-import com.reidsync.vibeforge.model.Journal
-import com.reidsync.vibeforge.model.mock
+import com.reidsync.vibepulse.android.MyApplicationTheme
+import com.reidsync.vibepulse.android.R
+import com.reidsync.vibepulse.android.viewModel.HomeScreenViewModel
+import com.reidsync.vibepulse.model.Journal
 
 /**
  * Created by Reid on 2023/12/12.

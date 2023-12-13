@@ -1,11 +1,11 @@
-package com.reidsync.vibeforge.android.viewModel
+package com.reidsync.vibepulse.android.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.reidsync.vibeforge.model.Journal
-import com.reidsync.vibeforge.model.mock
+import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.model.mock
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

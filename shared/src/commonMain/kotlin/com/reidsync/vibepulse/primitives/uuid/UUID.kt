@@ -1,4 +1,4 @@
-package com.reidsync.vibeforge.primitives.uuid
+package com.reidsync.vibepulse.primitives.uuid
 
 /**
  * Created by Reid on 2023/12/12.
@@ -61,7 +61,7 @@ object UUIDSerializer : KSerializer<UUID> {
 
 	override val descriptor: SerialDescriptor =
 		PrimitiveSerialDescriptor(
-			serialName = "com.reidsync.vibeforge.primitives.uuid.UUIDSerializer",
+			serialName = "com.reidsync.vibepulse.primitives.uuid.UUIDSerializer",
 			kind = PrimitiveKind.STRING
 		)
 }
