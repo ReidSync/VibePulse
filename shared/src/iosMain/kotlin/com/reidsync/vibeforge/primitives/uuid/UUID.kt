@@ -5,7 +5,6 @@ package com.reidsync.vibeforge.primitives.uuid
  * Copyright (c) 2023 Reid Byun. All rights reserved.
  */
 
-import com.reidsync.vibeforge.primitives.uuid.UUID
 import platform.Foundation.NSUUID
 
 actual fun UUID.Companion.randomUUID(): UUID = UUID(NSUUID().UUIDString)!!

@@ -47,4 +47,5 @@ dependencies {
 	implementation(libs.androidx.navigation.compose)
     //implementation(libs.androidx.material)
 	debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.kotlinx.datetime)
 }
