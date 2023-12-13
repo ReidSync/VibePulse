@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibepulse.android.MyApplicationTheme
 import com.reidsync.vibepulse.android.R
-import com.reidsync.vibepulse.android.viewModel.HomeScreenViewModel
+import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.model.Journal
 
 /**
@@ -53,7 +53,8 @@ import com.reidsync.vibepulse.model.Journal
 
 @Composable
 fun HomeScreen(
-	viewModel: HomeScreenViewModel
+	viewModel: HomeViewModel,
+	onCreateNewJournal: ()-> Unit
 ) {
 	val uiState by viewModel.uiState.collectAsState()
 	Column(
@@ -78,7 +79,8 @@ fun HomeScreen(
 			CreateButton(
 				Modifier
 					.align(Alignment.BottomCenter)
-					.padding(bottom = 10.dp)
+					.padding(bottom = 10.dp),
+				onCreateNewJournal
 			)
 		}
 	}
@@ -172,14 +174,17 @@ fun JournalListItem(
 }
 
 @Composable
-fun CreateButton(modifier: Modifier) {
+fun CreateButton(
+	modifier: Modifier,
+	onCreate: ()-> Unit
+) {
 	Column(
 		modifier = modifier,
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
 		Button(
 			onClick = {
-				println("create button")
+				onCreate()
 			},
 			colors = ButtonDefaults.buttonColors(Color.Blue),
 			shape = CircleShape,
@@ -201,13 +206,16 @@ fun CreateButton(modifier: Modifier) {
 
 @Preview
 @Composable
-fun DefaultPreview() {
+fun HomeScreenPreview() {
 	MyApplicationTheme {
 		Surface(
 			modifier = Modifier.fillMaxSize(),
 			color = Color(0xFFF2F2F7)
 		) {
-			HomeScreen(viewModel(factory = HomeScreenViewModel.Factory))
+			HomeScreen(
+				viewModel(factory = HomeViewModel.Factory),
+				onCreateNewJournal = {}
+			)
 		}
 	}
 }
