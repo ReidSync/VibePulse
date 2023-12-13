@@ -27,6 +27,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,8 +41,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibeforge.android.MyApplicationTheme
 import com.reidsync.vibeforge.android.R
+import com.reidsync.vibeforge.android.viewModel.HomeScreenViewModel
 import com.reidsync.vibeforge.model.Journal
 import com.reidsync.vibeforge.model.mock
 
@@ -50,19 +54,10 @@ import com.reidsync.vibeforge.model.mock
  */
 
 @Composable
-fun HomeScreen() {
-	val focusManager = LocalFocusManager.current
-	val listState = rememberLazyListState()
-	val journals: List<Journal> = listOf(
-		Journal.mock, Journal.mock, Journal.mock,
-		Journal.mock, Journal.mock, Journal.mock,
-		Journal.mock, Journal.mock, Journal.mock,
-		Journal.mock, Journal.mock, Journal.mock,
-		Journal.mock, Journal.mock, Journal.mock,
-		Journal.mock, Journal.mock, Journal.mock,
-		Journal.mock, Journal.mock, Journal.mock
-	)
-
+fun HomeScreen(
+	viewModel: HomeScreenViewModel
+) {
+	val uiState by viewModel.uiState.collectAsState()
 	Column(
 		modifier = Modifier
 			.padding(10.dp)
@@ -79,37 +74,46 @@ fun HomeScreen() {
 			modifier = Modifier
 				.padding(5.dp)
 		) {
-			Box(modifier = Modifier
-				.pointerInput(Unit) {
-					detectTapGestures(onTap = {
-						//focusManager.clearFocus()
-					})
-				}
-				.fillMaxSize()
-			) {
-				LazyColumn(
-					state = listState,
-					modifier = Modifier
-						.fillMaxSize()
-				) {
-					items(journals) {
-						JournalListItem(
-							modifier = Modifier
-								.height(70.dp)
-								.padding(bottom = 3.dp),
-							journal = it
-						)
-					}
-				}
-			}
-
+			JournalList(
+				journals = uiState.journals
+			)
 			CreateButton(
 				Modifier
 					.align(Alignment.BottomCenter)
 					.padding(bottom = 10.dp)
 			)
 		}
+	}
+}
 
+@Composable
+fun JournalList(
+	modifier: Modifier = Modifier,
+	journals: List<Journal>
+) {
+	val listState = rememberLazyListState()
+	Box(modifier = modifier
+		.pointerInput(Unit) {
+			detectTapGestures(onTap = {
+				//focusManager.clearFocus()
+			})
+		}
+		.fillMaxSize()
+	) {
+		LazyColumn(
+			state = listState,
+			modifier = Modifier
+				.fillMaxSize()
+		) {
+			items(journals) {
+				JournalListItem(
+					modifier = Modifier
+						.height(70.dp)
+						.padding(bottom = 3.dp),
+					journal = it
+				)
+			}
+		}
 	}
 }
 
@@ -205,7 +209,7 @@ fun DefaultPreview() {
 			modifier = Modifier.fillMaxSize(),
 			color = Color(0xFFF2F2F7)
 		) {
-			HomeScreen()
+			HomeScreen(viewModel(factory = HomeScreenViewModel.Factory))
 		}
 	}
 }

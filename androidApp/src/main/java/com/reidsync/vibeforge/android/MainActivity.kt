@@ -10,6 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -17,6 +18,7 @@ import com.reidsync.vibeforge.android.model.HOME
 import com.reidsync.vibeforge.android.model.JOURNAL_EDITOR
 import com.reidsync.vibeforge.android.model.JOURNAL_META
 import com.reidsync.vibeforge.android.ui.HomeScreen
+import com.reidsync.vibeforge.android.viewModel.HomeScreenViewModel
 
 class MainActivity : ComponentActivity() {
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +41,7 @@ fun AppScreen() {
 	val navController = rememberNavController()
 	NavHost(navController = navController, startDestination = Destination.HomeScreen.route) {
 		composable(Destination.HomeScreen.route) {
-			HomeScreen()
+			HomeScreen(viewModel(factory = HomeScreenViewModel.Factory))
 		}
 		composable(Destination.JournalMetaScreen.route) {
 		}
