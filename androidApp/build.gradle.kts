@@ -4,10 +4,10 @@ plugins {
 }
 
 android {
-    namespace = "com.reidsync.vibeforge.android"
+    namespace = "com.reidsync.vibepulse.android"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.reidsync.vibeforge.android"
+        applicationId = "com.reidsync.vibepulse.android"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -44,5 +44,8 @@ dependencies {
     implementation(libs.compose.ui.tooling.preview)
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
-    debugImplementation(libs.compose.ui.tooling)
+	implementation(libs.androidx.navigation.compose)
+    //implementation(libs.androidx.material)
+	debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.kotlinx.datetime)
 }

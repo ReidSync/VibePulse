@@ -1,4 +1,4 @@
-package com.reidsync.vibeforge
+package com.reidsync.vibepulse
 
 import platform.UIKit.UIDevice
 

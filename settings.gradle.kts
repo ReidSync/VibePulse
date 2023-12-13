@@ -14,6 +14,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "VibeForge"
+rootProject.name = "VibePulse"
 include(":androidApp")
 include(":shared")
