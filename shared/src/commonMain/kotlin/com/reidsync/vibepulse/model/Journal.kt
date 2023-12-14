@@ -6,12 +6,14 @@ import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
 import kotlinx.datetime.toLocalDateTime
+import kotlinx.serialization.Serializable
 
 /**
  * Created by Reid on 2023/12/12.
  * Copyright (c) 2023 Reid Byun. All rights reserved.
  */
 
+@Serializable
 data class Journal(
 	val id: UUID,
 	val title: String,
