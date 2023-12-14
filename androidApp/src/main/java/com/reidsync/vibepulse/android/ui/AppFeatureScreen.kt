@@ -1,7 +1,10 @@
 package com.reidsync.vibepulse.android.ui
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -51,7 +54,42 @@ fun AppFeatureScreen() {
 				)
 			}
 			bottomSheet(Destination.JournalMetaScreen.route) {
-				JournalMetaScreen(viewModel(factory = JournalMetaViewModel.Factory))
+				JournalMetaScreen(
+					viewModel = viewModel(factory = JournalMetaViewModel.Factory),
+					toolbar = {
+						SimpleToolbar(
+							modifier = Modifier
+								.fillMaxWidth()
+								.height(40.dp),
+							title = {
+								Text(
+									text = "New Journal",
+									modifier = it
+								)
+							},
+							start = {
+								Text(
+									text = "Dismiss",
+									modifier = it
+										.clickable {
+											"Dissmiss"
+										}
+								)
+							},
+							end = {
+								Text(
+									text = "Done",
+									modifier = it
+										.clickable {
+											"Done"
+										}
+								)
+							}
+
+						)
+					}
+
+				)
 			}
 			composable(Destination.JournalEditorScreen.route) {
 			}

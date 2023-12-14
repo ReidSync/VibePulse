@@ -21,11 +21,13 @@ import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 
 @Composable
 fun JournalMetaScreen(
-	viewModel: JournalMetaViewModel
+	viewModel: JournalMetaViewModel,
+	toolbar: @Composable () -> Unit = {}
 ) {
 	Column(
 		modifier = Modifier.fillMaxSize()
 	) {
+		toolbar()
 		Text("Title")
 	}
 }
