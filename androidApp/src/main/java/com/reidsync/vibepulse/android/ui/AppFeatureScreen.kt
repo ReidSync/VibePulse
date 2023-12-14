@@ -24,6 +24,7 @@ import com.reidsync.vibepulse.android.data.JOURNAL_EDITOR
 import com.reidsync.vibepulse.android.data.JOURNAL_META
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
+import com.reidsync.vibepulse.model.Journal
 
 /**
  * Created by Reid on 2023/12/13.
@@ -44,18 +45,21 @@ fun AppFeatureScreen() {
 		sheetBackgroundColor = Color(0xFFF2F2F7),
 		sheetElevation = 100.dp,
 	) {
+		var journalMetaDoneAction: (Journal)-> Unit = {}
 		NavHost(navController = navController, startDestination = Destination.HomeScreen.route) {
 			composable(Destination.HomeScreen.route) {
 				HomeScreen(
 					viewModel = viewModel(factory = HomeViewModel.Factory),
 					onCreateNewJournal = {
 						navController.navigate(Destination.JournalMetaScreen.route)
+						journalMetaDoneAction = it
 					}
 				)
 			}
 			bottomSheet(Destination.JournalMetaScreen.route) {
+				//if (it.destination.route == Destination.HomeScreen.route) { }
 				JournalMetaScreen(
-					viewModel = viewModel(factory = JournalMetaViewModel.Factory),
+					viewModel = JournalMetaViewModel(Journal()),
 					toolbar = {
 						SimpleToolbar(
 							modifier = Modifier
@@ -72,7 +76,7 @@ fun AppFeatureScreen() {
 									text = "Dismiss",
 									modifier = it
 										.clickable {
-											"Dissmiss"
+											navController.navigateUp()
 										}
 								)
 							},
@@ -81,7 +85,8 @@ fun AppFeatureScreen() {
 									text = "Done",
 									modifier = it
 										.clickable {
-											"Done"
+											journalMetaDoneAction(Journal())
+											navController.navigateUp()
 										}
 								)
 							}

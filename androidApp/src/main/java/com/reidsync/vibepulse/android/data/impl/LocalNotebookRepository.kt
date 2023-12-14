@@ -1,13 +1,16 @@
 package com.reidsync.vibepulse.android.data.impl
 
 import com.reidsync.vibepulse.android.data.NotebookRepository
+import com.reidsync.vibepulse.model.Journal
 import com.reidsync.vibepulse.model.Notebook
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
@@ -23,6 +26,12 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 	private val saveDispatcher = Dispatchers.IO.limitedParallelism(1)
 	private val _journals = MutableStateFlow(Notebook())
 	override val journals: StateFlow<Notebook> = _journals.asStateFlow()
+
+	init {
+		CoroutineScope(Dispatchers.Default).launch {
+			load()
+		}
+	}
 
 	override suspend fun save(data: Notebook): Result<Unit> =
 		withContext(saveDispatcher) {
@@ -47,5 +56,13 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 			}
 			journals.value
 		}
+	}
+
+
+	override suspend fun add(item: Journal): Result<Unit> {
+		val newNotebook = journals.value.copy (
+			journals = journals.value.journals + item
+		)
+		return save(newNotebook)
 	}
 }

@@ -15,10 +15,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Journal(
-	val id: UUID,
-	val title: String,
-	val date: LocalDateTime,
-	val contents: String
+	val id: UUID = UUID.randomUUID(),
+	val title: String = "Title",
+	val date: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+	val contents: String = ""
 ) {
 	companion object
 }

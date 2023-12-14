@@ -1,8 +1,6 @@
 package com.reidsync.vibepulse.android.data
 
-import androidx.lifecycle.ViewModelProvider
 import com.reidsync.vibepulse.android.APP
-import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.impl.LocalNotebookRepository
 
 /**

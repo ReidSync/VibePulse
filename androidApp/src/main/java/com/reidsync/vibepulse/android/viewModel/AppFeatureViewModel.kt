@@ -1,5 +1,13 @@
 package com.reidsync.vibepulse.android.viewModel
 
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
+import androidx.lifecycle.viewmodel.initializer
+import androidx.lifecycle.viewmodel.viewModelFactory
+import com.reidsync.vibepulse.android.VibePulseApplication
+import com.reidsync.vibepulse.android.data.NotebookRepository
+
 /**
  * Created by Reid on 2023/12/13.
  * Copyright (c) 2023 Reid Byun. All rights reserved.
@@ -7,7 +15,7 @@ package com.reidsync.vibepulse.android.viewModel
 
 class AppFeatureViewModel(
 	private val notebookRepository: NotebookRepository
-): ViewModel() {
+) : ViewModel() {
 
 	companion object {
 		val Factory: ViewModelProvider.Factory = viewModelFactory {
@@ -19,5 +27,4 @@ class AppFeatureViewModel(
 			}
 		}
 	}
-
 }

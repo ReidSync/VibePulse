@@ -9,7 +9,7 @@ import com.reidsync.vibepulse.android.data.DefaultAppContainer
  * Copyright (c) 2023 Reid Byun. All rights reserved.
  */
 
-lateinit var APP : VibePulseApplication
+lateinit var APP: VibePulseApplication
 	private set
 
 class VibePulseApplication: Application() {

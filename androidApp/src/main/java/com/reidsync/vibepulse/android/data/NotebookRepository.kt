@@ -1,5 +1,6 @@
 package com.reidsync.vibepulse.android.data
 
+import com.reidsync.vibepulse.model.Journal
 import com.reidsync.vibepulse.model.Notebook
 import kotlinx.coroutines.flow.StateFlow
 
@@ -12,4 +13,5 @@ interface NotebookRepository {
 	suspend fun save(data: Notebook): Result<Unit>
 	suspend fun load(): Result<Notebook>
 	val journals: StateFlow<Notebook>
+	suspend fun add(item: Journal): Result<Unit>
 }

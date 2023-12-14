@@ -29,6 +29,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -45,6 +46,7 @@ import com.reidsync.vibepulse.android.MyApplicationTheme
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.model.Journal
+import kotlinx.coroutines.launch
 
 /**
  * Created by Reid on 2023/12/12.
@@ -54,9 +56,10 @@ import com.reidsync.vibepulse.model.Journal
 @Composable
 fun HomeScreen(
 	viewModel: HomeViewModel,
-	onCreateNewJournal: ()-> Unit
+	onCreateNewJournal: (action: (Journal)-> Unit)-> Unit
 ) {
 	val uiState by viewModel.uiState.collectAsState()
+	val scope = rememberCoroutineScope()
 	Column(
 		modifier = Modifier
 			.padding(10.dp)
@@ -79,9 +82,14 @@ fun HomeScreen(
 			CreateButton(
 				Modifier
 					.align(Alignment.BottomCenter)
-					.padding(bottom = 10.dp),
-				onCreateNewJournal
-			)
+					.padding(bottom = 10.dp)
+			) {
+				onCreateNewJournal {
+					scope.launch {
+						viewModel.addJournal(it)
+					}
+				}
+			}
 		}
 	}
 }
