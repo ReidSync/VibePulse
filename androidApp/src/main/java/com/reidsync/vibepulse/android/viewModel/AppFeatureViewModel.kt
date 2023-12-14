@@ -5,6 +5,19 @@ package com.reidsync.vibepulse.android.viewModel
  * Copyright (c) 2023 Reid Byun. All rights reserved.
  */
 
-class AppFeatureViewModel {
+class AppFeatureViewModel(
+	private val notebookRepository: NotebookRepository
+): ViewModel() {
+
+	companion object {
+		val Factory: ViewModelProvider.Factory = viewModelFactory {
+			initializer {
+				val application = (this[APPLICATION_KEY] as VibePulseApplication)
+				AppFeatureViewModel(
+					notebookRepository = application.container.notebookRepository
+				)
+			}
+		}
+	}
 
 }
