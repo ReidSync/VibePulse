@@ -52,8 +52,7 @@ import com.reidsync.vibepulse.model.Journal
 @Composable
 fun HomeScreen(
 	viewModel: HomeViewModel,
-	onNavigateUp: () -> Unit,
-	onCreateNewJournal: (toolbar: @Composable () -> Unit) -> Unit,
+	onCreateNewJournal: (Journal) -> Unit,
 ) {
 	val uiState by viewModel.uiState.collectAsState()
 	val scope = rememberCoroutineScope()
@@ -81,15 +80,7 @@ fun HomeScreen(
 					.align(Alignment.BottomCenter)
 					.padding(bottom = 10.dp)
 			) {
-				onCreateNewJournal {
-					NewJournalSheetToolbar(
-						onNavigateUp = onNavigateUp,
-						addNewJournal = viewModel::addJournal
-					)
-//					scope.launch {
-//						viewModel.addJournal(it)
-//					}
-				}
+				onCreateNewJournal(Journal())
 			}
 		}
 	}
@@ -217,37 +208,7 @@ fun NewJournalSheetToolbar(
 	onNavigateUp: () -> Unit,
 	addNewJournal: (item: Journal) -> Unit
 ) {
-	SimpleToolbar(
-		modifier = Modifier
-			.fillMaxWidth()
-			.height(40.dp),
-		title = {
-			Text(
-				text = "New Journal",
-				modifier = it
-			)
-		},
-		start = {
-			Text(
-				text = "Dismiss",
-				modifier = it
-					.clickable {
-						onNavigateUp()
-					}
-			)
-		},
-		end = {
-			Text(
-				text = "Done",
-				modifier = it
-					.clickable {
-						addNewJournal(Journal())
-						onNavigateUp()
-					}
-			)
-		}
 
-	)
 }
 
 

@@ -15,7 +15,8 @@ import kotlinx.coroutines.flow.asStateFlow
  */
 
 class JournalMetaViewModel(
-	val journal: Journal
+	val journal: Journal,
+	val type: JournalMetaViewType
 ) : ViewModel() {
 	private val _uiState = MutableStateFlow(JournalMetaUIState())
 	val uiState: StateFlow<JournalMetaUIState> = _uiState.asStateFlow()
@@ -26,9 +27,12 @@ class JournalMetaViewModel(
 //				JournalMetaViewModel(Journal())
 //			}
 //		}
-		fun Factory(journal: Journal): ViewModelProvider.Factory = viewModelFactory {
+		fun Factory(
+			journal: Journal,
+			type: JournalMetaViewType
+		): ViewModelProvider.Factory = viewModelFactory {
 			initializer {
-				JournalMetaViewModel(journal)
+				JournalMetaViewModel(journal, type)
 			}
 		}
 	}
@@ -37,3 +41,9 @@ class JournalMetaViewModel(
 data class JournalMetaUIState(
 	val journal: Journal = Journal()
 )
+
+sealed class JournalMetaViewType {
+	data object Add: JournalMetaViewType()
+	data object Edit: JournalMetaViewType()
+
+}

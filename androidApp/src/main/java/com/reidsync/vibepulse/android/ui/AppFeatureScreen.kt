@@ -21,6 +21,7 @@ import com.reidsync.vibepulse.android.data.JOURNAL_EDITOR
 import com.reidsync.vibepulse.android.data.JOURNAL_META
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
+import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
 import com.reidsync.vibepulse.model.Journal
 
 /**
@@ -42,27 +43,25 @@ fun AppFeatureScreen() {
 		sheetBackgroundColor = Color(0xFFF2F2F7),
 		sheetElevation = 100.dp,
 	) {
-		var journalMetaDoneAction: @Composable () -> Unit = {}
+		var journal: Journal = Journal()
+		var type = JournalMetaViewType.Add
 		NavHost(navController = navController, startDestination = Destination.HomeScreen.route) {
 			composable(Destination.HomeScreen.route) {
 				HomeScreen(
 					viewModel = viewModel(factory = HomeViewModel.Factory),
-					onNavigateUp = {
-						navController.navigateUp()
-					},
 					onCreateNewJournal = {
+						journal = it
+						type =  JournalMetaViewType.Add
 						navController.navigate(Destination.JournalMetaScreen.route)
-						journalMetaDoneAction = it
 					}
 				)
 			}
 			bottomSheet(Destination.JournalMetaScreen.route) {
-				//if (it.destination.route == Destination.HomeScreen.route) { }
-				val journal = Journal()
-
 				JournalMetaScreen(
-					viewModel = viewModel(factory = JournalMetaViewModel.Factory(journal)),
-					toolbar = journalMetaDoneAction
+					viewModel = viewModel(factory = JournalMetaViewModel.Factory(journal, type)),
+					onNavigateUp = {
+						navController.navigateUp()
+					}
 				)
 			}
 			composable(Destination.JournalEditorScreen.route) {
