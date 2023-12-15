@@ -26,6 +26,12 @@ class JournalMetaViewModel(
 ) : ViewModel() {
 	private val _uiState = MutableStateFlow(JournalMetaUIState())
 	val uiState: StateFlow<JournalMetaUIState> = _uiState.asStateFlow()
+	val dismiss: String = "Dismiss"
+	val submit: String
+		get() = when(type) {
+			is JournalMetaViewType.Add -> "Add"
+			is JournalMetaViewType.Edit -> "Done"
+		}
 
 	companion object {
 		fun Factory(
@@ -46,7 +52,7 @@ class JournalMetaViewModel(
 
 	}
 
-	fun endAction() {
+	fun submitAction() {
 		when (type) {
 			is JournalMetaViewType.Add -> {
 				viewModelScope.launch {
