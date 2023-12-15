@@ -15,6 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 
 /**
  * Created by Reid on 2023/12/12.
@@ -41,7 +42,11 @@ class HomeViewModel(
 		}
 	}
 
-	suspend fun addJournal(item: Journal) = notebookRepository.add(item)
+	fun addJournal(item: Journal) {
+		viewModelScope.launch {
+			notebookRepository.add(item).getOrDefault(Unit)
+		}
+	}
 }
 
 

@@ -1,6 +1,7 @@
 package com.reidsync.vibepulse.android.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,7 +25,6 @@ import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,15 +38,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.reidsync.vibepulse.android.MyApplicationTheme
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.model.Journal
-import kotlinx.coroutines.launch
 
 /**
  * Created by Reid on 2023/12/12.
@@ -56,7 +52,8 @@ import kotlinx.coroutines.launch
 @Composable
 fun HomeScreen(
 	viewModel: HomeViewModel,
-	onCreateNewJournal: (action: (Journal)-> Unit)-> Unit
+	onNavigateUp: () -> Unit,
+	onCreateNewJournal: (toolbar: @Composable () -> Unit) -> Unit,
 ) {
 	val uiState by viewModel.uiState.collectAsState()
 	val scope = rememberCoroutineScope()
@@ -85,9 +82,13 @@ fun HomeScreen(
 					.padding(bottom = 10.dp)
 			) {
 				onCreateNewJournal {
-					scope.launch {
-						viewModel.addJournal(it)
-					}
+					NewJournalSheetToolbar(
+						onNavigateUp = onNavigateUp,
+						addNewJournal = viewModel::addJournal
+					)
+//					scope.launch {
+//						viewModel.addJournal(it)
+//					}
 				}
 			}
 		}
@@ -184,7 +185,7 @@ fun JournalListItem(
 @Composable
 fun CreateButton(
 	modifier: Modifier,
-	onCreate: ()-> Unit
+	onCreate: () -> Unit
 ) {
 	Column(
 		modifier = modifier,
@@ -211,19 +212,57 @@ fun CreateButton(
 	}
 }
 
-
-@Preview
 @Composable
-fun HomeScreenPreview() {
-	MyApplicationTheme {
-		Surface(
-			modifier = Modifier.fillMaxSize(),
-			color = Color(0xFFF2F2F7)
-		) {
-			HomeScreen(
-				viewModel(factory = HomeViewModel.Factory),
-				onCreateNewJournal = {}
+fun NewJournalSheetToolbar(
+	onNavigateUp: () -> Unit,
+	addNewJournal: (item: Journal) -> Unit
+) {
+	SimpleToolbar(
+		modifier = Modifier
+			.fillMaxWidth()
+			.height(40.dp),
+		title = {
+			Text(
+				text = "New Journal",
+				modifier = it
+			)
+		},
+		start = {
+			Text(
+				text = "Dismiss",
+				modifier = it
+					.clickable {
+						onNavigateUp()
+					}
+			)
+		},
+		end = {
+			Text(
+				text = "Done",
+				modifier = it
+					.clickable {
+						addNewJournal(Journal())
+						onNavigateUp()
+					}
 			)
 		}
-	}
+
+	)
 }
+
+
+//@Preview
+//@Composable
+//fun HomeScreenPreview() {
+//	MyApplicationTheme {
+//		Surface(
+//			modifier = Modifier.fillMaxSize(),
+//			color = Color(0xFFF2F2F7)
+//		) {
+//			HomeScreen(
+//				viewModel(factory = HomeViewModel.Factory),
+//				onCreateNewJournal = {}
+//			)
+//		}
+//	}
+//}

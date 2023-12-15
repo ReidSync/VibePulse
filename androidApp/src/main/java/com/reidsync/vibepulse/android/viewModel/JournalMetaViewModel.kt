@@ -21,9 +21,14 @@ class JournalMetaViewModel(
 	val uiState: StateFlow<JournalMetaUIState> = _uiState.asStateFlow()
 
 	companion object {
-		val Factory: ViewModelProvider.Factory = viewModelFactory {
+//		val Factory: ViewModelProvider.Factory = viewModelFactory {
+//			initializer {
+//				JournalMetaViewModel(Journal())
+//			}
+//		}
+		fun Factory(journal: Journal): ViewModelProvider.Factory = viewModelFactory {
 			initializer {
-				JournalMetaViewModel(Journal())
+				JournalMetaViewModel(journal)
 			}
 		}
 	}

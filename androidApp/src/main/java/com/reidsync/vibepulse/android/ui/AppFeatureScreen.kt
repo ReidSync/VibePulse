@@ -1,10 +1,7 @@
 package com.reidsync.vibepulse.android.ui
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,11 +42,14 @@ fun AppFeatureScreen() {
 		sheetBackgroundColor = Color(0xFFF2F2F7),
 		sheetElevation = 100.dp,
 	) {
-		var journalMetaDoneAction: (Journal)-> Unit = {}
+		var journalMetaDoneAction: @Composable () -> Unit = {}
 		NavHost(navController = navController, startDestination = Destination.HomeScreen.route) {
 			composable(Destination.HomeScreen.route) {
 				HomeScreen(
 					viewModel = viewModel(factory = HomeViewModel.Factory),
+					onNavigateUp = {
+						navController.navigateUp()
+					},
 					onCreateNewJournal = {
 						navController.navigate(Destination.JournalMetaScreen.route)
 						journalMetaDoneAction = it
@@ -58,42 +58,10 @@ fun AppFeatureScreen() {
 			}
 			bottomSheet(Destination.JournalMetaScreen.route) {
 				//if (it.destination.route == Destination.HomeScreen.route) { }
+				val journal = Journal()
+
 				JournalMetaScreen(
-					viewModel = JournalMetaViewModel(Journal()),
-					toolbar = {
-						SimpleToolbar(
-							modifier = Modifier
-								.fillMaxWidth()
-								.height(40.dp),
-							title = {
-								Text(
-									text = "New Journal",
-									modifier = it
-								)
-							},
-							start = {
-								Text(
-									text = "Dismiss",
-									modifier = it
-										.clickable {
-											navController.navigateUp()
-										}
-								)
-							},
-							end = {
-								Text(
-									text = "Done",
-									modifier = it
-										.clickable {
-											journalMetaDoneAction(Journal())
-											navController.navigateUp()
-										}
-								)
-							}
-
-						)
-					}
-
+					toolbar = journalMetaDoneAction
 				)
 			}
 			composable(Destination.JournalEditorScreen.route) {
