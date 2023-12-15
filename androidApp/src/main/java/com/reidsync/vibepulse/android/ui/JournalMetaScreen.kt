@@ -48,7 +48,10 @@ fun JournalMetaScreen(
 	Column(
 		modifier = Modifier.fillMaxSize()
 	) {
-		JournalMetaToolbar(onNavigateUp)
+		JournalMetaToolbar(
+			onNavigateUp,
+			viewModel
+		)
 		Text("Title")
 	}
 }
@@ -56,6 +59,7 @@ fun JournalMetaScreen(
 @Composable
 fun JournalMetaToolbar(
 	onNavigateUp: ()->Unit,
+	viewModel: JournalMetaViewModel
 ) {
 	SimpleToolbar(
 		modifier = Modifier
@@ -81,7 +85,7 @@ fun JournalMetaToolbar(
 				text = "Done",
 				modifier = it
 					.clickable {
-						//addNewJournal(Journal())
+						viewModel.endAction()
 						onNavigateUp()
 					}
 			)
