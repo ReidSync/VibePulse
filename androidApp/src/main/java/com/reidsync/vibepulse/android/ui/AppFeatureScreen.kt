@@ -61,6 +61,7 @@ fun AppFeatureScreen() {
 				val journal = Journal()
 
 				JournalMetaScreen(
+					viewModel = viewModel(factory = JournalMetaViewModel.Factory(journal)),
 					toolbar = journalMetaDoneAction
 				)
 			}

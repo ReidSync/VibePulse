@@ -12,6 +12,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibepulse.android.MyApplicationTheme
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
+import com.reidsync.vibepulse.model.Journal
 
 /**
  * Created by Reid on 2023/12/13.
@@ -41,7 +42,7 @@ fun JournalMetaScreenPreview() {
 			color = Color(0xFFF2F2F7)
 		) {
 			JournalMetaScreen(
-				viewModel(factory = JournalMetaViewModel.Factory)
+				viewModel(factory = JournalMetaViewModel.Factory(Journal()))
 			)
 		}
 	}
