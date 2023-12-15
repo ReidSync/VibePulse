@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.StateFlow
  */
 
 interface NotebookRepository {
-	val journals: StateFlow<Notebook>
+	val notebook: StateFlow<Notebook>
 	suspend fun save(data: Notebook): Result<Unit>
 	suspend fun load(): Result<Notebook>
 	suspend fun add(item: Journal): Result<Unit>

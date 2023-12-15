@@ -24,8 +24,8 @@ import java.io.File
 class LocalNotebookRepository constructor(private val projectsRoot: File): NotebookRepository {
 	@OptIn(ExperimentalCoroutinesApi::class)
 	private val saveDispatcher = Dispatchers.IO.limitedParallelism(1)
-	private val _journals = MutableStateFlow(Notebook())
-	override val journals: StateFlow<Notebook> = _journals.asStateFlow()
+	private val _notebook = MutableStateFlow(Notebook())
+	override val notebook: StateFlow<Notebook> = _notebook.asStateFlow()
 
 	init {
 		CoroutineScope(Dispatchers.Default).launch {
@@ -36,7 +36,7 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 	override suspend fun save(data: Notebook): Result<Unit> =
 		withContext(saveDispatcher) {
 			runCatching {
-				_journals.update {
+				_notebook.update {
 					it.copy(journals = data.journals)
 				}
 				projectsRoot
@@ -50,29 +50,29 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 		val file = projectsRoot.resolve("my-journals.json")
 		return runCatching {
 			val content = file.readText()
-			_journals.update {
+			_notebook.update {
 				val data = Json.decodeFromString<Notebook>(content)
 				it.copy(journals = data.journals)
 			}
-			journals.value
+			notebook.value
 		}
 	}
 
 
 	override suspend fun add(item: Journal): Result<Unit> {
-		val newNotebook = journals.value.copy (
-			journals = journals.value.journals + item
+		val newNotebook = notebook.value.copy (
+			journals = notebook.value.journals + item
 		)
 		return save(newNotebook)
 	}
 
 	override suspend fun update(item: Journal): Result<Unit> {
 		return runCatching {
-			val index = journals.value.journals.indexOfFirst { it.id == item.id }
-			val newNotebook = journals.value.journals.toMutableList()
-			newNotebook[index] = item
-			_journals.update {
-				it.copy(journals = newNotebook)
+			val index = notebook.value.journals.indexOfFirst { it.id == item.id }
+			val newJournals = notebook.value.journals.toMutableList()
+			newJournals[index] = item
+			_notebook.update {
+				it.copy(journals = newJournals)
 			}
 		}
 	}

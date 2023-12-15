@@ -27,7 +27,7 @@ class HomeViewModel(
 ) : ViewModel() {
 	private val _uiState = MutableStateFlow(HomeScreenUIState())
 	val uiState: StateFlow<HomeScreenUIState> = _uiState.asStateFlow()
-		.combine(notebookRepository.journals) { uiState, notebook ->
+		.combine(notebookRepository.notebook) { uiState, notebook ->
 			uiState.copy(journals = notebook.journals)
 		}.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeScreenUIState())
 
