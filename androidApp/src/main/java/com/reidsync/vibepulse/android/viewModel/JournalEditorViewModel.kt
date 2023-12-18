@@ -64,6 +64,14 @@ class JournalEditorViewModel(
 		}
 	}
 
+	override fun onCleared() {
+		_saveJournalState.getAndUpdate { null }
+			?.let {
+				runBlocking { notebookRepository.update(it) }
+			}
+		super.onCleared()
+	}
+
 	fun editJournal(journal: Journal) {
 		var toSave : Journal? = null
 		_uiState.update {
