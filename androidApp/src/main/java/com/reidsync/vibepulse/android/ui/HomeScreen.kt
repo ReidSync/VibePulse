@@ -144,7 +144,7 @@ fun JournalListItem(
 				verticalArrangement = Arrangement.Center
 			) {
 				Text(
-					text = journal.title.ifEmpty { "New Journal" },
+					text = journal.titleWithPlaceHolder,
 					fontWeight = FontWeight.Bold,
 					fontSize = 18.sp,
 					color = Color.Black,

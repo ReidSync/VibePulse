@@ -11,6 +11,7 @@ import com.reidsync.vibepulse.model.Journal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 
 /**
  * Created by Reid on 2023/12/18.
@@ -37,7 +38,17 @@ class JournalEditorViewModel(
 		}
 	}
 
+	init {
+		_uiState.update {
+			it.copy(journal = journal)
+		}
+	}
 
+	fun updateJournal(journal: Journal) {
+		_uiState.update {
+			it.copy(journal = journal)
+		}
+	}
 
 }
 

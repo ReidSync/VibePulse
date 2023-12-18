@@ -19,7 +19,10 @@ data class Journal(
 	val title: String = "",
 	val date: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
 	val contents: String = ""
-)
+) {
+	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
+	val contentsWithPlaceHolder = title.ifEmpty { "Start writing..." }
+}
 
 val Journal.Companion.mock: Journal
 	get() = Journal(
