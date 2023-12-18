@@ -48,7 +48,8 @@ import com.reidsync.vibepulse.util.format
 @Composable
 fun JournalEditorScreen(
 	viewModel: JournalEditorViewModel,
-	onNavigateUp: () -> Unit
+	onNavigateUp: () -> Unit,
+	onNavigateMetaEdit: (Journal) -> Unit
 ) {
 	val uiState by viewModel.uiState.collectAsState()
 	val focusManager = LocalFocusManager.current
@@ -69,7 +70,8 @@ fun JournalEditorScreen(
 		EditorToolbar(
 			journal = uiState.journal,
 			onNavigateUp = onNavigateUp,
-			onClearFocus = { clearFocus(true) }
+			onClearFocus = { clearFocus(true) },
+			onNavigateMetaEdit = onNavigateMetaEdit
 		)
 		Editor(
 			journal = uiState.journal,
@@ -139,7 +141,8 @@ fun Editor(
 fun EditorToolbar(
 	journal: Journal,
 	onNavigateUp: () -> Unit,
-	onClearFocus: () -> Unit
+	onClearFocus: () -> Unit,
+	onNavigateMetaEdit: (Journal) -> Unit
 ) {
 	BaseToolbar(
 		modifier = Modifier
@@ -180,6 +183,7 @@ fun EditorToolbar(
 				modifier = it
 					.size(40.dp)
 					.clickable {
+						onClearFocus()
 						onNavigateUp()
 					},
 				tint = Color.Green
@@ -193,7 +197,8 @@ fun EditorToolbar(
 				modifier = it
 					.size(30.dp)
 					.clickable {
-						onNavigateUp()
+						onClearFocus()
+						onNavigateMetaEdit(journal)
 					},
 				tint = Color.Green
 			)

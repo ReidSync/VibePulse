@@ -42,7 +42,7 @@ fun AppFeatureScreen() {
 		sheetElevation = 100.dp,
 	) {
 		var journal: Journal = Journal()
-		var type = JournalMetaViewType.Add
+		var type: JournalMetaViewType = JournalMetaViewType.Add
 		NavHost(navController = navController, startDestination = Destination.HomeScreen.route) {
 			composable(Destination.HomeScreen.route) {
 				HomeScreen(
@@ -71,6 +71,11 @@ fun AppFeatureScreen() {
 					viewModel = viewModel(factory = JournalEditorViewModel.Factory(journal)),
 					onNavigateUp = {
 						navController.navigateUp()
+					},
+					onNavigateMetaEdit = {
+						journal = it
+						type = JournalMetaViewType.Edit
+						navController.navigate(Destination.JournalMetaScreen.route)
 					}
 				)
 			}

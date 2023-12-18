@@ -10,6 +10,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
@@ -71,8 +72,10 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 			val index = notebook.value.journals.indexOfFirst { it.id == item.id }
 			val newJournals = notebook.value.journals.toMutableList()
 			newJournals[index] = item
-			_notebook.update {
+			_notebook.updateAndGet {
 				it.copy(journals = newJournals)
+			}.also {
+				save(it)
 			}
 		}
 	}

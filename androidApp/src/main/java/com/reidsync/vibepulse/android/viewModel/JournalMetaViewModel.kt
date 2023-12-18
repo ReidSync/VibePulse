@@ -68,7 +68,9 @@ class JournalMetaViewModel(
 				}
 			}
 			is JournalMetaViewType.Edit -> {
-
+				viewModelScope.launch {
+					notebookRepository.update(uiState.value.journal)
+				}
 			}
 		}
 	}

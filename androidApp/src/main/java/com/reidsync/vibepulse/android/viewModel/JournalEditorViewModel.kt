@@ -11,10 +11,13 @@ import com.reidsync.vibepulse.android.data.NotebookRepository
 import com.reidsync.vibepulse.model.Journal
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -30,6 +33,9 @@ class JournalEditorViewModel(
 ): ViewModel() {
 	private val _uiState = MutableStateFlow(JournalEditorUIState())
 	val uiState: StateFlow<JournalEditorUIState> = _uiState.asStateFlow()
+		.combine(notebookRepository.notebook) { uiState, notebook ->
+			uiState.copy(journal = notebook.journals.first { it.id == uiState.journal.id })
+		}.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), JournalEditorUIState())
 
 	private val _saveJournalState = MutableStateFlow<Journal?>(null)
 	private val saveJournalState: StateFlow<Journal?> = _saveJournalState.asStateFlow()
