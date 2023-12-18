@@ -22,6 +22,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -50,19 +51,30 @@ fun JournalEditorScreen(
 	onNavigateUp: () -> Unit
 ) {
 	val uiState by viewModel.uiState.collectAsState()
+	val focusManager = LocalFocusManager.current
+
+	val clearFocus: (Boolean) -> Unit = {
+		viewModel.setClearFocus(it)
+	}
+
+	LaunchedEffect (uiState.clearFocus) {
+		focusManager.clearFocus()
+		clearFocus(false)
+	}
+
 	Column(
 		modifier = Modifier
 			.background(Color.White)
 	) {
 		EditorToolbar(
+			journal = uiState.journal,
 			onNavigateUp = onNavigateUp,
-			journal = uiState.journal
+			onClearFocus = { clearFocus(true) }
 		)
 		Editor(
 			journal = uiState.journal,
-			onValueChange = {
-				viewModel.editJournal(it)
-			}
+			onValueChange = { viewModel.editJournal(it) },
+			onClearFocus = { clearFocus(true) }
 		)
 	}
 }
@@ -71,14 +83,15 @@ fun JournalEditorScreen(
 fun Editor(
 	journal: Journal,
 	onValueChange: (Journal) -> Unit,
+	onClearFocus: () -> Unit
 ) {
-	val focusManager = LocalFocusManager.current
+
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
 			.pointerInput(Unit) {
 				detectTapGestures(onTap = {
-					focusManager.clearFocus()
+					onClearFocus()
 				})
 			}
 			.padding(15.dp),
@@ -124,12 +137,18 @@ fun Editor(
 
 @Composable
 fun EditorToolbar(
+	journal: Journal,
 	onNavigateUp: () -> Unit,
-	journal: Journal
+	onClearFocus: () -> Unit
 ) {
 	BaseToolbar(
 		modifier = Modifier
 			.fillMaxWidth()
+			.pointerInput(Unit) {
+				detectTapGestures(onTap = {
+					onClearFocus()
+				})
+			}
 			.padding(10.dp)
 			.height(40.dp),
 		title = {

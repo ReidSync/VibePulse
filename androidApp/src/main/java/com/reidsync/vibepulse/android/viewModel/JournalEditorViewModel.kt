@@ -87,10 +87,17 @@ class JournalEditorViewModel(
 	private fun saveJournal(journal: Journal) {
 		_saveJournalState.update { journal }
 	}
+
+	fun setClearFocus(on: Boolean) {
+		_uiState.update {
+			it.copy(clearFocus = on)
+		}
+	}
 }
 
 data class JournalEditorUIState(
-	val journal: Journal = Journal()
+	val journal: Journal = Journal(),
+	val clearFocus: Boolean = false
 ) {
 	val title = journal.title
 }
