@@ -1,9 +1,7 @@
 package com.reidsync.vibepulse.android.ui
 
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -37,8 +35,7 @@ fun AppFeatureScreen() {
 	val navController = rememberNavController(bottomSheetNavigator)
 	ModalBottomSheetLayout(
 		bottomSheetNavigator,
-		modifier = Modifier
-			.height(500.dp),
+		//modifier = Modifier,
 		sheetShape = RoundedCornerShape(16.dp),
 		sheetBackgroundColor = Color(0xFFF2F2F7),
 		sheetElevation = 100.dp,
@@ -51,7 +48,7 @@ fun AppFeatureScreen() {
 					viewModel = viewModel(factory = HomeViewModel.Factory),
 					onCreateNewJournal = {
 						journal = it
-						type =  JournalMetaViewType.Add
+						type = JournalMetaViewType.Add
 						navController.navigate(Destination.JournalMetaScreen.route)
 					}
 				)

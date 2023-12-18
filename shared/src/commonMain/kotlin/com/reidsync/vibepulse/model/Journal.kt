@@ -16,7 +16,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Journal(
 	val id: UUID = UUID.randomUUID(),
-	val title: String = "Title",
+	val title: String = "",
 	val date: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
 	val contents: String = ""
 ) {

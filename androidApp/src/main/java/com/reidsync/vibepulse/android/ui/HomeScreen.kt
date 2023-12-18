@@ -55,7 +55,6 @@ fun HomeScreen(
 	onCreateNewJournal: (Journal) -> Unit,
 ) {
 	val uiState by viewModel.uiState.collectAsState()
-	val scope = rememberCoroutineScope()
 	Column(
 		modifier = Modifier
 			.padding(10.dp)
@@ -137,7 +136,7 @@ fun JournalListItem(
 				verticalArrangement = Arrangement.Center
 			) {
 				Text(
-					text = journal.title,
+					text = journal.title.ifEmpty { "New Journal" },
 					fontWeight = FontWeight.Bold,
 					fontSize = 18.sp,
 					color = Color.Black,

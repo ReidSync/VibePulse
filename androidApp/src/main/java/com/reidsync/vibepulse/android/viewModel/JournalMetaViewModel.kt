@@ -12,6 +12,7 @@ import com.reidsync.vibepulse.model.Journal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 /**
@@ -32,6 +33,11 @@ class JournalMetaViewModel(
 			is JournalMetaViewType.Add -> "Add"
 			is JournalMetaViewType.Edit -> "Done"
 		}
+	val title: String
+		get() = when(type) {
+			is JournalMetaViewType.Add -> "New Journal"
+			is JournalMetaViewType.Edit -> "Edit"
+		}
 
 	companion object {
 		fun Factory(
@@ -49,7 +55,9 @@ class JournalMetaViewModel(
 	}
 
 	init {
-
+		_uiState.update {
+			it.copy(journal = journal)
+		}
 	}
 
 	fun submitAction() {
@@ -65,11 +73,19 @@ class JournalMetaViewModel(
 		}
 	}
 
+	fun updateJournal(journal: Journal) {
+		_uiState.update {
+			it.copy(journal = journal)
+		}
+	}
+
 }
 
 data class JournalMetaUIState(
 	val journal: Journal = Journal()
-)
+) {
+	val title = journal.title
+}
 
 sealed class JournalMetaViewType {
 	data object Add: JournalMetaViewType()
