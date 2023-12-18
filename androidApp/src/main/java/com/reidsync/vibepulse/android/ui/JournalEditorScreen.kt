@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
@@ -53,7 +52,7 @@ fun JournalEditorScreen(
 	val uiState by viewModel.uiState.collectAsState()
 	Column(
 		modifier = Modifier
-			.background(Color.Gray)
+			.background(Color.White)
 	) {
 		EditorToolbar(
 			onNavigateUp = onNavigateUp,
@@ -62,7 +61,7 @@ fun JournalEditorScreen(
 		Editor(
 			journal = uiState.journal,
 			onValueChange = {
-				viewModel.updateJournal(it)
+				viewModel.editJournal(it)
 			}
 		)
 	}
@@ -74,17 +73,12 @@ fun Editor(
 	onValueChange: (Journal) -> Unit,
 ) {
 	val focusManager = LocalFocusManager.current
-	val doneWithClearingFocus: () -> Unit = {
-		onValueChange(journal)
-		focusManager.clearFocus()
-	}
-
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
 			.pointerInput(Unit) {
 				detectTapGestures(onTap = {
-					doneWithClearingFocus()
+					focusManager.clearFocus()
 				})
 			}
 			.padding(15.dp),
@@ -93,7 +87,7 @@ fun Editor(
 			text = journal.titleWithPlaceHolder,
 			fontWeight = FontWeight.Bold,
 			fontSize = 25.sp,
-			color = Color.Yellow
+			color = Color.Magenta
 		)
 
 		OutlinedTextField(

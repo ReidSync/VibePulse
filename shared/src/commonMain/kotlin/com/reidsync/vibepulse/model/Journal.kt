@@ -21,7 +21,7 @@ data class Journal(
 	val contents: String = ""
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
-	val contentsWithPlaceHolder = title.ifEmpty { "Start writing..." }
+	val contentsWithPlaceHolder = contents.ifEmpty { "Start writing..." }
 }
 
 val Journal.Companion.mock: Journal
