@@ -1,11 +1,11 @@
 package com.reidsync.vibepulse.model
 
+import kotlinx.datetime.toLocalDateTime
 import com.reidsync.vibepulse.primitives.uuid.UUID
 import com.reidsync.vibepulse.primitives.uuid.randomUUID
 import kotlinx.datetime.Clock
 import kotlinx.datetime.LocalDateTime
 import kotlinx.datetime.TimeZone
-import kotlinx.datetime.toLocalDateTime
 import kotlinx.serialization.Serializable
 
 /**
@@ -19,9 +19,7 @@ data class Journal(
 	val title: String = "",
 	val date: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
 	val contents: String = ""
-) {
-	companion object
-}
+)
 
 val Journal.Companion.mock: Journal
 	get() = Journal(

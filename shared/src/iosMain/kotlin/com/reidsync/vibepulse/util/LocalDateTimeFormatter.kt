@@ -15,16 +15,6 @@ import platform.Foundation.localTimeZone
 
 
 actual fun LocalDateTime.format(format: String): String {
-//	val dateFormatter = NSDateFormatter()
-//	dateFormatter.dateFormat = format
-//	// Parse the UTC timestamp into an NSDate
-//	val date = this.toInstant(TimeZone.UTC) .toNSDate()
-//	// Create a date formatter for the local time zone
-//	dateFormatter.timeZone = NSTimeZone.localTimeZone
-//	dateFormatter.dateFormat = format
-//	// Format the NSDate into a string in the local time zone
-//	return dateFormatter.stringFromDate(date)
-
 	val dateFormatter = NSDateFormatter()
 	dateFormatter.dateFormat = format
 	dateFormatter.timeZone = NSTimeZone.localTimeZone
