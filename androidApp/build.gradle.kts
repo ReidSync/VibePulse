@@ -45,7 +45,8 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
 	implementation(libs.androidx.navigation.compose)
-    //implementation(libs.androidx.material)
 	debugImplementation(libs.compose.ui.tooling)
     implementation(libs.kotlinx.datetime)
+    implementation(libs.accompanist.navigation.material)
+    implementation(libs.kotlinx.serialization.json)
 }

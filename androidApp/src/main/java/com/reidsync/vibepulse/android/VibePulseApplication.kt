@@ -9,10 +9,14 @@ import com.reidsync.vibepulse.android.data.DefaultAppContainer
  * Copyright (c) 2023 Reid Byun. All rights reserved.
  */
 
+lateinit var APP: VibePulseApplication
+	private set
+
 class VibePulseApplication: Application() {
 	lateinit var container: AppContainer
 
 	override fun onCreate() {
+		APP = this
 		super.onCreate()
 		container = DefaultAppContainer()
 	}
