@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibepulse.android.MyApplicationTheme
+import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
 import com.reidsync.vibepulse.model.Journal
@@ -165,7 +166,7 @@ fun JournalMetaToolbar(
 	onNavigateUp: () -> Unit,
 	viewModel: JournalMetaViewModel
 ) {
-	SimpleToolbar(
+	BaseToolbar(
 		modifier = Modifier
 			.fillMaxWidth()
 			.padding(15.dp)
@@ -204,31 +205,6 @@ fun JournalMetaToolbar(
 			)
 		}
 	)
-}
-
-@Composable
-fun SimpleToolbar(
-	modifier: Modifier = Modifier,
-	title: @Composable (modifier: Modifier) -> Unit,
-	start: @Composable (modifier: Modifier) -> Unit = {},
-	end: @Composable (modifier: Modifier) -> Unit = {}
-) {
-	Box(
-		modifier = modifier
-	) {
-		start(
-			Modifier
-				.align(Alignment.CenterStart)
-		)
-		title(
-			Modifier
-				.align(Alignment.Center)
-		)
-		end(
-			Modifier
-				.align(Alignment.CenterEnd)
-		)
-	}
 }
 
 @Preview

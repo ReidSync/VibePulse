@@ -1,6 +1,7 @@
 package com.reidsync.vibepulse.android.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -54,6 +55,7 @@ import com.reidsync.vibepulse.util.format
 fun HomeScreen(
 	viewModel: HomeViewModel,
 	onCreateNewJournal: (Journal) -> Unit,
+	onEditJournal: (Journal) -> Unit
 ) {
 	val uiState by viewModel.uiState.collectAsState()
 	Column(
@@ -73,7 +75,8 @@ fun HomeScreen(
 				.padding(5.dp)
 		) {
 			JournalList(
-				journals = uiState.journals
+				journals = uiState.journals,
+				onEditJournal = onEditJournal
 			)
 			CreateButton(
 				Modifier
@@ -89,7 +92,8 @@ fun HomeScreen(
 @Composable
 fun JournalList(
 	modifier: Modifier = Modifier,
-	journals: List<Journal>
+	journals: List<Journal>,
+	onEditJournal: (Journal) -> Unit
 ) {
 	val listState = rememberLazyListState()
 	Box(modifier = modifier
@@ -109,7 +113,10 @@ fun JournalList(
 				JournalListItem(
 					modifier = Modifier
 						.height(70.dp)
-						.padding(bottom = 3.dp),
+						.padding(bottom = 3.dp)
+						.clickable {
+							onEditJournal(it)
+						},
 					journal = it
 				)
 			}

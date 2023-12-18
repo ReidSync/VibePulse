@@ -18,6 +18,7 @@ import com.reidsync.vibepulse.android.data.HOME
 import com.reidsync.vibepulse.android.data.JOURNAL_EDITOR
 import com.reidsync.vibepulse.android.data.JOURNAL_META
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
+import com.reidsync.vibepulse.android.viewModel.JournalEditorViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
 import com.reidsync.vibepulse.model.Journal
@@ -50,6 +51,10 @@ fun AppFeatureScreen() {
 						journal = it
 						type = JournalMetaViewType.Add
 						navController.navigate(Destination.JournalMetaScreen.route)
+					},
+					onEditJournal = {
+						journal = it
+						navController.navigate(Destination.JournalEditorScreen.route)
 					}
 				)
 			}
@@ -62,6 +67,12 @@ fun AppFeatureScreen() {
 				)
 			}
 			composable(Destination.JournalEditorScreen.route) {
+				JournalEditorScreen(
+					viewModel = viewModel(factory = JournalEditorViewModel.Factory(journal)),
+					onNavigateUp = {
+						navController.navigateUp()
+					}
+				)
 			}
 		}
 	}
