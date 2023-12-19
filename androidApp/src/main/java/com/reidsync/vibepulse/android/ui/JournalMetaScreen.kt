@@ -3,7 +3,6 @@ package com.reidsync.vibepulse.android.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -34,6 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibepulse.android.MyApplicationTheme
+import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
 import com.reidsync.vibepulse.model.Journal
@@ -140,7 +140,7 @@ fun JournalMetaContents(
 					),
 					placeholder = {
 						Text(
-							text = journal.title.ifEmpty { "Title" },
+							text = journal.titleWithPlaceHolder,
 							color = Color.LightGray
 						)
 					},
@@ -165,7 +165,7 @@ fun JournalMetaToolbar(
 	onNavigateUp: () -> Unit,
 	viewModel: JournalMetaViewModel
 ) {
-	SimpleToolbar(
+	BaseToolbar(
 		modifier = Modifier
 			.fillMaxWidth()
 			.padding(15.dp)
@@ -204,31 +204,6 @@ fun JournalMetaToolbar(
 			)
 		}
 	)
-}
-
-@Composable
-fun SimpleToolbar(
-	modifier: Modifier = Modifier,
-	title: @Composable (modifier: Modifier) -> Unit,
-	start: @Composable (modifier: Modifier) -> Unit = {},
-	end: @Composable (modifier: Modifier) -> Unit = {}
-) {
-	Box(
-		modifier = modifier
-	) {
-		start(
-			Modifier
-				.align(Alignment.CenterStart)
-		)
-		title(
-			Modifier
-				.align(Alignment.Center)
-		)
-		end(
-			Modifier
-				.align(Alignment.CenterEnd)
-		)
-	}
 }
 
 @Preview

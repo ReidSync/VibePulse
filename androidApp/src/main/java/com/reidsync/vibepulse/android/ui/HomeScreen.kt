@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -21,6 +22,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -29,7 +31,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -43,6 +44,7 @@ import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.util.format
 
 /**
  * Created by Reid on 2023/12/12.
@@ -53,6 +55,7 @@ import com.reidsync.vibepulse.model.Journal
 fun HomeScreen(
 	viewModel: HomeViewModel,
 	onCreateNewJournal: (Journal) -> Unit,
+	onEditJournal: (Journal) -> Unit
 ) {
 	val uiState by viewModel.uiState.collectAsState()
 	Column(
@@ -72,7 +75,8 @@ fun HomeScreen(
 				.padding(5.dp)
 		) {
 			JournalList(
-				journals = uiState.journals
+				journals = uiState.journals,
+				onEditJournal = onEditJournal
 			)
 			CreateButton(
 				Modifier
@@ -88,7 +92,8 @@ fun HomeScreen(
 @Composable
 fun JournalList(
 	modifier: Modifier = Modifier,
-	journals: List<Journal>
+	journals: List<Journal>,
+	onEditJournal: (Journal) -> Unit
 ) {
 	val listState = rememberLazyListState()
 	Box(modifier = modifier
@@ -108,7 +113,10 @@ fun JournalList(
 				JournalListItem(
 					modifier = Modifier
 						.height(70.dp)
-						.padding(bottom = 3.dp),
+						.padding(bottom = 3.dp)
+						.clickable {
+							onEditJournal(it)
+						},
 					journal = it
 				)
 			}
@@ -136,19 +144,33 @@ fun JournalListItem(
 				verticalArrangement = Arrangement.Center
 			) {
 				Text(
-					text = journal.title.ifEmpty { "New Journal" },
+					text = journal.titleWithPlaceHolder,
 					fontWeight = FontWeight.Bold,
 					fontSize = 18.sp,
 					color = Color.Black,
 					modifier = Modifier
 						.padding(bottom = 10.dp)
 				)
-				Text(
-					text = "${journal.date}",
-					fontWeight = FontWeight.Light,
-					fontSize = 11.sp,
-					color = Color.Black
-				)
+				Row(
+					//verticalAlignment = Alignment.CenterVertically
+				) {
+					Icon(
+						Icons.Filled.DateRange,
+						contentDescription = "Calendar",
+						modifier = Modifier
+							.size(10.dp)
+							.align(Alignment.Bottom)
+					)
+
+					Spacer(modifier = Modifier.width(5.dp))
+
+					Text(
+						text = journal.date.format("EE, MMM d, yyyy   h:mm:ss a"),
+						fontWeight = FontWeight.Light,
+						fontSize = 10.sp,
+						color = Color.Black
+					)
+				}
 			}
 
 
@@ -162,7 +184,8 @@ fun JournalListItem(
 					contentDescription = "enter",
 					modifier = Modifier
 						//.align(alignment = Alignment.CenterHorizontally)
-						.size(20.dp)
+						.size(20.dp),
+					tint = Color.LightGray
 				)
 
 			}
