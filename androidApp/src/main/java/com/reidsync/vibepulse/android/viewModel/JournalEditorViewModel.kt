@@ -35,7 +35,10 @@ class JournalEditorViewModel(
 	private val _uiState = MutableStateFlow(JournalEditorUIState())
 	val uiState: StateFlow<JournalEditorUIState> = _uiState.asStateFlow()
 		.combine(notebookRepository.notebook) { uiState, notebook ->
-			uiState.copy(journal = notebook.journals.first { it.id == uiState.journal.id })
+			_uiState.updateAndGet { mutableState ->
+				mutableState.copy(journal = notebook.journals.first { it.id == uiState.journal.id })
+			}
+			//uiState.copy(journal = notebook.journals.first { it.id == uiState.journal.id })
 		}.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), JournalEditorUIState())
 
 	private val _saveJournalState = MutableStateFlow<Journal?>(null)
