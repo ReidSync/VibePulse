@@ -22,6 +22,11 @@ data class Journal(
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
 	val contentsWithPlaceHolder = contents.ifEmpty { "Start writing..." }
+
+	companion object {
+		fun makeInstance(): Journal = Journal()
+	}
+
 }
 
 val Journal.Companion.mock: Journal

@@ -3,6 +3,8 @@ package com.reidsync.vibepulse.android.data.impl
 import com.reidsync.vibepulse.android.data.NotebookRepository
 import com.reidsync.vibepulse.model.Journal
 import com.reidsync.vibepulse.model.Notebook
+import com.reidsync.vibepulse.model.deserializeToNotebook
+import com.reidsync.vibepulse.model.serialize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -42,7 +44,8 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 				}
 				projectsRoot
 					.resolve("my-journals.json")
-					.writeText(Json.encodeToString(Json.serializersModule.serializer(), data))
+					.writeText(data.serialize())
+					//.writeText(Json.encodeToString(Json.serializersModule.serializer(), data))
 
 			}
 		}
@@ -52,7 +55,8 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 		return runCatching {
 			val content = file.readText()
 			_notebook.update {
-				val data = Json.decodeFromString<Notebook>(content)
+				//val data = Json.decodeFromString<Notebook>(content)
+				val data = deserializeToNotebook(content).getOrThrow()
 				it.copy(journals = data.journals)
 			}
 			notebook.value
