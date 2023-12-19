@@ -75,7 +75,9 @@ fun JournalEditorScreen(
 		)
 		Editor(
 			journal = uiState.journal,
+			contents = uiState.contents,
 			onValueChange = { viewModel.editJournal(it) },
+			onContentsChange = { viewModel.editContents(it) },
 			onClearFocus = { clearFocus(true) }
 		)
 	}
@@ -84,7 +86,9 @@ fun JournalEditorScreen(
 @Composable
 fun Editor(
 	journal: Journal,
+	contents: String,
 	onValueChange: (Journal) -> Unit,
+	onContentsChange: (String) -> Unit,
 	onClearFocus: () -> Unit
 ) {
 
@@ -108,9 +112,10 @@ fun Editor(
 		OutlinedTextField(
 			modifier = Modifier
 				.fillMaxSize(),
-			value = journal.contents,
+			value = contents,
 			onValueChange = {
-				onValueChange(journal.copy(contents = it))
+				//onValueChange(journal.copy(contents = it))
+				onContentsChange(it)
 			},
 			colors = TextFieldDefaults.colors(
 				focusedContainerColor = Color.White,

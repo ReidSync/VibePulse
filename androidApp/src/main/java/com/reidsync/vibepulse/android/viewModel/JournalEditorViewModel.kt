@@ -19,6 +19,7 @@ import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -55,7 +56,10 @@ class JournalEditorViewModel(
 
 	init {
 		_uiState.update {
-			it.copy(journal = journal)
+			it.copy(
+				journal = journal,
+				contents = journal.contents
+			)
 		}
 
 		viewModelScope.launch {
@@ -64,7 +68,9 @@ class JournalEditorViewModel(
 			saveJournalState.debounce(saveInterval).collect { state ->
 				if( state != null ) {
 					_saveJournalState.getAndUpdate { null }
-						?.let { notebookRepository.update(it) }
+						?.let {
+							notebookRepository.update(it)
+						}
 				}
 			}
 		}
@@ -78,15 +84,19 @@ class JournalEditorViewModel(
 		super.onCleared()
 	}
 
-	fun editJournal(journal: Journal) {
-		var toSave : Journal? = null
-		_uiState.update {
-			val updated = it.copy(journal = journal)
-			toSave = updated.journal
-			updated
+	fun editJournal(journal: Journal) {		//var toSave : Journal? = null
+		_uiState.updateAndGet {
+			it.copy(journal = journal)
+		}.also {
+			saveJournal(it.journal)
 		}
-		toSave?.let {
-			saveJournal(it)
+	}
+
+	fun editContents(contents: String) {
+		_uiState.updateAndGet {
+			it.copy(contents = contents)
+		}.also {
+			editJournal(it.journal.copy(contents = contents))
 		}
 	}
 
@@ -103,7 +113,9 @@ class JournalEditorViewModel(
 
 data class JournalEditorUIState(
 	val journal: Journal = Journal(),
-	val clearFocus: Boolean = false
+	val clearFocus: Boolean = false,
+	val contents: String = ""
 ) {
 	val title = journal.title
 }
+
