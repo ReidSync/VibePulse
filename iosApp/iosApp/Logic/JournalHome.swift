@@ -19,7 +19,9 @@ struct JournalHome {
       
       do {
         @Dependency(\.fileIOClient.load) var loadJournals
-        self.journals = try JSONDecoder().decode(IdentifiedArray.self, from: loadJournals(.journalDataUrl))
+        let notebookString = try loadJournals(.journalDataUrl)
+        let notebook = try Notebook.deserialize(data: notebookString)
+        journals = IdentifiedArrayOf(uniqueElements: notebook.journals, id: \.id)
       }
       catch is DecodingError {
         NSLog("Failed to load data (decoding data failed)")
@@ -45,11 +47,7 @@ struct JournalHome {
       case .createButtonTapped:
         state.destination = .sheetToAdd(
           JournalMeta.State(
-          journal: Journal(
-            id: self.uuid(),
-            title: "",
-            date: Date.now,
-            contents: "")
+            journal: Journal.companion.makeInstance()
           ))
         return .none
         

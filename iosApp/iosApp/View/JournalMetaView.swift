@@ -16,8 +16,8 @@ struct JournalMetaView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       Form {
         Section {
-          TextField("Title", text: viewStore.$journal.title)
-            .focused(self.$focus, equals: .title)
+//          TextField("Title", text: viewStore.$journal.title)
+//            .focused(self.$focus, equals: .title)
         } header: {
           Text("Journal Info")
         }
@@ -29,7 +29,7 @@ struct JournalMetaView: View {
 
 #Preview {
   JournalMetaView(
-    store: Store(initialState: JournalMeta.State(journal: .mock)) {
+    store: Store(initialState: JournalMeta.State(journal: Journal.companion.mock)) {
       JournalMeta()
     })
 }

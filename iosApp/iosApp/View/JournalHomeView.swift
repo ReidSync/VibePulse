@@ -26,9 +26,7 @@ struct JournalHomeView: View {
                   Image(systemName: "calendar")
                     .resizable()
                     .frame(width: 11, height: 11)
-                  Text(journal.date, style: .date)
-                    .font(.system(size: 11, weight: .light))
-                  Text(journal.date, style: .time)
+                  Text(journal.date.format(format: ("EE, MMM d, yyyy   h:mm:ss a")))
                     .font(.system(size: 11, weight: .light))
                 }
               }
@@ -94,16 +92,21 @@ struct CreateButton: View {
   }
 }
 
-#Preview {
-  JournalHomeView(
-    store: Store(initialState: JournalHome.State()) {
-      JournalHome()
-    } withDependencies: {
-      $0.fileIOClient.load = { _ in
-        try JSONEncoder().encode([
-          Journal.mock
-        ])
-      }
-    }
-  )
-}
+//#Preview {
+//  JournalHomeView(
+//    store: Store(initialState: JournalHome.State()) {
+//      JournalHome()
+//    } withDependencies: {
+//      $0.fileIOClient.load = { _ in
+//        let notebook = Notebook(journals: [
+//          Journal.companion.mock,
+//          Journal.companion.mock,
+//          Journal.companion.mock
+//        ])
+//        try JSONEncoder().encode([
+//          Journal.companion.mock
+//        ])
+//      }
+//    }
+//  )
+//}

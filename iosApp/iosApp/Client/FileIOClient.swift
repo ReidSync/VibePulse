@@ -9,17 +9,19 @@ import Foundation
 import Dependencies
 
 struct FileIOClient: Sendable {
-  var save: @Sendable (Data, URL) async throws -> Void
-  var load: @Sendable (URL) throws -> Data
+  var save: @Sendable (String, URL) async throws -> Void
+  var load: @Sendable (URL) throws -> String
 }
 
 extension FileIOClient: DependencyKey {
   static let liveValue = Self(
-    save: { data, url in
+    save: { dataString, url in
+      //dataString.data(using: .utf8)
+      let data = Data(dataString.utf8)
       try data.write(to: url)
     },
     load: { url in
-      try Data(contentsOf: url)
+      String(decoding: try Data(contentsOf: url), as: UTF8.self)
     }
   )
   

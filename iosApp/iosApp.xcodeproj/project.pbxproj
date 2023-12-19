@@ -17,6 +17,11 @@
 		30793F162B0DF5A3008E8A16 /* AppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30793F152B0DF5A3008E8A16 /* AppView.swift */; };
 		30793F1B2B0DF6DA008E8A16 /* AppFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30793F1A2B0DF6DA008E8A16 /* AppFeature.swift */; };
 		30793F1D2B0E2DE9008E8A16 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30793F1C2B0E2DE9008E8A16 /* Colors.xcassets */; };
+		30817B932B318A4F00650BF8 /* Notebook+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817B922B318A4F00650BF8 /* Notebook+Extensions.swift */; };
+		30817B952B318D7900650BF8 /* Exception+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817B942B318D7900650BF8 /* Exception+Extensions.swift */; };
+		30817B972B318E4C00650BF8 /* Journal+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817B962B318E4C00650BF8 /* Journal+Extensions.swift */; };
+		30817B992B318E9A00650BF8 /* UUID+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817B982B318E9A00650BF8 /* UUID+Extensions.swift */; };
+		30CBA0912B316FE300A6B884 /* SharedEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */; };
 		30D7F8412B0F59220022746D /* JournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8402B0F59220022746D /* JournalHomeView.swift */; };
 		30D7F8432B0F595E0022746D /* JournalHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8422B0F595E0022746D /* JournalHome.swift */; };
 		30D7F8462B0F5E550022746D /* Journal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8452B0F5E550022746D /* Journal.swift */; };
@@ -59,6 +64,11 @@
 		30793F152B0DF5A3008E8A16 /* AppView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppView.swift; sourceTree = "<group>"; };
 		30793F1A2B0DF6DA008E8A16 /* AppFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFeature.swift; sourceTree = "<group>"; };
 		30793F1C2B0E2DE9008E8A16 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		30817B922B318A4F00650BF8 /* Notebook+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notebook+Extensions.swift"; sourceTree = "<group>"; };
+		30817B942B318D7900650BF8 /* Exception+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Exception+Extensions.swift"; sourceTree = "<group>"; };
+		30817B962B318E4C00650BF8 /* Journal+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Journal+Extensions.swift"; sourceTree = "<group>"; };
+		30817B982B318E9A00650BF8 /* UUID+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UUID+Extensions.swift"; sourceTree = "<group>"; };
+		30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnvironment.swift; sourceTree = "<group>"; };
 		30D7F8402B0F59220022746D /* JournalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHomeView.swift; sourceTree = "<group>"; };
 		30D7F8422B0F595E0022746D /* JournalHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHome.swift; sourceTree = "<group>"; };
 		30D7F8452B0F5E550022746D /* Journal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Journal.swift; sourceTree = "<group>"; };
@@ -120,7 +130,7 @@
 		30793EE72B0DF060008E8A16 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
-				30D7F8532B15F3360022746D /* Util */,
+				30CBA0922B316FF800A6B884 /* KMMShared */,
 				30793EE82B0DF060008E8A16 /* iosApp.swift */,
 				30793F192B0DF5CF008E8A16 /* Client */,
 				30D7F8442B0F5E190022746D /* Model */,
@@ -197,6 +207,26 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		30817B912B3189FE00650BF8 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				30817B922B318A4F00650BF8 /* Notebook+Extensions.swift */,
+				30817B942B318D7900650BF8 /* Exception+Extensions.swift */,
+				30817B962B318E4C00650BF8 /* Journal+Extensions.swift */,
+				30817B982B318E9A00650BF8 /* UUID+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		30CBA0922B316FF800A6B884 /* KMMShared */ = {
+			isa = PBXGroup;
+			children = (
+				30817B912B3189FE00650BF8 /* Extensions */,
+				30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */,
+			);
+			path = KMMShared;
+			sourceTree = "<group>";
+		};
 		30D7F8442B0F5E190022746D /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -204,13 +234,6 @@
 				30D7F8512B15CC9C0022746D /* URL+Extension.swift */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		30D7F8532B15F3360022746D /* Util */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Util;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -377,13 +400,18 @@
 				30D7F8432B0F595E0022746D /* JournalHome.swift in Sources */,
 				30D7F8502B15CA270022746D /* FileIOClient.swift in Sources */,
 				30D7F8412B0F59220022746D /* JournalHomeView.swift in Sources */,
+				30CBA0912B316FE300A6B884 /* SharedEnvironment.swift in Sources */,
 				30D7F8522B15CC9C0022746D /* URL+Extension.swift in Sources */,
 				30793F162B0DF5A3008E8A16 /* AppView.swift in Sources */,
 				30793EE92B0DF060008E8A16 /* iosApp.swift in Sources */,
 				30D7F8482B107F730022746D /* JournalEditorView.swift in Sources */,
+				30817B932B318A4F00650BF8 /* Notebook+Extensions.swift in Sources */,
+				30817B992B318E9A00650BF8 /* UUID+Extensions.swift in Sources */,
 				30D7F84E2B109C1C0022746D /* JournalMetaView.swift in Sources */,
+				30817B972B318E4C00650BF8 /* Journal+Extensions.swift in Sources */,
 				30D7F84C2B109C0C0022746D /* JournalMeta.swift in Sources */,
 				30D7F8462B0F5E550022746D /* Journal.swift in Sources */,
+				30817B952B318D7900650BF8 /* Exception+Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -32,7 +32,8 @@ struct JournalEditorView: View {
           HStack {
             Image(systemName: "sun.min.fill")
               .foregroundColor(.palleteA)
-            Text(viewStore.journal.date, style: .date)
+            //Text(viewStore.journal.date, style: .date)
+            Text(viewStore.journal.date.format(format: "MMMM d, yyyy"))
               .font(.system(size: 23, weight: .bold))
               .foregroundColor(.palleteE)
             Spacer()
@@ -75,7 +76,7 @@ struct JournalEditorView: View {
 
 #Preview {
   JournalEditorView(
-    store: Store(initialState: JournalEditor.State(journal: .mock)) {
+    store: Store(initialState: JournalEditor.State(journal: Journal.companion.mock)) {
       JournalEditor()
     })
 }

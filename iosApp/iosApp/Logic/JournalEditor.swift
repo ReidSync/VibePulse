@@ -60,10 +60,12 @@ struct JournalEditor {
         state.destination = .sheetToEdit(JournalMeta.State(journal: state.journal))
         return .none
       case .view(.binding):
-        state.journal.contents = state.contents
+        //state.journal.contents = state.contents
+        state.journal = state.journal.copy(id: nil, title: nil, contents: state.contents)
         return .none
       case .updateContents(let text):
-        state.journal.contents = text
+        //state.journal.contents = text
+        state.journal = state.journal.copy(id: nil, title: nil, contents: text)
         return .none
       case .destination:
         return .none

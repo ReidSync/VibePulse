@@ -57,7 +57,9 @@ struct AppFeature {
         try await withTaskCancellation(id: CancelID.saveDebounce, cancelInFlight: true) {
           try await self.clock.sleep(for: .seconds(1))
           print("save")
-          try await self.saveJournals(JSONEncoder().encode(journals), .journalDataUrl)
+          
+          let notebook = Notebook(journals: journals.map { $0 })
+          try await self.saveJournals(notebook.serialize(), .journalDataUrl)
         }
       }
       catch: { _, _ in }
