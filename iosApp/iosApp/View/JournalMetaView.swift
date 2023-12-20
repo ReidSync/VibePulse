@@ -12,18 +12,32 @@ struct JournalMetaView: View {
   let store: StoreOf<JournalMeta>
   @FocusState var focus: JournalMeta.State.Field?
   
+  struct ViewState: Equatable {
+    @BindingViewState var focus: JournalMeta.State.Field?
+    @BindingViewState var title: String
+  }
+  
   var body: some View {
-    WithViewStore(self.store, observe: { $0 }) { viewStore in
+    WithViewStore(self.store, observe: \.view, send: { $0 }) { viewStore in
       Form {
         Section {
-//          TextField("Title", text: viewStore.$journal.title)
-//            .focused(self.$focus, equals: .title)
+          TextField("Title", text: viewStore.$title)
+            .focused(self.$focus, equals: .title)
         } header: {
           Text("Journal Info")
         }
       }
       .bind(viewStore.$focus, to: self.$focus)
     }
+  }
+}
+
+extension BindingViewStore<JournalMeta.State> {
+  var view: JournalMetaView.ViewState {
+    JournalMetaView.ViewState(
+      focus: self.$focus,
+      title: self.$title
+    )
   }
 }
 
