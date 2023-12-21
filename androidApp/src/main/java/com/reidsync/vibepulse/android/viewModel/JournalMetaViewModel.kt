@@ -75,10 +75,14 @@ class JournalMetaViewModel(
 		}
 	}
 
-	fun updateJournal(journal: Journal) {
+	fun updateScreen(journal: Journal) {
 		_uiState.update {
 			it.copy(journal = journal)
 		}
+	}
+
+	fun updateTitle(title: String) {
+		updateScreen(_uiState.value.journal.copy(title = title))
 	}
 
 }

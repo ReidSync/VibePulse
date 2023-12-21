@@ -59,9 +59,7 @@ fun JournalMetaScreen(
 		)
 		JournalMetaContents(
 			journal = uiState.journal,
-			onValueChange = {
-				viewModel.updateJournal(it)
-			}
+			viewModel = viewModel
 		)
 
 	}
@@ -70,12 +68,11 @@ fun JournalMetaScreen(
 @Composable
 fun JournalMetaContents(
 	journal: Journal,
-	onValueChange: (Journal) -> Unit,
+	viewModel: JournalMetaViewModel
 ) {
 
 	val focusManager = LocalFocusManager.current
 	val doneWithClearingFocus: () -> Unit = {
-		onValueChange(journal)
 		focusManager.clearFocus()
 	}
 
@@ -127,7 +124,7 @@ fun JournalMetaContents(
 						.fillMaxWidth(),
 					value = journal.title,
 					onValueChange = {
-						onValueChange(journal.copy(title = it))
+						viewModel.updateTitle(it)
 					},
 					colors = TextFieldDefaults.colors(
 						focusedContainerColor = Color.White,
