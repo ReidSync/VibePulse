@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.model
+package com.reidsync.vibepulse.notebook.journal
 
 import kotlinx.datetime.toLocalDateTime
 import com.reidsync.vibepulse.primitives.uuid.UUID

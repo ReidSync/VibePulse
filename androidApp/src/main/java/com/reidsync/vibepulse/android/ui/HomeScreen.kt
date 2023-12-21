@@ -43,7 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
-import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.util.format
 
 /**

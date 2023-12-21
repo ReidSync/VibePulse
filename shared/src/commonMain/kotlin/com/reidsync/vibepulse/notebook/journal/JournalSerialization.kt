@@ -1,7 +1,5 @@
-package com.reidsync.vibepulse.model
+package com.reidsync.vibepulse.notebook.journal
 
-import kotlinx.serialization.SerializationException
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 

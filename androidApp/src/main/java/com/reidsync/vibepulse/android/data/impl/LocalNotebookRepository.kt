@@ -1,10 +1,10 @@
 package com.reidsync.vibepulse.android.data.impl
 
 import com.reidsync.vibepulse.android.data.NotebookRepository
-import com.reidsync.vibepulse.model.Journal
-import com.reidsync.vibepulse.model.Notebook
-import com.reidsync.vibepulse.model.deserializeToNotebook
-import com.reidsync.vibepulse.model.serialize
+import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.Notebook
+import com.reidsync.vibepulse.notebook.journal.deserializeToNotebook
+import com.reidsync.vibepulse.notebook.journal.serialize
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -15,8 +15,6 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.flow.updateAndGet
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
-import kotlinx.serialization.serializer
 import java.io.File
 
 /**

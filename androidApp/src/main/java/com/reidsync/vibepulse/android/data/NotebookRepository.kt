@@ -1,7 +1,7 @@
 package com.reidsync.vibepulse.android.data
 
-import com.reidsync.vibepulse.model.Journal
-import com.reidsync.vibepulse.model.Notebook
+import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.Notebook
 import kotlinx.coroutines.flow.StateFlow
 
 /**

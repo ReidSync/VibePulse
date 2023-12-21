@@ -36,7 +36,7 @@ import com.reidsync.vibepulse.android.MyApplicationTheme
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
-import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.notebook.journal.Journal
 
 /**
  * Created by Reid on 2023/12/13.

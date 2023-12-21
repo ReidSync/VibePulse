@@ -21,7 +21,7 @@ import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalEditorViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
-import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.notebook.journal.Journal
 
 /**
  * Created by Reid on 2023/12/13.
