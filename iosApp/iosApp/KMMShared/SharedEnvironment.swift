@@ -13,3 +13,4 @@ public typealias Journal = shared.Journal
 public typealias Notebook = shared.Notebook
 public typealias JournalSerializationException = shared.JournalSerializationException
 public typealias JournalEditingContext = shared.JournalEditingContext
+public typealias SolidColor = shared.SolidColor
