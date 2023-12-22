@@ -43,6 +43,7 @@ struct JournalEditor {
   }
   
   @Dependency(\.keyboardResponder) var keyboardResponder
+  @Dependency(\.journalClient) var journalClient
   
   var body: some Reducer<State, Action> {
     //BindingReducer(action: \.view)
@@ -65,7 +66,10 @@ struct JournalEditor {
 //        return .none
       case .updateContents(let text):
         //state.journal.contents = text
-        state.journal = state.journal.copy(id: nil, title: nil, contents: text)
+        //state.journal = state.journal.copy(id: nil, title: nil, contents: text)
+        state.journal = journalClient.editJournal(state.journal) {
+          $0.updateContents(contents: text)
+        }
         return .none
       case .destination:
         return .none
