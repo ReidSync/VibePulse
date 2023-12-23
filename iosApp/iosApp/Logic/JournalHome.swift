@@ -37,6 +37,7 @@ struct JournalHome {
     case destination(PresentationAction<Destination.Action>)
     case addNewJournal
     case dismissAddingNewJournal
+    case darkMode(Bool)
   }
   
   @Dependency(\.uuid) var uuid
@@ -64,6 +65,15 @@ struct JournalHome {
       case .dismissAddingNewJournal:
         state.destination = nil
         return .none
+      case .darkMode(let on):
+        if on == true {
+          print("dark mode!!")
+        }
+        else {
+          print("light mode!!")
+        }
+        return .none
+        
       }
     }
     .ifLet(\.$destination, action: \.destination) {

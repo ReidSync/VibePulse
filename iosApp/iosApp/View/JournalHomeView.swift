@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct JournalHomeView: View {
+  @Environment(\.colorScheme) private var colorScheme
   let store: StoreOf<JournalHome>
   
   init(store: StoreOf<JournalHome>) {
@@ -60,6 +61,9 @@ struct JournalHomeView: View {
         }
       }
       .navigationTitle("VibePulse")
+      .onChange(of: colorScheme) { _, newValue in
+        viewStore.send(.darkMode(newValue == .dark))
+      }
       .sheet(
         store: self.store.scope(state: \.$destination, action: { .destination($0) }),
         state: \.sheetToAdd,

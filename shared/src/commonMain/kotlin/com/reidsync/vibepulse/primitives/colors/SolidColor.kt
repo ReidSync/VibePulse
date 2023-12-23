@@ -32,7 +32,7 @@ data class SolidColor(
 		val Yellow = SolidColor(1f,1f,0f,1f)
 		val Black = SolidColor(0f,0f,0f,1f)
 		val White = SolidColor(1f,1f,1f,1f)
-		val VeryDarkGray = SolidColor(0.15f,0.15f,0.15f,1f)
+		val VeryDarkGray = SolidColor(0.16f,0.16f,0.17f,1f)
 		val DarkerGray = SolidColor(0.25f,0.25f,0.25f,1f)
 		val DarkGray = SolidColor(0.3333f,0.3333f,0.3333f,1f)
 		val MidGray = SolidColor(0.5f,0.5f,0.5f,1f)
@@ -60,6 +60,7 @@ data class SolidColor(
 		val CandleC = SolidColor.withHex(0xC1B9AE)
 		val CandleD = SolidColor.withHex(0xFDC664)
 
-		val background = SolidColor.withHex(0xF2F2F7) // 0xFFF2F2F7
+		val lightBackground = SolidColor.withHex(0xF2F2F7) // 0xFFF2F2F7
+		val darkBackground = VeryDarkGray
 	}
 }

@@ -33,6 +33,12 @@ kotlin {
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
+
+//        androidTarget() {
+//            dependencies {
+//                implementation(libs.androidx.appcompat)
+//            }
+//        }
     }
 }
 

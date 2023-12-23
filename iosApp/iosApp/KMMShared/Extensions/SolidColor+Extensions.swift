@@ -53,7 +53,7 @@ public extension SolidColor {
   static let LighterGray = SolidColor.companion.LighterGray.toColor()
   static let VeryLightGray = SolidColor.companion.VeryLightGray.toColor()
   
-  static let background = SolidColor.companion.background.toColor()
+  //static let background = SolidColor.companion.background.toColor()
   
   
   
