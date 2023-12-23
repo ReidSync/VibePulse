@@ -26,6 +26,7 @@ actual class ThemeColor actual constructor() {
 	actual val vibeD: SolidColor
 		get() = SolidColor.CandleB
 
+	// This function doesn't work correctly. It can't get a UIStyle dynamically.
 	private fun isDarkMode(): Boolean {
 		val currentTraitCollection = UIScreen.mainScreen.traitCollection
 		//println("--isDark? ${currentTraitCollection.userInterfaceStyle == UIUserInterfaceStyle.UIUserInterfaceStyleDark} / ${currentTraitCollection.userInterfaceStyle}")

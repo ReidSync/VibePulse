@@ -21,6 +21,8 @@ actual class ThemeColor actual constructor() {
 	actual val vibeD: SolidColor
 		get() = SolidColor.CandleB
 
+	// This function works properly. But should consider about a performance.
+	// Is it okay to get a color using the function call checking its uiMode every time?
 	private fun isDarkMode(): Boolean {
 		val resources = Resources.getSystem()
 		val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
