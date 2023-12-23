@@ -60,7 +60,7 @@ data class SolidColor(
 		val CandleC = SolidColor.withHex(0xC1B9AE)
 		val CandleD = SolidColor.withHex(0xFDC664)
 
-		val lightBackground = SolidColor.withHex(0xF2F2F7) // 0xFFF2F2F7
-		val darkBackground = VeryDarkGray
+		val LightBackground = SolidColor.withHex(0xF2F2F7) // 0xFFF2F2F7
+		val DarkBackground = VeryDarkGray
 	}
 }

@@ -15,7 +15,7 @@ import platform.UIKit.*
 @Serializable
 actual class ThemeColor actual constructor() {
 	actual val background: SolidColor
-		get() = if (isDarkMode()) SolidColor.darkBackground else SolidColor.lightBackground
+		get() = if (isDarkMode()) SolidColor.DarkBackground else SolidColor.LightBackground
 
 	actual val vibeA: SolidColor
 		get() = SolidColor.PeriwinkleA

@@ -10,7 +10,7 @@ import android.content.res.Resources
 
 actual class ThemeColor actual constructor() {
 	actual val background: SolidColor
-		get() = if (isDarkMode()) SolidColor.lightBackground else SolidColor.darkBackground
+		get() = if (isDarkMode()) SolidColor.DarkBackground else SolidColor.LightBackground
 
 	actual val vibeA: SolidColor
 		get() = SolidColor.PeriwinkleA
