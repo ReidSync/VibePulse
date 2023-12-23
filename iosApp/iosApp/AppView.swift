@@ -28,7 +28,7 @@ struct AppView: View {
         )
       }
     }
-    .accentColor(.palleteA)
+    .accentColor(SolidColor.SunsetA)
   }
 }
 

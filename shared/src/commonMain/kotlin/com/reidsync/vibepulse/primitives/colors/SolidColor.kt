@@ -2,6 +2,7 @@ package com.reidsync.vibepulse.primitives.colors
 
 import kotlinx.serialization.Serializable
 
+
 /**
  * Created by Reid on 2023/12/22.
  * Copyright (c) 2023 Reid Byun. All rights reserved.
@@ -15,6 +16,14 @@ data class SolidColor(
 	val a: Float
 ) {
 	companion object {
+		private fun withHex(color: Int, alpha: Float = 1.0f): SolidColor {
+			val r = (color shr 16 and 0xFF) / 255f
+			val g = (color shr 8 and 0xFF) / 255f
+			val b = (color and 0xFF) / 255f
+			//val a = (color shr 24 and 0xFF) / 255f
+			return SolidColor(r, g, b, alpha)
+		}
+
 		val Red = SolidColor(1f,0f,0f,1f)
 		val Green = SolidColor(0f,1f,0f,1f)
 		val Blue = SolidColor(0f,0f,1f,1f)
@@ -31,14 +40,26 @@ data class SolidColor(
 		val LighterGray = SolidColor(0.75f,0.75f,0.75f,1f)
 		val VeryLightGray = SolidColor(0.85f,0.85f,0.85f,1f)
 
-		val PeriwinkleA = SolidColor(154f, 156f, 234f, 1f)
-		val PeriwinkleB = SolidColor(162f, 185f, 238f, 1f)
-		val PeriwinkleC = SolidColor(162f, 220f, 238f, 1f)
-		val PeriwinkleD = SolidColor(173f, 238f, 226f, 1f)
+		val PeriwinkleA = SolidColor.withHex(0x9A9CEA)
+		val PeriwinkleB = SolidColor.withHex(0xA2B9EE)
+		val PeriwinkleC = SolidColor.withHex(0xA2DCEE)
+		val PeriwinkleD = SolidColor.withHex(0xADEEE2)
 
-		val SunsetA = SolidColor(53f, 92f, 125f, 1f)
-		val SunsetB = SolidColor(114f, 90f, 122f, 1f)
-		val SunsetC = SolidColor(197f, 108f, 134f, 1f)
-		val SunsetD = SolidColor(255f, 117f, 130f, 1f)
+		val SeaSideA = SolidColor.withHex(0x26648E)
+		val SeaSideB = SolidColor.withHex(0x4F8FC0)
+		val SeaSideC = SolidColor.withHex(0x53D2DC)
+		val SeaSideD = SolidColor.withHex(0xFFE3B3)
+
+		val SunsetA = SolidColor.withHex(0x355C7D)
+		val SunsetB = SolidColor.withHex(0x725A7A)
+		val SunsetC = SolidColor.withHex(0xC56C86)
+		val SunsetD = SolidColor.withHex(0xFF7582)
+
+		val CandleA = SolidColor.withHex(0xFB8C6F)
+		val CandleB = SolidColor.withHex(0x73607D)
+		val CandleC = SolidColor.withHex(0xC1B9AE)
+		val CandleD = SolidColor.withHex(0xFDC664)
+
+		val background = SolidColor.withHex(0xF2F2F7) // 0xFFF2F2F7
 	}
 }

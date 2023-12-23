@@ -17,34 +17,40 @@ struct JournalEditorView: View {
         HStack {
           Text(viewStore.journal.title)
             .font(.system(size: 25, weight: .bold))
-            .foregroundColor(.palleteD)
+            .foregroundColor(SolidColor.PeriwinkleA)
           Spacer()
         }
         TextEditor(text: viewStore.binding(
           get: \.journal.contents,
           send: JournalEditor.Action.updateContents)
         )
+        //.scrollContentBackground(.hidden)
+        //.background(.red)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+
       }
-      .padding(.leading, 15)
-      .navigationBarTitleDisplayMode(.inline)      
+      .padding(.leading, 10)
+      .padding(.trailing, 10)
+      .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {
           HStack {
             Image(systemName: "sun.min.fill")
-              .foregroundColor(.palleteA)
-            //Text(viewStore.journal.date, style: .date)
+              .foregroundColor(SolidColor.CandleB)
             Text(viewStore.journal.date.format(format: "MMMM d, yyyy"))
               .font(.system(size: 23, weight: .bold))
-              .foregroundColor(.palleteE)
+              .foregroundColor(SolidColor.CandleB)
             Spacer()
             Button {
               viewStore.send(.edit)
             } label: {
               Image(systemName: "gear")
+                .tint(SolidColor.SunsetA)
             }
           }
         }
       }
+      //.background(SolidColor.VeryDarkGray)
       .task {
         await viewStore.send(.task).finish()
       }

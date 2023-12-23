@@ -11,6 +11,15 @@ import ComposableArchitecture
 struct JournalHomeView: View {
   let store: StoreOf<JournalHome>
   
+  init(store: StoreOf<JournalHome>) {
+    self.store = store
+    
+    //Use this if NavigationBarTitle is with Large Font
+    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(SolidColor.PeriwinkleA)]
+    //Use this if NavigationBarTitle is with displayMode = .inline
+    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(SolidColor.PeriwinkleA)]
+  }
+  
   var body: some View {
     WithViewStore(self.store, observe: \.journals) { viewStore in
       ZStack {
@@ -22,17 +31,26 @@ struct JournalHomeView: View {
               VStack(alignment: .leading) {
                 Text(journal.title)
                   .font(.system(size: 18, weight: .bold))
+                  .foregroundColor(SolidColor.CandleB);
                 HStack {
                   Image(systemName: "calendar")
                     .resizable()
                     .frame(width: 11, height: 11)
+                    .foregroundColor(SolidColor.SunsetA)
                   Text(journal.date.format(format: ("EE, MMM d, yyyy   h:mm:ss a")))
                     .font(.system(size: 11, weight: .light))
+                    .foregroundColor(SolidColor.SunsetB)
                 }
               }
             }
           }
         }
+//        .listStyle(.plain)
+//        .clipShape(RoundedRectangle(cornerRadius: 10))
+//        .padding(.leading, 20)
+//        .padding(.trailing, 20)
+//        .background(SolidColor.companion.homeBackground.toColor())
+        
         
         VStack {
           Spacer()
@@ -41,7 +59,7 @@ struct JournalHomeView: View {
           }
         }
       }
-      .navigationTitle("My Journals")
+      .navigationTitle("VibePulse")
       .sheet(
         store: self.store.scope(state: \.$destination, action: { .destination($0) }),
         state: \.sheetToAdd,
@@ -77,7 +95,7 @@ struct CreateButton: View {
   var body: some View {
     ZStack {
       Circle()
-        .fill(.palleteC.shadow(.drop(color: .gray, radius: 10)))
+        .fill(SolidColor.PeriwinkleA.shadow(.drop(color: .gray, radius: 10)))
         .frame(width: 70, height: 70)
       
       
@@ -86,27 +104,30 @@ struct CreateButton: View {
           .resizable()
           .scaledToFit()
           .frame(width: 24, height: 24)
-          .foregroundColor(.palleteE)
+          .foregroundColor(SolidColor.White)
       }
     }
   }
 }
 
-//#Preview {
-//  JournalHomeView(
-//    store: Store(initialState: JournalHome.State()) {
-//      JournalHome()
-//    } withDependencies: {
-//      $0.fileIOClient.load = { _ in
-//        let notebook = Notebook(journals: [
-//          Journal.companion.mock,
-//          Journal.companion.mock,
-//          Journal.companion.mock
-//        ])
+#Preview {
+  JournalHomeView(
+    store: Store(initialState: JournalHome.State()) {
+      JournalHome()
+    } withDependencies: {
+      $0.fileIOClient.load = { _ in
+        let notebook = Notebook(journals: [
+          Journal.companion.mock,
+          Journal.companion.mock,
+          Journal.companion.mock
+        ])
+        
 //        try JSONEncoder().encode([
 //          Journal.companion.mock
 //        ])
-//      }
-//    }
-//  )
-//}
+        
+        return notebook.serialize()
+      }
+    }
+  )
+}
