@@ -49,4 +49,5 @@ dependencies {
     implementation(libs.kotlinx.datetime)
     implementation(libs.accompanist.navigation.material)
     implementation(libs.kotlinx.serialization.json)
+    implementation(libs.androidx.runtime)
 }

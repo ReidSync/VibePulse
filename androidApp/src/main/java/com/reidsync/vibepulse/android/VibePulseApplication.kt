@@ -1,8 +1,11 @@
 package com.reidsync.vibepulse.android
 
+import android.annotation.SuppressLint
 import android.app.Application
+import androidx.compose.runtime.staticCompositionLocalOf
 import com.reidsync.vibepulse.android.data.AppContainer
 import com.reidsync.vibepulse.android.data.DefaultAppContainer
+import com.reidsync.vibepulse.primitives.colors.RC
 
 /**
  * Created by Reid on 2023/12/13.
@@ -11,6 +14,10 @@ import com.reidsync.vibepulse.android.data.DefaultAppContainer
 
 lateinit var APP: VibePulseApplication
 	private set
+
+// https://developer.android.com/jetpack/compose/compositionlocal
+@SuppressLint("CompositionLocalNaming")
+val AppThemeColor = staticCompositionLocalOf { RC.default }
 
 class VibePulseApplication: Application() {
 	lateinit var container: AppContainer

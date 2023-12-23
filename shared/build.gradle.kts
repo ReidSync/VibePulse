@@ -34,11 +34,11 @@ kotlin {
             implementation(libs.kotlin.test)
         }
 
-//        androidTarget() {
-//            dependencies {
-//                implementation(libs.androidx.appcompat)
-//            }
-//        }
+        androidTarget() {
+            dependencies {
+                implementation(libs.androidx.runtime)
+            }
+        }
     }
 }
 
