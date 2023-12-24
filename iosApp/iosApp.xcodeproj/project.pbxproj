@@ -26,6 +26,7 @@
 		30817BA02B3576C500650BF8 /* JournalClient+mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817B9F2B3576C500650BF8 /* JournalClient+mock.swift */; };
 		30817BA22B3583CA00650BF8 /* SolidColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA12B3583CA00650BF8 /* SolidColor+Extensions.swift */; };
 		30817BA52B358C7B00650BF8 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA42B358C7B00650BF8 /* Color+Extensions.swift */; };
+		30817BA92B388CC500650BF8 /* AppThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA82B388CC500650BF8 /* AppThemeColor.swift */; };
 		30CBA0912B316FE300A6B884 /* SharedEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */; };
 		30D7F8412B0F59220022746D /* JournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8402B0F59220022746D /* JournalHomeView.swift */; };
 		30D7F8432B0F595E0022746D /* JournalHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8422B0F595E0022746D /* JournalHome.swift */; };
@@ -78,6 +79,7 @@
 		30817B9F2B3576C500650BF8 /* JournalClient+mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JournalClient+mock.swift"; sourceTree = "<group>"; };
 		30817BA12B3583CA00650BF8 /* SolidColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolidColor+Extensions.swift"; sourceTree = "<group>"; };
 		30817BA42B358C7B00650BF8 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
+		30817BA82B388CC500650BF8 /* AppThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeColor.swift; sourceTree = "<group>"; };
 		30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnvironment.swift; sourceTree = "<group>"; };
 		30D7F8402B0F59220022746D /* JournalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHomeView.swift; sourceTree = "<group>"; };
 		30D7F8422B0F595E0022746D /* JournalHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHome.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				30817B962B318E4C00650BF8 /* Journal+Extensions.swift */,
 				30817B982B318E9A00650BF8 /* UUID+Extensions.swift */,
 				30817BA12B3583CA00650BF8 /* SolidColor+Extensions.swift */,
+				30817BA82B388CC500650BF8 /* AppThemeColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -426,6 +429,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				30817B9E2B3574FC00650BF8 /* JournalClient+live.swift in Sources */,
+				30817BA92B388CC500650BF8 /* AppThemeColor.swift in Sources */,
 				30D7F84A2B107F860022746D /* JournalEditor.swift in Sources */,
 				30D7F8572B15F5460022746D /* KeyboardResponder.swift in Sources */,
 				30817B9B2B3574AB00650BF8 /* JournalClient.swift in Sources */,

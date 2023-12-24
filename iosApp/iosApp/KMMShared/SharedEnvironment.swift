@@ -15,3 +15,8 @@ public typealias JournalSerializationException = shared.JournalSerializationExce
 public typealias JournalEditingContext = shared.JournalEditingContext
 public typealias SolidColor = shared.SolidColor
 public typealias ThemeColor = shared.ThemeColor
+public typealias AppColor = shared.AppColor
+public typealias ResourceColor = shared.ResourceColor
+public typealias VibePulseColor = shared.VibePulseColor
+public let RC = shared.ResourceColorKt.RC
+
