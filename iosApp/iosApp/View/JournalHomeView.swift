@@ -9,38 +9,37 @@ import SwiftUI
 import ComposableArchitecture
 
 struct JournalHomeView: View {
-  @Environment(\.colorScheme) private var colorScheme
+  @Environment(\.vibePulseColor) private var appThemeColor
   let store: StoreOf<JournalHome>
   
   init(store: StoreOf<JournalHome>) {
     self.store = store
-    
-    //Use this if NavigationBarTitle is with Large Font
-    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(SolidColor.PeriwinkleA)]
-    //Use this if NavigationBarTitle is with displayMode = .inline
-    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(SolidColor.PeriwinkleA)]
+//    //Use this if NavigationBarTitle is with Large Font
+//    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(colors.vibeA.toColor())]
+//    //Use this if NavigationBarTitle is with displayMode = .inline
+//    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(colors.vibeA.toColor())]
   }
   
   var body: some View {
-    WithViewStore(self.store, observe: \.journals) { viewStore in
+    WithViewStore(self.store, observe: { $0 }) { viewStore in
       ZStack {
         List {
-          ForEach(viewStore.state) { journal in
+          ForEach(viewStore.journals) { journal in
             NavigationLink(
               state: AppFeature.Path.State.editor(JournalEditor.State(journal: journal))
             ){
               VStack(alignment: .leading) {
                 Text(journal.titleWithPlaceHolder)
                   .font(.system(size: 18, weight: .bold))
-                  .foregroundColor(SolidColor.CandleB);
+                  .foregroundColor(appThemeColor.vibeD.toColor());
                 HStack {
                   Image(systemName: "calendar")
                     .resizable()
                     .frame(width: 11, height: 11)
-                    .foregroundColor(SolidColor.SunsetA)
+                    .foregroundColor(appThemeColor.vibeB.toColor())
                   Text(journal.date.format(format: ("EE, MMM d, yyyy   h:mm:ss a")))
                     .font(.system(size: 11, weight: .light))
-                    .foregroundColor(SolidColor.SunsetB)
+                    .foregroundColor(appThemeColor.vibeC.toColor())
                 }
               }
             }
@@ -52,7 +51,6 @@ struct JournalHomeView: View {
 //        .padding(.trailing, 20)
 //        .background(SolidColor.companion.homeBackground.toColor())
         
-        
         VStack {
           Spacer()
           CreateButton() {
@@ -60,10 +58,11 @@ struct JournalHomeView: View {
           }
         }
       }
-      .navigationTitle("VibePulse")
-      .onChange(of: colorScheme) { _, newValue in
-        viewStore.send(.darkMode(newValue == .dark))
+      .onAppear {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(appThemeColor.vibeA.toColor())]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(appThemeColor.vibeA.toColor())]
       }
+      .navigationTitle("VibePulse")
       .sheet(
         store: self.store.scope(state: \.$destination, action: { .destination($0) }),
         state: \.sheetToAdd,
@@ -94,12 +93,13 @@ struct JournalHomeView: View {
 
 
 struct CreateButton: View {
+  @Environment(\.vibePulseColor) private var appThemeColor
   let action: () -> Void
   
   var body: some View {
     ZStack {
       Circle()
-        .fill(SolidColor.PeriwinkleA.shadow(.drop(color: .gray, radius: 10)))
+        .fill(appThemeColor.vibeA.toColor().shadow(.drop(color: .gray, radius: 10)))
         .frame(width: 70, height: 70)
       
       

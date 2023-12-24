@@ -13,6 +13,7 @@ struct JournalHome {
   struct State: Equatable {
     @PresentationState var destination: Destination.State?
     var journals: IdentifiedArrayOf<Journal> = []
+    //var themeColor: AppColor = RC.default_
     
     init(destination: Destination.State? = nil) {
       self.destination = destination
@@ -66,12 +67,12 @@ struct JournalHome {
         state.destination = nil
         return .none
       case .darkMode(let on):
-        if on == true {
-          print("dark mode!!")
-        }
-        else {
-          print("light mode!!")
-        }
+//        if on == true {
+//          state.themeColor = RC.dark
+//        }
+//        else {
+//          state.themeColor = RC.light
+//        }
         return .none
         
       }

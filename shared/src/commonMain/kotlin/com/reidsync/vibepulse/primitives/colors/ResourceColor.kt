@@ -59,5 +59,5 @@ class ResourceColor {
 	val default = dark
 }
 
-val RC = ResourceColor()
+val RC: ResourceColor = ResourceColor()
 

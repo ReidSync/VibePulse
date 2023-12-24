@@ -9,6 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct JournalEditorView: View {
+  @Environment(\.vibePulseColor) private var appThemeColor
   var store: StoreOf<JournalEditor>
   
   var body: some View {
@@ -17,7 +18,7 @@ struct JournalEditorView: View {
         HStack {
           Text(viewStore.journal.titleWithPlaceHolder)
             .font(.system(size: 25, weight: .bold))
-            .foregroundColor(SolidColor.PeriwinkleA)
+            .foregroundColor(appThemeColor.vibeA.toColor())
           Spacer()
         }
         ZStack(alignment: .topLeading) {
@@ -26,6 +27,8 @@ struct JournalEditorView: View {
             send: JournalEditor.Action.updateContents)
           )
           .font(.system(size: 20))
+          .scrollContentBackground(.hidden)
+          .background(appThemeColor.listBackground.toColor())
           if viewStore.journal.contents.isEmpty {
             Text(viewStore.journal.contentsWithPlaceHolder)
               .font(.system(size: 20,weight: .bold))
@@ -42,26 +45,26 @@ struct JournalEditorView: View {
       }
       .padding(.leading, 10)
       .padding(.trailing, 10)
+      .background(appThemeColor.background.toColor())
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {
           HStack {
             Image(systemName: "sun.min.fill")
-              .foregroundColor(SolidColor.CandleB)
+              .foregroundColor(appThemeColor.vibeD.toColor())
             Text(viewStore.journal.date.format(format: "MMMM d, yyyy"))
               .font(.system(size: 23, weight: .bold))
-              .foregroundColor(SolidColor.CandleB)
+              .foregroundColor(appThemeColor.vibeD.toColor())
             Spacer()
             Button {
               viewStore.send(.edit)
             } label: {
               Image(systemName: "gear")
-                .tint(SolidColor.SunsetA)
+                .tint(appThemeColor.vibeB.toColor())
             }
           }
         }
       }
-      //.background(SolidColor.VeryDarkGray)
       .task {
         await viewStore.send(.task).finish()
       }

@@ -14,11 +14,13 @@ struct AppFeature {
   struct State: Equatable {
     var path = StackState<Path.State>()
     var journalHome = JournalHome.State()
+    var themeColor: AppColor = RC.default_
   }
   
   enum Action {
     case path(StackAction<Path.State, Path.Action>)
     case journalHome(JournalHome.Action)
+    case darkMode(Bool)
   }
   
   @Dependency(\.continuousClock) var clock
@@ -41,6 +43,14 @@ struct AppFeature {
       case .path:
         return .none
       case .journalHome:
+        return .none
+      case .darkMode(let on):
+        if on == true {
+          state.themeColor = RC.dark
+        }
+        else {
+          state.themeColor = RC.light
+        }
         return .none
       }
     }
