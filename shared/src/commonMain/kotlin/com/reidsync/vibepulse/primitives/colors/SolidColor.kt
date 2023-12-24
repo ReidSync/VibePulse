@@ -24,6 +24,9 @@ data class SolidColor(
 			return SolidColor(r, g, b, alpha)
 		}
 
+		private fun withDec(r: Int, g: Int, b: Int, a: Float = 1.0f): SolidColor =
+			SolidColor(r/255f, g/255f, b/255f, a)
+
 		val Red = SolidColor(1f,0f,0f,1f)
 		val Green = SolidColor(0f,1f,0f,1f)
 		val Blue = SolidColor(0f,0f,1f,1f)
@@ -62,5 +65,8 @@ data class SolidColor(
 
 		val LightBackground = SolidColor.withHex(0xF2F2F7) // 0xFFF2F2F7
 		val DarkBackground = VeryDarkGray
+
+		val LightListBackground = SolidColor.White
+		val DarkListBackground = SolidColor.withDec(28, 28, 30)
 	}
 }
