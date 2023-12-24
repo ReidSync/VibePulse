@@ -15,10 +15,12 @@ struct JournalMeta {
     var journal: Journal
     @BindingState var focus: Field? = .title
     @BindingState var title: String
+    var titlePlaceHolder: String = ""
     
     init(journal: Journal) {
       self.journal = journal
       self.title = journal.title
+      self.titlePlaceHolder = journal.titleWithPlaceHolder
     }
     
     enum Field: Hashable {

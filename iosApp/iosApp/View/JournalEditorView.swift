@@ -15,15 +15,26 @@ struct JournalEditorView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       VStack(spacing: 0) {
         HStack {
-          Text(viewStore.journal.title)
+          Text(viewStore.journal.titleWithPlaceHolder)
             .font(.system(size: 25, weight: .bold))
             .foregroundColor(SolidColor.PeriwinkleA)
           Spacer()
         }
-        TextEditor(text: viewStore.binding(
-          get: \.journal.contents,
-          send: JournalEditor.Action.updateContents)
-        )
+        ZStack(alignment: .topLeading) {
+          TextEditor(text: viewStore.binding(
+            get: \.journal.contents,
+            send: JournalEditor.Action.updateContents)
+          )
+          .font(.system(size: 20))
+          if viewStore.journal.contents.isEmpty {
+            Text(viewStore.journal.contentsWithPlaceHolder)
+              .font(.system(size: 20,weight: .bold))
+              .foregroundColor (Color.primary.opacity (0.25))
+              .padding(.top, 10)
+              .padding(.leading, 5)
+          }
+        }
+          
         //.scrollContentBackground(.hidden)
         //.background(.red)
         .clipShape(RoundedRectangle(cornerRadius: 10))

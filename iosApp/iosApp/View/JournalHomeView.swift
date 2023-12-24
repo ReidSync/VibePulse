@@ -30,7 +30,7 @@ struct JournalHomeView: View {
               state: AppFeature.Path.State.editor(JournalEditor.State(journal: journal))
             ){
               VStack(alignment: .leading) {
-                Text(journal.title)
+                Text(journal.titleWithPlaceHolder)
                   .font(.system(size: 18, weight: .bold))
                   .foregroundColor(SolidColor.CandleB);
                 HStack {
