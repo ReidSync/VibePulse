@@ -19,7 +19,7 @@ data class Journal(
 	val date: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
 	val title: String = "",
 	val feeling: Feelings = Feelings.Neutral,
-	val moodFactors: List<MoodFactors> = emptyList(),
+	val moodFactors: Set<MoodFactors> = emptySet(),
 	val contents: String = ""
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }

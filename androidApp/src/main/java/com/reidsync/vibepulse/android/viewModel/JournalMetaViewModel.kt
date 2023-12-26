@@ -96,6 +96,17 @@ class JournalMetaViewModel(
 		updateScreen(_uiState.value.journal.copy(feeling = feeling))
 	}
 
+	fun updateMoodFactors(moodFactors: MoodFactors, selected: Boolean) {
+		val moods = _uiState.value.journal.moodFactors.toMutableSet()
+		if (selected) {
+			moods.add(moodFactors)
+		}
+		else {
+			moods.remove(moodFactors)
+		}
+		updateScreen(_uiState.value.journal.copy(moodFactors = moods))
+	}
+
 }
 
 data class JournalMetaUIState(

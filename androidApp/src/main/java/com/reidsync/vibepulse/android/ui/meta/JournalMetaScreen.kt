@@ -4,6 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -96,13 +97,22 @@ fun JournalMetaContents(
 			clearFocus = doneWithClearingFocus
 		)
 
+		MoodFactorsField(
+			moodFactors = viewModel.moodFactors,
+			journal = journal,
+			update = { moodFactors, selected ->
+				viewModel.updateMoodFactors(moodFactors, selected)
+				doneWithClearingFocus()
+			}
+		)
+
+		Spacer(Modifier.height(15.dp))
+
 		TitleField(
 			journal = journal,
 			update = viewModel::updateTitle,
 			clearFocus = doneWithClearingFocus
 		)
-
-
 
 	}
 }
