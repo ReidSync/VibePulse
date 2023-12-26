@@ -8,6 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.NotebookRepository
+import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -29,15 +30,23 @@ class JournalMetaViewModel(
 	val uiState: StateFlow<JournalMetaUIState> = _uiState.asStateFlow()
 	val dismiss: String = "Dismiss"
 	val submit: String
-		get() = when(type) {
+		get() = when (type) {
 			is JournalMetaViewType.Add -> "Add"
 			is JournalMetaViewType.Edit -> "Done"
 		}
 	val title: String
-		get() = when(type) {
+		get() = when (type) {
 			is JournalMetaViewType.Add -> "New Journal"
 			is JournalMetaViewType.Edit -> "Edit"
 		}
+
+	val feelings = listOf(
+		Feelings.Sad,
+		Feelings.Angry,
+		Feelings.Neutral,
+		Feelings.Happy,
+		Feelings.SuperHappy
+	)
 
 	companion object {
 		fun Factory(
@@ -49,7 +58,8 @@ class JournalMetaViewModel(
 				JournalMetaViewModel(
 					journal = journal,
 					type = type,
-					notebookRepository = application.container.notebookRepository)
+					notebookRepository = application.container.notebookRepository
+				)
 			}
 		}
 	}
@@ -67,6 +77,7 @@ class JournalMetaViewModel(
 					notebookRepository.add(uiState.value.journal)
 				}
 			}
+
 			is JournalMetaViewType.Edit -> {
 				viewModelScope.launch {
 					notebookRepository.update(uiState.value.journal)
@@ -85,6 +96,10 @@ class JournalMetaViewModel(
 		updateScreen(_uiState.value.journal.copy(title = title))
 	}
 
+	fun updateFeeling(feeling: Feelings) {
+		updateScreen(_uiState.value.journal.copy(feeling = feeling))
+	}
+
 }
 
 data class JournalMetaUIState(
@@ -94,7 +109,7 @@ data class JournalMetaUIState(
 }
 
 sealed class JournalMetaViewType {
-	data object Add: JournalMetaViewType()
-	data object Edit: JournalMetaViewType()
+	data object Add : JournalMetaViewType()
+	data object Edit : JournalMetaViewType()
 
 }

@@ -42,6 +42,7 @@ data class SolidColor(
 		val LightGray = SolidColor(0.6666f,0.6666f,0.6666f,1f)
 		val LighterGray = SolidColor(0.75f,0.75f,0.75f,1f)
 		val VeryLightGray = SolidColor(0.85f,0.85f,0.85f,1f)
+		val lightBlue = SolidColor.withDec(59, 130, 247)
 
 		val PeriwinkleA = SolidColor.withHex(0x9A9CEA)
 		val PeriwinkleB = SolidColor.withHex(0xA2B9EE)

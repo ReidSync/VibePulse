@@ -32,11 +32,11 @@ data class Journal(
 }
 
 enum class Feelings {
+	Sad,
+	Angry,
 	Neutral,
 	Happy,
-	SuperHappy,
-	Sad,
-	Angry
+	SuperHappy
 }
 
 enum class MoodFactors {
