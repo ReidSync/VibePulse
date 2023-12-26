@@ -13,13 +13,16 @@ struct JournalHome {
   struct State: Equatable {
     @PresentationState var destination: Destination.State?
     var journals: IdentifiedArrayOf<Journal> = []
+    //var themeColor: AppColor = RC.default_
     
     init(destination: Destination.State? = nil) {
       self.destination = destination
       
       do {
         @Dependency(\.fileIOClient.load) var loadJournals
-        self.journals = try JSONDecoder().decode(IdentifiedArray.self, from: loadJournals(.journalDataUrl))
+        let notebookString = try loadJournals(.journalDataUrl)
+        let notebook = try Notebook.deserialize(data: notebookString)
+        journals = IdentifiedArrayOf(uniqueElements: notebook.journals, id: \.id)
       }
       catch is DecodingError {
         NSLog("Failed to load data (decoding data failed)")
@@ -35,6 +38,7 @@ struct JournalHome {
     case destination(PresentationAction<Destination.Action>)
     case addNewJournal
     case dismissAddingNewJournal
+    case darkMode(Bool)
   }
   
   @Dependency(\.uuid) var uuid
@@ -45,11 +49,7 @@ struct JournalHome {
       case .createButtonTapped:
         state.destination = .sheetToAdd(
           JournalMeta.State(
-          journal: Journal(
-            id: self.uuid(),
-            title: "",
-            date: Date.now,
-            contents: "")
+            journal: Journal.companion.makeInstance()
           ))
         return .none
         
@@ -66,6 +66,15 @@ struct JournalHome {
       case .dismissAddingNewJournal:
         state.destination = nil
         return .none
+      case .darkMode(let on):
+//        if on == true {
+//          state.themeColor = RC.dark
+//        }
+//        else {
+//          state.themeColor = RC.light
+//        }
+        return .none
+        
       }
     }
     .ifLet(\.$destination, action: \.destination) {

@@ -9,32 +9,47 @@ import SwiftUI
 import ComposableArchitecture
 
 struct JournalHomeView: View {
+  @Environment(\.vibePulseColor) private var appThemeColor
   let store: StoreOf<JournalHome>
   
+  init(store: StoreOf<JournalHome>) {
+    self.store = store
+//    //Use this if NavigationBarTitle is with Large Font
+//    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(colors.vibeA.toColor())]
+//    //Use this if NavigationBarTitle is with displayMode = .inline
+//    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(colors.vibeA.toColor())]
+  }
+  
   var body: some View {
-    WithViewStore(self.store, observe: \.journals) { viewStore in
+    WithViewStore(self.store, observe: { $0 }) { viewStore in
       ZStack {
         List {
-          ForEach(viewStore.state) { journal in
+          ForEach(viewStore.journals) { journal in
             NavigationLink(
               state: AppFeature.Path.State.editor(JournalEditor.State(journal: journal))
             ){
               VStack(alignment: .leading) {
-                Text(journal.title)
+                Text(journal.titleWithPlaceHolder)
                   .font(.system(size: 18, weight: .bold))
+                  .foregroundColor(appThemeColor.vibeD.toColor());
                 HStack {
                   Image(systemName: "calendar")
                     .resizable()
                     .frame(width: 11, height: 11)
-                  Text(journal.date, style: .date)
+                    .foregroundColor(appThemeColor.vibeB.toColor())
+                  Text(journal.date.format(format: ("EE, MMM d, yyyy   h:mm:ss a")))
                     .font(.system(size: 11, weight: .light))
-                  Text(journal.date, style: .time)
-                    .font(.system(size: 11, weight: .light))
+                    .foregroundColor(appThemeColor.vibeC.toColor())
                 }
               }
             }
           }
         }
+//        .listStyle(.plain)
+//        .clipShape(RoundedRectangle(cornerRadius: 10))
+//        .padding(.leading, 20)
+//        .padding(.trailing, 20)
+//        .background(SolidColor.companion.homeBackground.toColor())
         
         VStack {
           Spacer()
@@ -43,7 +58,11 @@ struct JournalHomeView: View {
           }
         }
       }
-      .navigationTitle("My Journals")
+      .onAppear {
+        UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(appThemeColor.vibeA.toColor())]
+        UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(appThemeColor.vibeA.toColor())]
+      }
+      .navigationTitle("VibePulse")
       .sheet(
         store: self.store.scope(state: \.$destination, action: { .destination($0) }),
         state: \.sheetToAdd,
@@ -74,12 +93,13 @@ struct JournalHomeView: View {
 
 
 struct CreateButton: View {
+  @Environment(\.vibePulseColor) private var appThemeColor
   let action: () -> Void
   
   var body: some View {
     ZStack {
       Circle()
-        .fill(.palleteC.shadow(.drop(color: .gray, radius: 10)))
+        .fill(appThemeColor.vibeA.toColor().shadow(.drop(color: .gray, radius: 10)))
         .frame(width: 70, height: 70)
       
       
@@ -88,7 +108,7 @@ struct CreateButton: View {
           .resizable()
           .scaledToFit()
           .frame(width: 24, height: 24)
-          .foregroundColor(.palleteE)
+          .foregroundColor(SolidColor.White)
       }
     }
   }
@@ -100,9 +120,17 @@ struct CreateButton: View {
       JournalHome()
     } withDependencies: {
       $0.fileIOClient.load = { _ in
-        try JSONEncoder().encode([
-          Journal.mock
+        let notebook = Notebook(journals: [
+          Journal.companion.mock,
+          Journal.companion.mock,
+          Journal.companion.mock
         ])
+        
+//        try JSONEncoder().encode([
+//          Journal.companion.mock
+//        ])
+        
+        return notebook.serialize()
       }
     }
   )

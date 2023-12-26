@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.model
+package com.reidsync.vibepulse.notebook.journal
 
 import kotlinx.datetime.toLocalDateTime
 import com.reidsync.vibepulse.primitives.uuid.UUID
@@ -22,6 +22,11 @@ data class Journal(
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
 	val contentsWithPlaceHolder = contents.ifEmpty { "Start writing..." }
+
+	companion object {
+		fun makeInstance(): Journal = Journal()
+	}
+
 }
 
 val Journal.Companion.mock: Journal

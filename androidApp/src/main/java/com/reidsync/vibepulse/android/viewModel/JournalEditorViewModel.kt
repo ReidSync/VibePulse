@@ -8,7 +8,9 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.NotebookRepository
-import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.JournalEditingContext
+import com.reidsync.vibepulse.notebook.journal.edit
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -34,13 +36,6 @@ class JournalEditorViewModel(
 ): ViewModel() {
 	private val _uiState = MutableStateFlow(JournalEditorUIState())
 	val uiState: StateFlow<JournalEditorUIState> = _uiState.asStateFlow()
-		.combine(notebookRepository.notebook) { uiState, notebook ->
-			_uiState.updateAndGet { mutableState ->
-				mutableState.copy(journal = notebook.journals.first { it.id == uiState.journal.id })
-			}
-			//uiState.copy(journal = notebook.journals.first { it.id == uiState.journal.id })
-		}.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), JournalEditorUIState())
-
 	private val _saveJournalState = MutableStateFlow<Journal?>(null)
 	private val saveJournalState: StateFlow<Journal?> = _saveJournalState.asStateFlow()
 
@@ -77,6 +72,14 @@ class JournalEditorViewModel(
 				}
 			}
 		}
+
+		viewModelScope.launch {
+			notebookRepository.notebook.collect { notebook ->
+				_uiState.update { state ->
+					state.copy(journal = notebook.journals.first { it.id == state.journal.id })
+				}
+			}
+		}
 	}
 
 	override fun onCleared() {
@@ -87,19 +90,23 @@ class JournalEditorViewModel(
 		super.onCleared()
 	}
 
-	fun editJournal(journal: Journal) {		//var toSave : Journal? = null
-		_uiState.updateAndGet {
-			it.copy(journal = journal)
-		}.also {
-			saveJournal(it.journal)
+	private fun editJournal(actions: JournalEditingContext.()->Unit) {
+		viewModelScope.launch {
+			var toSave : Journal? = null
+			_uiState.update { state ->
+				val editedJournal = state.journal.edit(actions)
+				toSave = editedJournal
+				state.copy(journal = editedJournal)
+			}
+			toSave?.let {
+				saveJournal(it)
+			}
 		}
 	}
 
 	fun editContents(contents: String) {
-		_uiState.updateAndGet {
-			it.copy(contents = contents)
-		}.also {
-			editJournal(it.journal.copy(contents = contents))
+		editJournal {
+			updateContents(contents)
 		}
 	}
 

@@ -1,6 +1,7 @@
 package com.reidsync.vibepulse.android.ui
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -26,6 +28,7 @@ import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,9 +44,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.R
+import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
-import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.util.format
 
 /**
@@ -67,7 +72,7 @@ fun HomeScreen(
 			text = stringResource(R.string.app_name),
 			fontWeight = FontWeight(800),
 			fontSize = 35.sp,
-			color = Color.Black
+			color = AppThemeColor.current.vibePulseColors.vibeA.toColor()
 		)
 		Spacer(Modifier.height(5.dp))
 		Box(
@@ -107,18 +112,31 @@ fun JournalList(
 		LazyColumn(
 			state = listState,
 			modifier = Modifier
+				.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
 				.fillMaxSize()
 		) {
 			items(journals) {
-				JournalListItem(
+				Column(
 					modifier = Modifier
-						.height(70.dp)
-						.padding(bottom = 3.dp)
-						.clickable {
-							onEditJournal(it)
-						},
-					journal = it
-				)
+						.background(AppThemeColor.current.vibePulseColors.listBackground.toColor())
+				) {
+					JournalListItem(
+						modifier = Modifier
+							//.border(2.dp, Color.Blue)
+							.height(70.dp)
+							//.padding(bottom = 3.dp)
+							.clickable {
+								onEditJournal(it)
+							},
+						journal = it
+					)
+					Divider(
+						modifier = Modifier
+							.padding(start = 10.dp),
+						color = AppThemeColor.current.vibePulseColors.background.toColor(),
+						thickness = 1.dp
+					)
+				}
 			}
 		}
 	}
@@ -131,9 +149,9 @@ fun JournalListItem(
 ) {
 	Box(
 		modifier = modifier
-			.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+			//.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
 			.fillMaxWidth()
-			.background(Color.White)
+			//.background(Color.White)
 			.padding(10.dp)
 	) {
 		Row {
@@ -147,7 +165,7 @@ fun JournalListItem(
 					text = journal.titleWithPlaceHolder,
 					fontWeight = FontWeight.Bold,
 					fontSize = 18.sp,
-					color = Color.Black,
+					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 					modifier = Modifier
 						.padding(bottom = 10.dp)
 				)
@@ -158,8 +176,9 @@ fun JournalListItem(
 						Icons.Filled.DateRange,
 						contentDescription = "Calendar",
 						modifier = Modifier
-							.size(10.dp)
-							.align(Alignment.Bottom)
+							.size(20.dp)
+							.align(Alignment.Bottom),
+						tint = AppThemeColor.current.vibePulseColors.vibeB.toColor()
 					)
 
 					Spacer(modifier = Modifier.width(5.dp))
@@ -167,8 +186,8 @@ fun JournalListItem(
 					Text(
 						text = journal.date.format("EE, MMM d, yyyy   h:mm:ss a"),
 						fontWeight = FontWeight.Light,
-						fontSize = 10.sp,
-						color = Color.Black
+						fontSize = 11.sp,
+						color = AppThemeColor.current.vibePulseColors.vibeC.toColor()
 					)
 				}
 			}
@@ -183,8 +202,9 @@ fun JournalListItem(
 					Icons.Default.KeyboardArrowRight,
 					contentDescription = "enter",
 					modifier = Modifier
+						//.border(2.dp, Color.Red)
 						//.align(alignment = Alignment.CenterHorizontally)
-						.size(20.dp),
+						.size(30.dp),
 					tint = Color.LightGray
 				)
 
@@ -208,7 +228,7 @@ fun CreateButton(
 			onClick = {
 				onCreate()
 			},
-			colors = ButtonDefaults.buttonColors(Color.Blue),
+			colors = ButtonDefaults.buttonColors(AppThemeColor.current.vibePulseColors.vibeA.toColor()),
 			shape = CircleShape,
 			modifier = Modifier
 				.size(70.dp)

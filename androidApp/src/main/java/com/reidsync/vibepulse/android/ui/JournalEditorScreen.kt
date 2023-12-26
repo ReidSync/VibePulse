@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Create
@@ -19,6 +20,7 @@ import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -27,6 +29,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
@@ -35,9 +38,11 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.reidsync.vibepulse.android.AppThemeColor
+import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.viewModel.JournalEditorViewModel
-import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.util.format
 
 /**
@@ -65,7 +70,7 @@ fun JournalEditorScreen(
 
 	Column(
 		modifier = Modifier
-			.background(Color.White)
+			.background(AppThemeColor.current.vibePulseColors.background.toColor())
 	) {
 		EditorToolbar(
 			journal = uiState.journal,
@@ -76,7 +81,6 @@ fun JournalEditorScreen(
 		Editor(
 			journal = uiState.journal,
 			contents = uiState.contents,
-			onValueChange = { viewModel.editJournal(it) },
 			onContentsChange = { viewModel.editContents(it) },
 			onClearFocus = { clearFocus(true) }
 		)
@@ -87,7 +91,6 @@ fun JournalEditorScreen(
 fun Editor(
 	journal: Journal,
 	contents: String,
-	onValueChange: (Journal) -> Unit,
 	onContentsChange: (String) -> Unit,
 	onClearFocus: () -> Unit
 ) {
@@ -106,25 +109,27 @@ fun Editor(
 			text = journal.titleWithPlaceHolder,
 			fontWeight = FontWeight.Bold,
 			fontSize = 25.sp,
-			color = Color.Magenta
+			color = AppThemeColor.current.vibePulseColors.vibeA.toColor()
 		)
 
 		OutlinedTextField(
 			modifier = Modifier
+				.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
+				.background(AppThemeColor.current.vibePulseColors.listBackground.toColor())
 				.fillMaxSize(),
-			value = contents,
+			value = journal.contents,
 			onValueChange = {
 				//onValueChange(journal.copy(contents = it))
 				onContentsChange(it)
 			},
-			colors = TextFieldDefaults.colors(
-				focusedContainerColor = Color.White,
-				unfocusedContainerColor = Color.White,
-				unfocusedTextColor = Color.Black,
-				focusedTextColor = Color.Black,
-				focusedIndicatorColor = Color.White,
-				unfocusedIndicatorColor = Color.White,
-				cursorColor = Color.Black
+			colors = OutlinedTextFieldDefaults.colors(
+				focusedBorderColor = AppThemeColor.current.vibePulseColors.listBackground.toColor(),
+				unfocusedBorderColor = AppThemeColor.current.vibePulseColors.listBackground.toColor(),
+//				focusedContainerColor = Color.White,
+//				unfocusedContainerColor = Color.White,
+//				unfocusedTextColor = Color.Black,
+//				focusedTextColor = Color.Black,
+//				cursorColor = Color.Black
 			),
 			placeholder = {
 				Text(
@@ -169,14 +174,14 @@ fun EditorToolbar(
 					modifier = Modifier
 						.size(23.dp)
 						.align(Alignment.CenterVertically),
-					tint = Color.Green
+					tint = AppThemeColor.current.vibePulseColors.vibeD.toColor()
 				)
 				Spacer(modifier = Modifier.width(10.dp))
 				Text(
 					text = journal.date.format("MMMM d, yyyy"),
 					fontWeight = FontWeight.Bold,
 					fontSize = 23.sp,
-					color = Color.DarkGray
+					color = AppThemeColor.current.vibePulseColors.vibeD.toColor()
 				)
 			}
 
@@ -191,7 +196,7 @@ fun EditorToolbar(
 						onClearFocus()
 						onNavigateUp()
 					},
-				tint = Color.Green
+				tint = AppThemeColor.current.vibePulseColors.vibeB.toColor()
 			)
 
 		},
@@ -205,7 +210,7 @@ fun EditorToolbar(
 						onClearFocus()
 						onNavigateMetaEdit(journal)
 					},
-				tint = Color.Green
+				tint = AppThemeColor.current.vibePulseColors.vibeB.toColor()
 			)
 		}
 	)

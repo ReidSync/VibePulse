@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.model
+package com.reidsync.vibepulse.notebook.journal
 
 import kotlinx.serialization.Serializable
 

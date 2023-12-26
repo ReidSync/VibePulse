@@ -14,11 +14,13 @@ struct AppFeature {
   struct State: Equatable {
     var path = StackState<Path.State>()
     var journalHome = JournalHome.State()
+    var themeColor: AppColor = RC.default_
   }
   
   enum Action {
     case path(StackAction<Path.State, Path.Action>)
     case journalHome(JournalHome.Action)
+    case darkMode(Bool)
   }
   
   @Dependency(\.continuousClock) var clock
@@ -42,6 +44,14 @@ struct AppFeature {
         return .none
       case .journalHome:
         return .none
+      case .darkMode(let on):
+        if on == true {
+          state.themeColor = RC.dark
+        }
+        else {
+          state.themeColor = RC.light
+        }
+        return .none
       }
     }
     .forEach(\.path, action: \.path) {
@@ -57,7 +67,9 @@ struct AppFeature {
         try await withTaskCancellation(id: CancelID.saveDebounce, cancelInFlight: true) {
           try await self.clock.sleep(for: .seconds(1))
           print("save")
-          try await self.saveJournals(JSONEncoder().encode(journals), .journalDataUrl)
+          
+          let notebook = Notebook(journals: journals.map { $0 })
+          try await self.saveJournals(notebook.serialize(), .journalDataUrl)
         }
       }
       catch: { _, _ in }

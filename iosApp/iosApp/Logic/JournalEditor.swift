@@ -13,11 +13,11 @@ struct JournalEditor {
   struct State: Equatable {
     @PresentationState var destination: Destination.State?
     var journal: Journal
-    @BindingState var contents: String = ""
+    //@BindingState var contents: String = ""
     
     init(journal: Journal) {
       self.journal = journal
-      self.contents = journal.contents
+      //self.contents = journal.contents
       self.destination = nil
     }
   }
@@ -30,11 +30,11 @@ struct JournalEditor {
     case updateContents(String)
     case destination(PresentationAction<Destination.Action>)
     case delegate(Action.Delegate)
-    case view(Action.ViewAction)
+//    /case view(Action.ViewAction)
     
-    public enum ViewAction: BindableAction {
-      case binding(BindingAction<State>)
-    }
+//    public enum ViewAction: BindableAction {
+//      case binding(BindingAction<State>)
+//    }
     
     @CasePathable
     enum Delegate {
@@ -43,9 +43,10 @@ struct JournalEditor {
   }
   
   @Dependency(\.keyboardResponder) var keyboardResponder
+  @Dependency(\.journalClient) var journalClient
   
   var body: some Reducer<State, Action> {
-    BindingReducer(action: \.view)
+    //BindingReducer(action: \.view)
     
     Reduce { state, action in
       switch action {
@@ -59,11 +60,16 @@ struct JournalEditor {
       case .edit:
         state.destination = .sheetToEdit(JournalMeta.State(journal: state.journal))
         return .none
-      case .view(.binding):
-        state.journal.contents = state.contents
-        return .none
+//      case .view(.binding):
+//        //state.journal.contents = state.contents
+//        state.journal = state.journal.copy(id: nil, title: nil, contents: state.contents)
+//        return .none
       case .updateContents(let text):
-        state.journal.contents = text
+        //state.journal.contents = text
+        //state.journal = state.journal.copy(id: nil, title: nil, contents: text)
+        state.journal = journalClient.editJournal(state.journal) {
+          $0.updateContents(contents: text)
+        }
         return .none
       case .destination:
         return .none

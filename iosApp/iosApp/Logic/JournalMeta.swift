@@ -12,8 +12,16 @@ import ComposableArchitecture
 @Reducer
 struct JournalMeta {
   struct State: Equatable {
+    var journal: Journal
     @BindingState var focus: Field? = .title
-    @BindingState var journal: Journal
+    @BindingState var title: String
+    var titlePlaceHolder: String = ""
+    
+    init(journal: Journal) {
+      self.journal = journal
+      self.title = journal.title
+      self.titlePlaceHolder = journal.titleWithPlaceHolder
+    }
     
     enum Field: Hashable {
       case title
@@ -28,6 +36,9 @@ struct JournalMeta {
     BindingReducer()
     Reduce { state, action in
       switch action {
+      case .binding(\.$title):
+        state.journal = state.journal.copy(title: state.title)
+        return .none
       case .binding:
         return .none
       }

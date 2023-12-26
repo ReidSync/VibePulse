@@ -8,7 +8,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.NotebookRepository
-import com.reidsync.vibepulse.model.Journal
+import com.reidsync.vibepulse.notebook.journal.Journal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -27,6 +27,8 @@ class HomeViewModel(
 ) : ViewModel() {
 	private val _uiState = MutableStateFlow(HomeScreenUIState())
 	val uiState: StateFlow<HomeScreenUIState> = _uiState.asStateFlow()
+		// Caution. combine() is called whenever _uiState is updated,
+		// even if notebookRepository.notebook has not changed.
 		.combine(notebookRepository.notebook) { uiState, notebook ->
 			uiState.copy(journals = notebook.journals)
 		}.stateIn(viewModelScope, SharingStarted.WhileSubscribed(), HomeScreenUIState())
