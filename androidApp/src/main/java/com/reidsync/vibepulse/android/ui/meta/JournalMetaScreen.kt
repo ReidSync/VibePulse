@@ -1,16 +1,13 @@
-package com.reidsync.vibepulse.android.ui
+package com.reidsync.vibepulse.android.ui.meta
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.OutlinedTextField
@@ -20,7 +17,6 @@ import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
@@ -32,7 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.MyApplicationTheme
+import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
@@ -76,28 +74,6 @@ fun JournalMetaContents(
 		focusManager.clearFocus()
 	}
 
-	@Composable
-	fun JournalInfoField(
-		title: String,
-		content: @Composable () -> Unit
-	) {
-		Row(
-			modifier = Modifier
-				.fillMaxWidth()
-				.padding(5.dp),
-			verticalAlignment = Alignment.CenterVertically,
-			horizontalArrangement = Arrangement.Start
-		) {
-			Text(
-				text = title,
-				fontSize = 15.sp,
-				color = Color.Black,
-			)
-			Spacer(Modifier.width(5.dp))
-			content()
-		}
-	}
-
 	Column(
 		modifier = Modifier
 			.fillMaxSize()
@@ -116,46 +92,81 @@ fun JournalMetaContents(
 				.padding(start = 10.dp, bottom = 10.dp)
 		)
 
-		JournalInfoField(
-			title = "Title",
-			content = {
-				OutlinedTextField(
-					modifier = Modifier
-						.fillMaxWidth(),
-					value = journal.title,
-					onValueChange = {
-						viewModel.updateTitle(it)
-					},
-					colors = TextFieldDefaults.colors(
-						focusedContainerColor = Color.White,
-						unfocusedContainerColor = Color.White,
-						unfocusedTextColor = Color.LightGray,
-						focusedTextColor = Color.Black,
-						focusedIndicatorColor = Color.White,
-						unfocusedIndicatorColor = Color.White,
-						cursorColor = Color.Black
-					),
-					placeholder = {
-						Text(
-							text = journal.titleWithPlaceHolder,
-							color = Color.LightGray
-						)
-					},
-					maxLines = 1,
-					keyboardOptions = KeyboardOptions.Default.copy(
-						imeAction = ImeAction.Done,
-						keyboardType = KeyboardType.Text
-					),
-					keyboardActions = KeyboardActions(
-						onDone = {
-							doneWithClearingFocus()
-						}
-					)
-				)
-			}
-		)
+		TitleField(
+			journal = journal,
+			update = viewModel::updateTitle,
+			clearFocus = doneWithClearingFocus)
+
 	}
 }
+
+
+@Composable
+fun TitleField(
+	journal: Journal,
+	update: (String)-> Unit,
+	clearFocus: () -> Unit
+) {
+	JournalInfoField(
+		title = "Give a title for your today",
+		content = {
+			OutlinedTextField(
+				modifier = Modifier
+					.fillMaxWidth(),
+				value = journal.title,
+				onValueChange = {
+					update(it)
+				},
+				colors = TextFieldDefaults.colors(
+					focusedContainerColor = Color.White,
+					unfocusedContainerColor = Color.White,
+					unfocusedTextColor = Color.LightGray,
+					focusedTextColor = Color.Black,
+					focusedIndicatorColor = Color.White,
+					unfocusedIndicatorColor = Color.White,
+					cursorColor = Color.Black
+				),
+				placeholder = {
+					Text(
+						text = journal.titleWithPlaceHolder,
+						color = Color.LightGray
+					)
+				},
+				maxLines = 1,
+				keyboardOptions = KeyboardOptions.Default.copy(
+					imeAction = ImeAction.Done,
+					keyboardType = KeyboardType.Text
+				),
+				keyboardActions = KeyboardActions(
+					onDone = {
+						clearFocus()
+					}
+				)
+			)
+		}
+	)
+}
+
+@Composable
+fun JournalInfoField(
+	title: String,
+	content: @Composable () -> Unit
+) {
+	Column(
+		modifier = Modifier
+			.fillMaxWidth()
+			.padding(5.dp)
+	) {
+		Text(
+			text = title,
+			fontSize = 16.sp,
+			color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+		)
+		Spacer(Modifier.height(5.dp))
+		content()
+	}
+}
+
 
 @Composable
 fun JournalMetaToolbar(
@@ -172,7 +183,7 @@ fun JournalMetaToolbar(
 				text = viewModel.title,
 				fontWeight = FontWeight.Bold,
 				fontSize = 18.sp,
-				color = Color.Black,
+				color = AppThemeColor.current.vibePulseColors.vibeA.toColor(),
 				modifier = it
 			)
 		},

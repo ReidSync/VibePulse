@@ -16,6 +16,8 @@ fun Journal.edit(actions: JournalEditingContext.()->Unit) : Journal {
 interface JournalEditingContext {
 	fun updateContents(contents: String)
 	fun updateTitle(title: String)
+	fun updateFeelings(feeling: Feelings)
+	fun updateMoodFactor(moodFactor: MoodFactors)
 }
 
 private class JournalEditingContextImpl(var journal: Journal) : JournalEditingContext {
@@ -25,6 +27,14 @@ private class JournalEditingContextImpl(var journal: Journal) : JournalEditingCo
 
 	override fun updateTitle(title: String) {
 		journal = journal.copy(title = title)
+	}
+
+	override fun updateFeelings(feeling: Feelings) {
+		journal = journal.copy(feeling = feeling)
+	}
+
+	override fun updateMoodFactor(moodFactor: MoodFactors) {
+		journal = journal.copy(moodFactors = moodFactor)
 	}
 
 }
