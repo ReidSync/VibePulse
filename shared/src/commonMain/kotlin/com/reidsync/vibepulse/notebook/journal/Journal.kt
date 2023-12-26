@@ -19,7 +19,7 @@ data class Journal(
 	val date: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
 	val title: String = "",
 	val feeling: Feelings = Feelings.Neutral,
-	val moodFactors: MoodFactors = MoodFactors.None,
+	val moodFactors: List<MoodFactors> = emptyList(),
 	val contents: String = ""
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
@@ -39,11 +39,14 @@ enum class Feelings {
 	SuperHappy
 }
 
-enum class MoodFactors {
-	Work, Friends, Family, Relationships,
-	Drink, Food, Exercise, Hobbies,
-	Finances, Sleep, Education, Weather,
-	Music, Travel, Health, None
+enum class MoodFactors(val displayName: String) {
+	Work("Work"), Friends("Friend"), Family("Family"),
+	Relationships("Relationships"),
+	Drink("Drink"), Food("Food"), Exercise("Exercise"),
+	Hobbies("Hobbies"), Finances("Finances"), Sleep("Sleep"),
+	Education("Education"), Weather("Weather"),
+	Music("Music"), Travel("Travel"), Health("Health"),
+	Nothing("Nothing")
 }
 
 val Journal.Companion.mock: Journal

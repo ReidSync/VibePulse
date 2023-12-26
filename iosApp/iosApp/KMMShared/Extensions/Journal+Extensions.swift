@@ -18,8 +18,10 @@ extension Journal {
   )-> Journal {    
     return doCopy(
       id: id ?? self.id,
-      title: title ?? self.title,
       date: self.date,
+      title: title ?? self.title,
+      feeling: self.feeling,
+      moodFactors: self.moodFactors,
       contents: contents ?? self.contents)
   }
 }

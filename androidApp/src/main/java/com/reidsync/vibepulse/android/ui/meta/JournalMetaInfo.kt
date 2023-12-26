@@ -43,6 +43,7 @@ import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.MoodFactors
 
 
 /**
@@ -119,7 +120,7 @@ fun TitleField(
 
 @Composable
 fun FeelingsField(
-	feelings: List<Feelings>,
+	feelings: Array<Feelings>,
 	journal: Journal,
 	update: (Feelings) -> Unit,
 	clearFocus: () -> Unit
@@ -188,3 +189,16 @@ fun FeelingsField(
 		}
 	)
 }
+
+@Composable
+fun MoodFactorsField(
+	moodFactors: Array<MoodFactors>,
+	journal: Journal,
+	update: (List<MoodFactors>) -> Unit,
+	clearFocus: () -> Unit
+) {
+	MoodFactors.Work.name
+
+}
+
+

@@ -10,6 +10,7 @@ import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.NotebookRepository
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.MoodFactors
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -40,13 +41,8 @@ class JournalMetaViewModel(
 			is JournalMetaViewType.Edit -> "Edit"
 		}
 
-	val feelings = listOf(
-		Feelings.Sad,
-		Feelings.Angry,
-		Feelings.Neutral,
-		Feelings.Happy,
-		Feelings.SuperHappy
-	)
+	val feelings = Feelings.entries.toTypedArray()
+	val moodFactors = MoodFactors.entries.toTypedArray()
 
 	companion object {
 		fun Factory(
