@@ -22,8 +22,8 @@ extension Journal {
       id: id ?? self.id,
       date: self.date,
       title: title ?? self.title,
-      feeling: self.feeling,
-      moodFactors: self.moodFactors,
+      feeling: feeling ?? self.feeling,
+      moodFactors: moodFactors ?? self.moodFactors,
       contents: contents ?? self.contents)
   }
 }
