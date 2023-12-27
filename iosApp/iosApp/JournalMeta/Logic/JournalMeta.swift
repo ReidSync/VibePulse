@@ -12,7 +12,7 @@ import ComposableArchitecture
 struct JournalMeta {
   struct State: Equatable {
     var journal: Journal
-    @BindingState var focus: Field? = .title
+    @BindingState var focus: Field? = nil
     @BindingState var title: String
     var feeling: Feelings
     var moodFactors: Set<MoodFactors>

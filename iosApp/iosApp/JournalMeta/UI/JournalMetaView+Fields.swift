@@ -14,7 +14,7 @@ extension JournalMetaView {
     title: String,
     content: () -> Content
   )-> some View {
-    VStack(alignment: .leading, spacing: 20) {
+    VStack(alignment: .leading, spacing: 10) {
       Text(title)
         .font(.system(size: 20, weight: .bold))
         .foregroundColor(appThemeColor.vibeA.toColor());
@@ -33,6 +33,13 @@ extension JournalMetaView {
     journalInfoFieldView(title: "Give a title for today") {
       TextField(viewStore.titlePlaceholder, text: viewStore.$title)
         .focused(self.$focus, equals: .title)
+        .padding(5)
+        .overlay(
+          RoundedRectangle(cornerRadius: 2)
+            .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
+        )
+        .foregroundColor(appThemeColor.vibeD.toColor())
+        
     }
   }
 }
