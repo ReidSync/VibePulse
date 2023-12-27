@@ -49,6 +49,12 @@ class HomeViewModel(
 			notebookRepository.add(item).getOrDefault(Unit)
 		}
 	}
+
+	fun deleteJournal(item: Journal) {
+		viewModelScope.launch {
+			notebookRepository.delete(item)
+		}
+	}
 }
 
 

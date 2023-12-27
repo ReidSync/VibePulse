@@ -69,6 +69,16 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 		return save(newNotebook)
 	}
 
+	override suspend fun delete(item: Journal): Result<Unit> {
+		val mutableNotebook = notebook.value.journals.toMutableList()
+		mutableNotebook.remove(item)
+		println("remove item ${item.title}")
+		val newNotebook = notebook.value.copy (
+			journals = mutableNotebook
+		)
+		return save(newNotebook)
+	}
+
 	override suspend fun update(item: Journal): Result<Unit> {
 		return runCatching {
 			val index = notebook.value.journals.indexOfFirst { it.id == item.id }

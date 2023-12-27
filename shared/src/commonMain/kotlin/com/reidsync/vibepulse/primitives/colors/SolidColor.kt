@@ -28,6 +28,7 @@ data class SolidColor(
 			SolidColor(r/255f, g/255f, b/255f, a)
 
 		val Red = SolidColor(1f,0f,0f,1f)
+		val LightRed = SolidColor.withDec(110, 41, 31)
 		val Green = SolidColor(0f,1f,0f,1f)
 		val Blue = SolidColor(0f,0f,1f,1f)
 		val Cyan = SolidColor(0f,1f,1f,1f)
@@ -35,6 +36,7 @@ data class SolidColor(
 		val Yellow = SolidColor(1f,1f,0f,1f)
 		val Black = SolidColor(0f,0f,0f,1f)
 		val White = SolidColor(1f,1f,1f,1f)
+		val MidWhite = SolidColor.withDec(120, 120, 120)
 		val VeryDarkGray = SolidColor(0.16f,0.16f,0.17f,1f)
 		val DarkerGray = SolidColor(0.25f,0.25f,0.25f,1f)
 		val DarkGray = SolidColor(0.3333f,0.3333f,0.3333f,1f)
