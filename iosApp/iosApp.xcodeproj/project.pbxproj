@@ -27,6 +27,7 @@
 		30817BA22B3583CA00650BF8 /* SolidColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA12B3583CA00650BF8 /* SolidColor+Extensions.swift */; };
 		30817BA52B358C7B00650BF8 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA42B358C7B00650BF8 /* Color+Extensions.swift */; };
 		30817BA92B388CC500650BF8 /* AppThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA82B388CC500650BF8 /* AppThemeColor.swift */; };
+		30817BB52B3C086B00650BF8 /* JournalMetaView+Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BB42B3C086B00650BF8 /* JournalMetaView+Fields.swift */; };
 		30CBA0912B316FE300A6B884 /* SharedEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */; };
 		30D7F8412B0F59220022746D /* JournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8402B0F59220022746D /* JournalHomeView.swift */; };
 		30D7F8432B0F595E0022746D /* JournalHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8422B0F595E0022746D /* JournalHome.swift */; };
@@ -79,6 +80,7 @@
 		30817BA12B3583CA00650BF8 /* SolidColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SolidColor+Extensions.swift"; sourceTree = "<group>"; };
 		30817BA42B358C7B00650BF8 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		30817BA82B388CC500650BF8 /* AppThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeColor.swift; sourceTree = "<group>"; };
+		30817BB42B3C086B00650BF8 /* JournalMetaView+Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JournalMetaView+Fields.swift"; sourceTree = "<group>"; };
 		30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnvironment.swift; sourceTree = "<group>"; };
 		30D7F8402B0F59220022746D /* JournalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHomeView.swift; sourceTree = "<group>"; };
 		30D7F8422B0F595E0022746D /* JournalHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHome.swift; sourceTree = "<group>"; };
@@ -269,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				30D7F84D2B109C1C0022746D /* JournalMetaView.swift */,
+				30817BB42B3C086B00650BF8 /* JournalMetaView+Fields.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -496,6 +499,7 @@
 				30D7F8522B15CC9C0022746D /* URL+Extension.swift in Sources */,
 				30793F162B0DF5A3008E8A16 /* AppView.swift in Sources */,
 				30793EE92B0DF060008E8A16 /* iosApp.swift in Sources */,
+				30817BB52B3C086B00650BF8 /* JournalMetaView+Fields.swift in Sources */,
 				30D7F8482B107F730022746D /* JournalEditorView.swift in Sources */,
 				30817B932B318A4F00650BF8 /* Notebook+Extensions.swift in Sources */,
 				30817B992B318E9A00650BF8 /* UUID+Extensions.swift in Sources */,

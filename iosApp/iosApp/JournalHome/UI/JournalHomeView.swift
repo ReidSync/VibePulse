@@ -70,6 +70,7 @@ struct JournalHomeView: View {
       ) { store in
         NavigationStack {
           JournalMetaView(store: store)
+            .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("New Journal")
             .toolbar {
 //              ToolbarItem(placement: .principal) {

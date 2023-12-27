@@ -12,8 +12,10 @@ extension Journal: Identifiable {}
 extension Journal {
   func copy(
     id: UUID? = nil,
-    title: String? = nil,
     //date: Date? = nil, // Kotlinx.datetimeLocalDateTime
+    title: String? = nil,
+    feeling: Feelings? = nil,
+    moodFactors: Set<MoodFactors>? = nil,
     contents: String? = nil
   )-> Journal {    
     return doCopy(

@@ -34,7 +34,9 @@ struct JournalMeta {
   
   enum Action: BindableAction {
     case binding(BindingAction<State>)
+    case updateJournal(Journal)
     case setFeeling(Feelings)
+    case setMoodFactor(moodFactor: MoodFactors, selected: Bool)
   }
   
   var body: some Reducer<State, Action> {
@@ -44,9 +46,20 @@ struct JournalMeta {
       case .binding(\.$title):
         state.journal = state.journal.copy(title: state.title)
         return .none
+      case .updateJournal(let journal):
+        state.journal = journal
+        return .none
       case .setFeeling(let feeling):
         state.feeling = feeling
-        return .none
+        return .send(.updateJournal(state.journal.copy(feeling: state.feeling)))
+      case let .setMoodFactor(moodFactor, selected):
+        if selected {
+          state.moodFactors.insert(moodFactor)
+        }
+        else {
+          state.moodFactors.remove(moodFactor)
+        }
+        return .send(.updateJournal(state.journal.copy(moodFactors: state.moodFactors)))
       case .binding:
         return .none
       }

@@ -75,6 +75,7 @@ struct JournalEditorView: View {
       ) { store in
         NavigationStack {
           JournalMetaView(store: store)
+            .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Edit my journal")
             .toolbar {
 //              ToolbarItem(placement: .principal) {
