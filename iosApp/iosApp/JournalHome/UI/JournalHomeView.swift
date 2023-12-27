@@ -14,10 +14,6 @@ struct JournalHomeView: View {
   
   init(store: StoreOf<JournalHome>) {
     self.store = store
-//    //Use this if NavigationBarTitle is with Large Font
-//    UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(colors.vibeA.toColor())]
-//    //Use this if NavigationBarTitle is with displayMode = .inline
-//    UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(colors.vibeA.toColor())]
   }
   
   var body: some View {
@@ -43,6 +39,12 @@ struct JournalHomeView: View {
                 }
               }
             }
+          }
+          .onDelete { indexSet in
+            guard let index = indexSet.first else {
+              return
+            }
+            viewStore.send(.removeJournal(index: index))
           }
         }
 //        .listStyle(.plain)
