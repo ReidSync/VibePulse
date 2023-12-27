@@ -153,7 +153,8 @@ fun FeelingsField(
 				state = listState,
 				modifier = Modifier.fillMaxWidth(),
 				horizontalArrangement = Arrangement.Center,
-				contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+				//verticalAlignment = Alignment.CenterVertically,
+				contentPadding = PaddingValues(horizontal = 0.dp, vertical = 8.dp)
 			) {
 				items(feelings) { feeling ->
 					emojis[feeling]?.let { emoji ->
@@ -173,7 +174,7 @@ fun FeelingsField(
 							colorFilter = if (isSelected) null else
 								ColorFilter.colorMatrix(matrix),
 							modifier = Modifier
-								.size(54.dp)
+								.size(70.dp)
 								.padding(8.dp)
 								.clip(CircleShape)
 								.clickable(

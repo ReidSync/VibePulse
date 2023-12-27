@@ -82,13 +82,13 @@ fun JournalMetaContents(
 			}
 			.padding(20.dp)
 	) {
-		Text(
-			text = "JOURNAL INFO",
-			fontSize = 13.sp,
-			color = Color.Gray,
-			modifier = Modifier
-				.padding(start = 10.dp, bottom = 10.dp)
-		)
+//		Text(
+//			text = "JOURNAL INFO",
+//			fontSize = 13.sp,
+//			color = Color.Gray,
+//			modifier = Modifier
+//				.padding(start = 10.dp, bottom = 10.dp)
+//		)
 
 		FeelingsField(
 			feelings = viewModel.feelings,

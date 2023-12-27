@@ -8,6 +8,8 @@
 import Foundation
 import shared
 
+extension shared.UUID: Identifiable {}
+
 extension shared.UUID {
   static func randomUUID()-> UUID {
     return UUID.companion.randomUUID()

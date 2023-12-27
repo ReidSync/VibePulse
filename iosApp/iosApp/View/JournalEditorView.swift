@@ -77,6 +77,11 @@ struct JournalEditorView: View {
           JournalMetaView(store: store)
             .navigationTitle("Edit my journal")
             .toolbar {
+//              ToolbarItem(placement: .principal) {
+//                Text("Edit my journal")
+//                  .font(.system(size: 20, weight: .bold))
+//                  .foregroundColor(appThemeColor.vibeA.toColor());
+//              }
               ToolbarItem(placement: .cancellationAction) {
                 Button("Dismiss") {
                   viewStore.send(.dismissEditingMyJournal)

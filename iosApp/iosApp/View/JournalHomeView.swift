@@ -72,6 +72,11 @@ struct JournalHomeView: View {
           JournalMetaView(store: store)
             .navigationTitle("New Journal")
             .toolbar {
+//              ToolbarItem(placement: .principal) {
+//                Text("New Journal")
+//                  .font(.system(size: 20, weight: .bold))
+//                  .foregroundColor(appThemeColor.vibeA.toColor());
+//              }
               ToolbarItem(placement: .cancellationAction) {
                 Button("Dismiss") {
                   viewStore.send(.dismissAddingNewJournal)
