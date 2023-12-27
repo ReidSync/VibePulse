@@ -48,22 +48,25 @@ extension JournalMetaView {
         ForEach(Feelings.entries, id: \.self) { feeling in
           if let emoji = viewStore.emojis[feeling] {
             let isSelected = viewStore.feeling == feeling
-            let scale = isSelected ? 1.2 : 1.0
+            let scale = isSelected ? 1.25 : 1.0
             
             Button {
               viewStore.send(.setFeeling(feeling))
             } label: {
               Image(emoji)
                 .resizable()
-                .frame(width: 42, height: 42)
+                .scaledToFill()
+                .frame(width: 44, height: 44)
+                .scaleEffect(CGFloat(scale))
+                .clipped()
+                .clipShape(Circle())
                 .overlay(
                   Color.gray
                     .opacity(isSelected ? 0 : 0.7)
                     .clipShape(Circle())
                 )
-                .padding(8)
-                .clipShape(Circle())
                 .scaleEffect(CGFloat(scale))
+                .padding(8)
             }
             .buttonStyle(PlainButtonStyle())
             .animation(.easeInOut(duration: 0.2), value: scale)
