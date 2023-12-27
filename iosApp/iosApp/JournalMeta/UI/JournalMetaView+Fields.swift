@@ -39,6 +39,7 @@ extension JournalMetaView {
             .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
         )
         .foregroundColor(appThemeColor.vibeD.toColor())
+        //.ignoresSafeArea(.keyboard)
         
     }
   }

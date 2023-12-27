@@ -27,6 +27,7 @@ struct JournalMetaView: View {
       Feelings.happy : "happy",
       Feelings.superhappy : "super_happy"
     ]
+    @BindingViewState var keyboardPadding: CGFloat
   }
   
   var body: some View {
@@ -43,6 +44,13 @@ struct JournalMetaView: View {
         //.scrollContentBackground(.hidden)
         .background(appThemeColor.background.toColor())
       }
+      .task {
+        await viewStore.send(.task).finish()
+      }
+      .padding(.bottom, viewStore.keyboardPadding)
+      .onTapGesture {
+        self.focus = nil
+      }
       
     }
   }
@@ -55,7 +63,9 @@ extension BindingViewStore<JournalMeta.State> {
       title: self.$title,
       feeling: self.feeling,
       moodFactors: self.moodFactors,
-      titlePlaceholder: self.titlePlaceHolder
+      titlePlaceholder: self.titlePlaceHolder,
+      keyboardPadding: self.$keyboardPadding
+      
     )
   }
 }

@@ -52,7 +52,7 @@ struct JournalEditor {
       switch action {
       case .task:
         return .run { send in
-          for await _ in await self.keyboardResponder.enabled() {
+          for await _ in await self.keyboardResponder.willShow() {
             print("Keyboard showed up \(keyboardResponder.height())")
             //await send(.userDidTakeScreenshotNotification)
           }
