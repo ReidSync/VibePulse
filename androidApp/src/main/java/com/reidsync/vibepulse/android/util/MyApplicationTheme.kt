@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.android
+package com.reidsync.vibepulse.android.util
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape

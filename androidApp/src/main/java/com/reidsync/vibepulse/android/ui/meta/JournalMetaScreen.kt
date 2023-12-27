@@ -24,11 +24,9 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibepulse.android.AppThemeColor
-import com.reidsync.vibepulse.android.MyApplicationTheme
+import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
-import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
-import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.primitives.colors.SolidColor
 

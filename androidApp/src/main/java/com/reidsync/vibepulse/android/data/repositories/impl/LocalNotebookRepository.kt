@@ -1,6 +1,6 @@
-package com.reidsync.vibepulse.android.data.impl
+package com.reidsync.vibepulse.android.data.repositories.impl
 
-import com.reidsync.vibepulse.android.data.NotebookRepository
+import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.Notebook
 import com.reidsync.vibepulse.notebook.journal.deserializeToNotebook
@@ -65,6 +65,16 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 	override suspend fun add(item: Journal): Result<Unit> {
 		val newNotebook = notebook.value.copy (
 			journals = notebook.value.journals + item
+		)
+		return save(newNotebook)
+	}
+
+	override suspend fun delete(item: Journal): Result<Unit> {
+		val mutableNotebook = notebook.value.journals.toMutableList()
+		mutableNotebook.remove(item)
+		println("remove item ${item.title}")
+		val newNotebook = notebook.value.copy (
+			journals = mutableNotebook
 		)
 		return save(newNotebook)
 	}

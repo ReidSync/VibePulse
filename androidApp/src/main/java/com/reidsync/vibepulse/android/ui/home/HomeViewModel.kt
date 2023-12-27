@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.android.viewModel
+package com.reidsync.vibepulse.android.ui.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
-import com.reidsync.vibepulse.android.data.NotebookRepository
+import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 import com.reidsync.vibepulse.notebook.journal.Journal
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
@@ -47,6 +47,12 @@ class HomeViewModel(
 	fun addJournal(item: Journal) {
 		viewModelScope.launch {
 			notebookRepository.add(item).getOrDefault(Unit)
+		}
+	}
+
+	fun deleteJournal(item: Journal) {
+		viewModelScope.launch {
+			notebookRepository.delete(item)
 		}
 	}
 }

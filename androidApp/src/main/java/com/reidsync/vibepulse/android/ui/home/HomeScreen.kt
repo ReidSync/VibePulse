@@ -1,5 +1,6 @@
 package com.reidsync.vibepulse.android.ui.home
 
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -45,7 +46,6 @@ import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.data.conventions.toColor
-import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.util.format
 
@@ -79,7 +79,8 @@ fun HomeScreen(
 		) {
 			JournalList(
 				journals = uiState.journals,
-				onEditJournal = onEditJournal
+				onEditJournal = onEditJournal,
+				onDeleteJournal = viewModel::deleteJournal
 			)
 			CreateButton(
 				Modifier
@@ -92,11 +93,13 @@ fun HomeScreen(
 	}
 }
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun JournalList(
 	modifier: Modifier = Modifier,
 	journals: List<Journal>,
-	onEditJournal: (Journal) -> Unit
+	onEditJournal: (Journal) -> Unit,
+	onDeleteJournal: (Journal) -> Unit,
 ) {
 	val listState = rememberLazyListState()
 	Box(modifier = modifier
@@ -113,32 +116,49 @@ fun JournalList(
 				.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
 				.fillMaxSize()
 		) {
-			items(journals) {
-				Column(
-					modifier = Modifier
-						.background(AppThemeColor.current.vibePulseColors.listBackground.toColor())
-				) {
-					JournalListItem(
+			items(
+				items = journals,
+				key = { journal -> journal.hashCode() },
+				itemContent = {
+					Column(
 						modifier = Modifier
-							//.border(2.dp, Color.Blue)
-							.height(70.dp)
-							//.padding(bottom = 3.dp)
-							.clickable {
-								onEditJournal(it)
-							},
-						journal = it
-					)
-					Divider(
-						modifier = Modifier
-							.padding(start = 10.dp),
-						color = AppThemeColor.current.vibePulseColors.background.toColor(),
-						thickness = 1.dp
-					)
+							.background(AppThemeColor.current.vibePulseColors.listBackground.toColor())
+					) {
+
+						SwipeableItem(
+							modifier = Modifier
+								.padding(vertical = 1.dp)
+								.animateItemPlacement(),
+							onDelete = {
+								onDeleteJournal(it)
+							}) {
+							JournalListItem(
+								modifier = Modifier
+									.background(AppThemeColor.current.vibePulseColors.listBackground.toColor())
+									//.border(2.dp, Color.Blue)
+									.height(70.dp)
+									//.padding(bottom = 3.dp)
+									.clickable {
+										onEditJournal(it)
+									},
+								journal = it
+							)
+
+						}
+						Divider(
+							modifier = Modifier
+								.padding(start = 10.dp),
+							color = AppThemeColor.current.vibePulseColors.background.toColor(),
+							thickness = 1.dp
+						)
+					}
 				}
-			}
+			)
+			//items(journals) {}
 		}
 	}
 }
+
 
 @Composable
 fun JournalListItem(

@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.android.data
+package com.reidsync.vibepulse.android.data.repositories
 
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.Notebook
@@ -14,5 +14,6 @@ interface NotebookRepository {
 	suspend fun save(data: Notebook): Result<Unit>
 	suspend fun load(): Result<Notebook>
 	suspend fun add(item: Journal): Result<Unit>
+	suspend fun delete(item: Journal): Result<Unit>
 	suspend fun update(item: Journal): Result<Unit>
 }
