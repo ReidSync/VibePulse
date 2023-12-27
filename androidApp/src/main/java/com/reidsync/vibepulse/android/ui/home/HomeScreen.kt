@@ -45,7 +45,6 @@ import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.data.conventions.toColor
-import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.util.format
 

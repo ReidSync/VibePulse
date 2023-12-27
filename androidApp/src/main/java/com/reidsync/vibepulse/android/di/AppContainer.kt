@@ -1,7 +1,8 @@
-package com.reidsync.vibepulse.android.data
+package com.reidsync.vibepulse.android.di
 
 import com.reidsync.vibepulse.android.APP
-import com.reidsync.vibepulse.android.data.impl.LocalNotebookRepository
+import com.reidsync.vibepulse.android.data.repositories.impl.LocalNotebookRepository
+import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 
 /**
  * Created by Reid on 2023/12/13.

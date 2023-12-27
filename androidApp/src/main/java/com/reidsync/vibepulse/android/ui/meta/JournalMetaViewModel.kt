@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.android.viewModel
+package com.reidsync.vibepulse.android.ui.meta
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
-import com.reidsync.vibepulse.android.data.NotebookRepository
+import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.MoodFactors

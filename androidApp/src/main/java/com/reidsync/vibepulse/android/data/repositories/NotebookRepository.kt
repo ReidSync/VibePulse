@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.android.data
+package com.reidsync.vibepulse.android.data.repositories
 
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.Notebook

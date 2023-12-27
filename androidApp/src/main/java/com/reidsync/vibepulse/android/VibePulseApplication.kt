@@ -3,8 +3,8 @@ package com.reidsync.vibepulse.android
 import android.annotation.SuppressLint
 import android.app.Application
 import androidx.compose.runtime.staticCompositionLocalOf
-import com.reidsync.vibepulse.android.data.AppContainer
-import com.reidsync.vibepulse.android.data.DefaultAppContainer
+import com.reidsync.vibepulse.android.di.AppContainer
+import com.reidsync.vibepulse.android.di.DefaultAppContainer
 import com.reidsync.vibepulse.primitives.colors.RC
 
 /**

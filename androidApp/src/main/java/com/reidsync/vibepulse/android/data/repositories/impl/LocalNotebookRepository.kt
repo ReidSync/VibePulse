@@ -1,6 +1,6 @@
-package com.reidsync.vibepulse.android.data.impl
+package com.reidsync.vibepulse.android.data.repositories.impl
 
-import com.reidsync.vibepulse.android.data.NotebookRepository
+import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.Notebook
 import com.reidsync.vibepulse.notebook.journal.deserializeToNotebook

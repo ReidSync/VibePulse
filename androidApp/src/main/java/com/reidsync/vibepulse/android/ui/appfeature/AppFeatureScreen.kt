@@ -1,4 +1,4 @@
-package com.reidsync.vibepulse.android.ui
+package com.reidsync.vibepulse.android.ui.appfeature
 
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -12,7 +12,7 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
-import com.reidsync.vibepulse.android.MyApplicationTheme
+import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.android.data.HOME
 import com.reidsync.vibepulse.android.data.JOURNAL_EDITOR
 import com.reidsync.vibepulse.android.data.JOURNAL_META
@@ -20,11 +20,10 @@ import com.reidsync.vibepulse.android.ui.common.rememberMyBottomSheetNavigator
 import com.reidsync.vibepulse.android.ui.editor.JournalEditorScreen
 import com.reidsync.vibepulse.android.ui.home.HomeScreen
 import com.reidsync.vibepulse.android.ui.meta.JournalMetaScreen
-import com.reidsync.vibepulse.android.viewModel.AppFeatureViewModel
-import com.reidsync.vibepulse.android.viewModel.HomeViewModel
-import com.reidsync.vibepulse.android.viewModel.JournalEditorViewModel
-import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
-import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
+import com.reidsync.vibepulse.android.ui.home.HomeViewModel
+import com.reidsync.vibepulse.android.ui.editor.JournalEditorViewModel
+import com.reidsync.vibepulse.android.ui.meta.JournalMetaViewModel
+import com.reidsync.vibepulse.android.ui.meta.JournalMetaViewType
 
 /**
  * Created by Reid on 2023/12/13.
