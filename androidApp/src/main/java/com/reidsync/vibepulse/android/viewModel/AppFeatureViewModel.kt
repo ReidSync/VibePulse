@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.NotebookRepository
+import com.reidsync.vibepulse.notebook.journal.Journal
 
 /**
  * Created by Reid on 2023/12/13.
@@ -27,4 +28,8 @@ class AppFeatureViewModel(
 			}
 		}
 	}
+
+	var journal: Journal = Journal()
+	var metaViewType: JournalMetaViewType = JournalMetaViewType.Add
+
 }

@@ -16,8 +16,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Journal(
 	val id: UUID = UUID.randomUUID(),
-	val title: String = "",
 	val date: LocalDateTime = Clock.System.now().toLocalDateTime(TimeZone.currentSystemDefault()),
+	val title: String = "",
+	val feeling: Feelings = Feelings.Neutral,
+	val moodFactors: Set<MoodFactors> = emptySet(),
 	val contents: String = ""
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
@@ -27,6 +29,24 @@ data class Journal(
 		fun makeInstance(): Journal = Journal()
 	}
 
+}
+
+enum class Feelings {
+	Sad,
+	Angry,
+	Neutral,
+	Happy,
+	SuperHappy
+}
+
+enum class MoodFactors(val displayName: String) {
+	Work("Work"), Friends("Friend"), Family("Family"),
+	Relationships("Relationships"),
+	Drink("Drink"), Food("Food"), Exercise("Exercise"),
+	Hobbies("Hobbies"), Finances("Finances"), Sleep("Sleep"),
+	Education("Education"), Weather("Weather"),
+	Music("Music"), Travel("Travel"), Health("Health"),
+	Nothing("Nothing")
 }
 
 val Journal.Companion.mock: Journal

@@ -12,16 +12,19 @@ import androidx.navigation.compose.rememberNavController
 import com.google.accompanist.navigation.material.ExperimentalMaterialNavigationApi
 import com.google.accompanist.navigation.material.ModalBottomSheetLayout
 import com.google.accompanist.navigation.material.bottomSheet
-import com.google.accompanist.navigation.material.rememberBottomSheetNavigator
 import com.reidsync.vibepulse.android.MyApplicationTheme
 import com.reidsync.vibepulse.android.data.HOME
 import com.reidsync.vibepulse.android.data.JOURNAL_EDITOR
 import com.reidsync.vibepulse.android.data.JOURNAL_META
+import com.reidsync.vibepulse.android.ui.common.rememberMyBottomSheetNavigator
+import com.reidsync.vibepulse.android.ui.editor.JournalEditorScreen
+import com.reidsync.vibepulse.android.ui.home.HomeScreen
+import com.reidsync.vibepulse.android.ui.meta.JournalMetaScreen
+import com.reidsync.vibepulse.android.viewModel.AppFeatureViewModel
 import com.reidsync.vibepulse.android.viewModel.HomeViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalEditorViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewModel
 import com.reidsync.vibepulse.android.viewModel.JournalMetaViewType
-import com.reidsync.vibepulse.notebook.journal.Journal
 
 /**
  * Created by Reid on 2023/12/13.
@@ -30,9 +33,11 @@ import com.reidsync.vibepulse.notebook.journal.Journal
 
 @OptIn(ExperimentalMaterialNavigationApi::class)
 @Composable
-fun AppFeatureScreen() {
+fun AppFeatureScreen(
+	viewModel: AppFeatureViewModel
+) {
 	// https://google.github.io/accompanist/navigation-material/
-	val bottomSheetNavigator = rememberBottomSheetNavigator()
+	val bottomSheetNavigator = rememberMyBottomSheetNavigator(skipHalfExpanded = true)
 	val navController = rememberNavController(bottomSheetNavigator)
 	ModalBottomSheetLayout(
 		bottomSheetNavigator,
@@ -40,27 +45,29 @@ fun AppFeatureScreen() {
 		sheetShape = RoundedCornerShape(16.dp),
 		sheetBackgroundColor = Color(0xFFF2F2F7),
 		sheetElevation = 100.dp,
+
 	) {
-		var journal: Journal = Journal()
-		var type: JournalMetaViewType = JournalMetaViewType.Add
 		NavHost(navController = navController, startDestination = Destination.HomeScreen.route) {
 			composable(Destination.HomeScreen.route) {
 				HomeScreen(
 					viewModel = viewModel(factory = HomeViewModel.Factory),
 					onCreateNewJournal = {
-						journal = it
-						type = JournalMetaViewType.Add
+						viewModel.journal = it
+						viewModel.metaViewType = JournalMetaViewType.Add
 						navController.navigate(Destination.JournalMetaScreen.route)
 					},
 					onEditJournal = {
-						journal = it
+						viewModel.journal = it
 						navController.navigate(Destination.JournalEditorScreen.route)
 					}
 				)
 			}
 			bottomSheet(Destination.JournalMetaScreen.route) {
 				JournalMetaScreen(
-					viewModel = viewModel(factory = JournalMetaViewModel.Factory(journal, type)),
+					viewModel = viewModel(
+						factory = JournalMetaViewModel
+							.Factory(viewModel.journal, viewModel.metaViewType)
+					),
 					onNavigateUp = {
 						navController.navigateUp()
 					}
@@ -68,13 +75,13 @@ fun AppFeatureScreen() {
 			}
 			composable(Destination.JournalEditorScreen.route) {
 				JournalEditorScreen(
-					viewModel = viewModel(factory = JournalEditorViewModel.Factory(journal)),
+					viewModel = viewModel(factory = JournalEditorViewModel.Factory(viewModel.journal)),
 					onNavigateUp = {
 						navController.navigateUp()
 					},
 					onNavigateMetaEdit = {
-						journal = it
-						type = JournalMetaViewType.Edit
+						viewModel.journal = it
+						viewModel.metaViewType = JournalMetaViewType.Edit
 						navController.navigate(Destination.JournalMetaScreen.route)
 					}
 				)
@@ -103,6 +110,10 @@ sealed class Destination(
 @Composable
 fun AppFeatureScreenPreview() {
 	MyApplicationTheme {
-		AppFeatureScreen()
+		AppFeatureScreen(
+			viewModel(
+				factory = AppFeatureViewModel.Factory
+			)
+		)
 	}
 }

@@ -20,3 +20,6 @@ public typealias ResourceColor = shared.ResourceColor
 public typealias VibePulseColor = shared.VibePulseColor
 public let RC = shared.ResourceColorKt.RC
 
+public typealias Feelings = shared.Feelings
+public typealias MoodFactors = shared.MoodFactors
+
