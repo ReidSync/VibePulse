@@ -31,14 +31,18 @@ struct JournalMetaView: View {
   
   var body: some View {
     WithViewStore(self.store, observe: \.view, send: { $0 }) { viewStore in
-      VStack(spacing: 30) {
-        feelingsFieldView(viewStore)
-        moodFactorFieldView(viewStore)
-        titleFieldView(viewStore)
+      ZStack {
+        appThemeColor.background.toColor().edgesIgnoringSafeArea(.all)
+        VStack(spacing: 30) {
+          feelingsFieldView(viewStore)
+          moodFactorFieldView(viewStore)
+          titleFieldView(viewStore)
+        }
+        .bind(viewStore.$focus, to: self.$focus)
+        .padding(20)
+        //.scrollContentBackground(.hidden)
+        .background(appThemeColor.background.toColor())
       }
-      .bind(viewStore.$focus, to: self.$focus)
-      .padding(20)
-      .background(appThemeColor.background.toColor())
       
     }
   }
