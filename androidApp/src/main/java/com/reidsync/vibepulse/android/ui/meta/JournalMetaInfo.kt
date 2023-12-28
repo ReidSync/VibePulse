@@ -47,7 +47,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
-import com.reidsync.vibepulse.android.R
+import com.reidsync.vibepulse.android.data.FeelingEmojis
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
@@ -102,8 +102,8 @@ fun TitleField(
 					unfocusedBorderColor = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 					focusedContainerColor = AppThemeColor.current.vibePulseColors.background.toColor(),
 					unfocusedContainerColor = AppThemeColor.current.vibePulseColors.background.toColor(),
-					unfocusedTextColor = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
-					focusedTextColor = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+					unfocusedTextColor = AppThemeColor.current.vibePulseColors.vibeC.toColor(),
+					focusedTextColor = AppThemeColor.current.vibePulseColors.vibeC.toColor(),
 					//cursorColor = Color.Black
 				),
 				placeholder = {
@@ -137,14 +137,6 @@ fun FeelingsField(
 	JournalInfoField(
 		title = "How are you feeling?",
 		content = {
-			val emojis = mapOf(
-				Feelings.Sad to R.drawable.sad,
-				Feelings.Angry to R.drawable.angry,
-				Feelings.Neutral to R.drawable.neutral,
-				Feelings.Happy to R.drawable.happy,
-				Feelings.SuperHappy to R.drawable.super_happy
-			)
-
 			val listState = rememberLazyListState()
 			val matrix = ColorMatrix()
 			matrix.setToSaturation(0F)
@@ -157,7 +149,7 @@ fun FeelingsField(
 				contentPadding = PaddingValues(horizontal = 0.dp, vertical = 8.dp)
 			) {
 				items(feelings) { feeling ->
-					emojis[feeling]?.let { emoji ->
+					FeelingEmojis[feeling]?.let { emoji ->
 						val isSelected = journal.feeling == feeling
 						val scale by animateFloatAsState(
 							targetValue = if (isSelected) 1.4f else 1f,

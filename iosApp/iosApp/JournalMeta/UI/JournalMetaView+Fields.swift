@@ -54,7 +54,7 @@ extension JournalMetaView {
       HStack(spacing: 8) {
         Spacer()
         ForEach(Feelings.entries, id: \.self) { feeling in
-          if let emoji = viewStore.emojis[feeling] {
+          if let emoji = FeelingEmojis[feeling] {
             let isSelected = viewStore.feeling == feeling
             let scale = isSelected ? 1.25 : 1.0
             
@@ -117,16 +117,16 @@ extension JournalMetaView {
         .frame(minWidth: 0, maxWidth: .infinity)
         .padding()
         .background(
-          Capsule()
+          RoundedRectangle(cornerRadius: 20)
             .fill(
               isSelected ? appThemeColor.vibeA.toColor() : appThemeColor.background.toColor()
             )
         )
         .overlay(
-          Capsule()
+          RoundedRectangle(cornerRadius: 20)
             .stroke(appThemeColor.vibeD.toColor(), lineWidth: 2)
         )
-        .foregroundColor(appThemeColor.vibeD.toColor())
+        .foregroundColor(appThemeColor.vibeC.toColor())
     }
   }
   

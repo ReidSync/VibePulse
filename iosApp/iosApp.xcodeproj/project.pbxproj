@@ -28,6 +28,8 @@
 		30817BA52B358C7B00650BF8 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA42B358C7B00650BF8 /* Color+Extensions.swift */; };
 		30817BA92B388CC500650BF8 /* AppThemeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BA82B388CC500650BF8 /* AppThemeColor.swift */; };
 		30817BB52B3C086B00650BF8 /* JournalMetaView+Fields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BB42B3C086B00650BF8 /* JournalMetaView+Fields.swift */; };
+		30817BB72B3D62F900650BF8 /* ResourceDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BB62B3D62F900650BF8 /* ResourceDictionary.swift */; };
+		30817BB92B3D7CA400650BF8 /* JournalHomeView+List.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30817BB82B3D7CA400650BF8 /* JournalHomeView+List.swift */; };
 		30CBA0912B316FE300A6B884 /* SharedEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */; };
 		30D7F8412B0F59220022746D /* JournalHomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8402B0F59220022746D /* JournalHomeView.swift */; };
 		30D7F8432B0F595E0022746D /* JournalHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8422B0F595E0022746D /* JournalHome.swift */; };
@@ -81,6 +83,8 @@
 		30817BA42B358C7B00650BF8 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		30817BA82B388CC500650BF8 /* AppThemeColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppThemeColor.swift; sourceTree = "<group>"; };
 		30817BB42B3C086B00650BF8 /* JournalMetaView+Fields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JournalMetaView+Fields.swift"; sourceTree = "<group>"; };
+		30817BB62B3D62F900650BF8 /* ResourceDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceDictionary.swift; sourceTree = "<group>"; };
+		30817BB82B3D7CA400650BF8 /* JournalHomeView+List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "JournalHomeView+List.swift"; sourceTree = "<group>"; };
 		30CBA0902B316FE300A6B884 /* SharedEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedEnvironment.swift; sourceTree = "<group>"; };
 		30D7F8402B0F59220022746D /* JournalHomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHomeView.swift; sourceTree = "<group>"; };
 		30D7F8422B0F595E0022746D /* JournalHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JournalHome.swift; sourceTree = "<group>"; };
@@ -152,6 +156,7 @@
 				30817BAA2B3C06C800650BF8 /* JournalMeta */,
 				30793F1E2B0E2DF3008E8A16 /* Resources */,
 				30793EEE2B0DF061008E8A16 /* Preview Content */,
+				30817BB62B3D62F900650BF8 /* ResourceDictionary.swift */,
 			);
 			path = iosApp;
 			sourceTree = "<group>";
@@ -288,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				30D7F8402B0F59220022746D /* JournalHomeView.swift */,
+				30817BB82B3D7CA400650BF8 /* JournalHomeView+List.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -486,6 +492,7 @@
 			files = (
 				30817B9E2B3574FC00650BF8 /* JournalClient+live.swift in Sources */,
 				30817BA92B388CC500650BF8 /* AppThemeColor.swift in Sources */,
+				30817BB72B3D62F900650BF8 /* ResourceDictionary.swift in Sources */,
 				30D7F84A2B107F860022746D /* JournalEditor.swift in Sources */,
 				30D7F8572B15F5460022746D /* KeyboardResponder.swift in Sources */,
 				30817B9B2B3574AB00650BF8 /* JournalClient.swift in Sources */,
@@ -508,6 +515,7 @@
 				30817BA02B3576C500650BF8 /* JournalClient+mock.swift in Sources */,
 				30D7F84C2B109C0C0022746D /* JournalMeta.swift in Sources */,
 				30817B952B318D7900650BF8 /* Exception+Extensions.swift in Sources */,
+				30817BB92B3D7CA400650BF8 /* JournalHomeView+List.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

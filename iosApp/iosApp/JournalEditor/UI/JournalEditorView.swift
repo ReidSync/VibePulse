@@ -10,7 +10,12 @@ import ComposableArchitecture
 
 struct JournalEditorView: View {
   @Environment(\.vibePulseColor) private var appThemeColor
-  var store: StoreOf<JournalEditor>
+  let store: StoreOf<JournalEditor>
+  @FocusState var focus: JournalEditor.State.Field?
+  
+  init(store: StoreOf<JournalEditor>) {
+    self.store = store
+  }
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -21,37 +26,67 @@ struct JournalEditorView: View {
             .foregroundColor(appThemeColor.vibeA.toColor())
           Spacer()
         }
+        
+        if !viewStore.journal.moodFactors.isEmpty {
+          ScrollView(
+            .horizontal,
+            showsIndicators: false) {
+              LazyHStack {
+                ForEach(Array(viewStore.journal.moodFactors), id: \.self) { moodFactor in
+                  Text(moodFactor.displayName)
+                    .font(.system(size: 16))
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(3)
+                    .overlay(
+                      RoundedRectangle(cornerRadius: 4)
+                        .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
+                    )
+                    .foregroundColor(appThemeColor.vibeD.toColor())
+                }
+              }
+              .frame(height: 30)
+              .padding(.leading, 1)
+            }
+            .padding(10)
+        }
+        
         ZStack(alignment: .topLeading) {
           TextEditor(text: viewStore.binding(
             get: \.journal.contents,
             send: JournalEditor.Action.updateContents)
           )
           .font(.system(size: 20))
+          .focused(self.$focus, equals: .editor)
+          .foregroundColor(appThemeColor.vibeC.toColor())
           .scrollContentBackground(.hidden)
           .background(appThemeColor.listBackground.toColor())
+          
           if viewStore.journal.contents.isEmpty {
             Text(viewStore.journal.contentsWithPlaceHolder)
               .font(.system(size: 20,weight: .bold))
-              .foregroundColor (Color.primary.opacity (0.25))
+              .foregroundColor (appThemeColor.vibeC.toColor().opacity (0.25))
               .padding(.top, 10)
               .padding(.leading, 5)
           }
-        }
-          
-        //.scrollContentBackground(.hidden)
-        //.background(.red)
+        }          
         .clipShape(RoundedRectangle(cornerRadius: 10))
-
       }
-      .padding(.leading, 10)
-      .padding(.trailing, 10)
+      .bind(viewStore.$focus, to: self.$focus)
+      .padding(15)
       .background(appThemeColor.background.toColor())
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {
           HStack {
-            Image(systemName: "sun.min.fill")
-              .foregroundColor(appThemeColor.vibeD.toColor())
+            if let emoji = FeelingEmojis[viewStore.journal.feeling] {
+              Image(emoji)
+                .resizable()
+                .frame(width: 32, height: 32)
+                .clipped()
+                .clipShape(Circle())
+                .padding(.trailing, 10)
+            }
+            
             Text(viewStore.journal.date.format(format: "MMMM d, yyyy"))
               .font(.system(size: 23, weight: .bold))
               .foregroundColor(appThemeColor.vibeD.toColor())
@@ -67,6 +102,9 @@ struct JournalEditorView: View {
       }
       .task {
         await viewStore.send(.task).finish()
+      }
+      .onTapGesture {
+        self.focus = nil
       }
       .sheet(
         store: self.store.scope(state: \.$destination, action: { .destination($0) }),
