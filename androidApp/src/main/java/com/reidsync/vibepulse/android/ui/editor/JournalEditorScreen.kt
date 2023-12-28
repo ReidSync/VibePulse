@@ -1,6 +1,8 @@
 package com.reidsync.vibepulse.android.ui.editor
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Column
@@ -12,10 +14,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Create
 import androidx.compose.material.icons.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Icon
@@ -32,12 +35,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
+import com.reidsync.vibepulse.android.data.FeelingEmojis
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.notebook.journal.Journal
@@ -110,6 +115,32 @@ fun Editor(
 			color = AppThemeColor.current.vibePulseColors.vibeA.toColor()
 		)
 
+		if (journal.moodFactors.isNotEmpty()) {
+			val radius = 20f
+			LazyRow(
+				modifier = Modifier
+					.padding(10.dp)
+			) {
+				this.items(journal.moodFactors.toList()) {
+					Text(
+						text = it.displayName,
+						fontWeight = FontWeight.Normal,
+						fontSize = 16.sp,
+						color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+						modifier = Modifier
+							.clip(RoundedCornerShape(radius))
+							.border(
+								1.dp,
+								AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+								shape = RoundedCornerShape(radius)
+							)
+							.padding(5.dp)
+					)
+					Spacer(modifier = Modifier.width(5.dp))
+				}
+			}
+		}
+
 		OutlinedTextField(
 			modifier = Modifier
 				.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -166,14 +197,15 @@ fun EditorToolbar(
 			Row(
 				modifier = it
 			) {
-				Icon(
-					Icons.Filled.Create,
-					contentDescription = "Weather",
-					modifier = Modifier
-						.size(23.dp)
-						.align(Alignment.CenterVertically),
-					tint = AppThemeColor.current.vibePulseColors.vibeD.toColor()
-				)
+				FeelingEmojis[journal.feeling]?.let { emoji ->
+					Image(
+						painter = painterResource(id = emoji),
+						contentDescription = null,
+						modifier = Modifier
+							.size(23.dp)
+							.align(Alignment.CenterVertically)
+					)
+				}
 				Spacer(modifier = Modifier.width(10.dp))
 				Text(
 					text = journal.date.format("MMMM d, yyyy"),

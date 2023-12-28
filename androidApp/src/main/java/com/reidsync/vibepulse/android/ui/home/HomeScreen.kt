@@ -27,8 +27,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -49,8 +47,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.R
+import com.reidsync.vibepulse.android.data.FeelingEmojis
 import com.reidsync.vibepulse.android.data.conventions.toColor
-import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.primitives.colors.SolidColor
 import com.reidsync.vibepulse.util.format
@@ -170,13 +168,7 @@ fun JournalListItem(
 	modifier: Modifier = Modifier,
 	journal: Journal
 ) {
-	val emojis = mapOf(
-		Feelings.Sad to R.drawable.sad,
-		Feelings.Angry to R.drawable.angry,
-		Feelings.Neutral to R.drawable.neutral,
-		Feelings.Happy to R.drawable.happy,
-		Feelings.SuperHappy to R.drawable.super_happy
-	)
+
 	Box(
 		modifier = modifier
 			//.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -187,7 +179,7 @@ fun JournalListItem(
 		Row(
 			verticalAlignment = Alignment.CenterVertically
 		) {
-			emojis[journal.feeling]?.let { emoji ->
+			FeelingEmojis[journal.feeling]?.let { emoji ->
 				Image(
 					painter = painterResource(id = emoji),
 					contentDescription = null,
@@ -216,23 +208,26 @@ fun JournalListItem(
 					fontSize = 20.sp,
 					color = AppThemeColor.current.vibePulseColors.vibeB.toColor(),
 					modifier = Modifier
-						.padding(bottom = 10.dp)
+						//.padding(bottom = 10.dp)
 				)
 
 				if (journal.title.isNotEmpty()) {
 					Text(
 						text = journal.title,
 						fontWeight = FontWeight.Medium,
-						fontSize = 12.sp,
+						fontSize = 14.sp,
 						color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 						modifier = Modifier
-							.padding(bottom = 10.dp)
+							//.padding(bottom = 10.dp)
 					)
 				}
 
 				if (journal.moodFactors.isNotEmpty()) {
 					val radius = 20f
-					LazyRow() {
+					LazyRow(
+						modifier = Modifier
+							.padding(top = 10.dp)
+					) {
 						this.items(journal.moodFactors.toList()) {
 							Text(
 								text = it.displayName,
