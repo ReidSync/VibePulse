@@ -54,7 +54,7 @@ extension JournalMetaView {
       HStack(spacing: 8) {
         Spacer()
         ForEach(Feelings.entries, id: \.self) { feeling in
-          if let emoji = viewStore.emojis[feeling] {
+          if let emoji = FeelingEmojis[feeling] {
             let isSelected = viewStore.feeling == feeling
             let scale = isSelected ? 1.25 : 1.0
             

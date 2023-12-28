@@ -9,7 +9,7 @@ import SwiftUI
 import ComposableArchitecture
 
 struct JournalHomeView: View {
-  @Environment(\.vibePulseColor) private var appThemeColor
+  @Environment(\.vibePulseColor) internal var appThemeColor
   let store: StoreOf<JournalHome>
   
   init(store: StoreOf<JournalHome>) {
@@ -19,39 +19,7 @@ struct JournalHomeView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       ZStack {
-        List {
-          ForEach(viewStore.journals) { journal in
-            NavigationLink(
-              state: AppFeature.Path.State.editor(JournalEditor.State(journal: journal))
-            ){
-              VStack(alignment: .leading) {
-                Text(journal.titleWithPlaceHolder)
-                  .font(.system(size: 18, weight: .bold))
-                  .foregroundColor(appThemeColor.vibeD.toColor());
-                HStack {
-                  Image(systemName: "calendar")
-                    .resizable()
-                    .frame(width: 11, height: 11)
-                    .foregroundColor(appThemeColor.vibeB.toColor())
-                  Text(journal.date.format(format: ("EE, MMM d, yyyy   h:mm:ss a")))
-                    .font(.system(size: 11, weight: .light))
-                    .foregroundColor(appThemeColor.vibeC.toColor())
-                }
-              }
-            }
-          }
-          .onDelete { indexSet in
-            guard let index = indexSet.first else {
-              return
-            }
-            viewStore.send(.removeJournal(index: index))
-          }
-        }
-//        .listStyle(.plain)
-//        .clipShape(RoundedRectangle(cornerRadius: 10))
-//        .padding(.leading, 20)
-//        .padding(.trailing, 20)
-//        .background(SolidColor.companion.homeBackground.toColor())
+        journalListView(viewStore)
         
         VStack {
           Spacer()
@@ -60,6 +28,7 @@ struct JournalHomeView: View {
           }
         }
       }
+      .background(appThemeColor.background.toColor())
       .onAppear {
         UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor: UIColor(appThemeColor.vibeA.toColor())]
         UINavigationBar.appearance().titleTextAttributes = [.foregroundColor: UIColor(appThemeColor.vibeA.toColor())]
@@ -75,11 +44,6 @@ struct JournalHomeView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("New Journal")
             .toolbar {
-//              ToolbarItem(placement: .principal) {
-//                Text("New Journal")
-//                  .font(.system(size: 20, weight: .bold))
-//                  .foregroundColor(appThemeColor.vibeA.toColor());
-//              }
               ToolbarItem(placement: .cancellationAction) {
                 Button("Dismiss") {
                   viewStore.send(.dismissAddingNewJournal)
@@ -94,11 +58,8 @@ struct JournalHomeView: View {
         }
       }
     }
-    
-    
   }
 }
-
 
 struct CreateButton: View {
   @Environment(\.vibePulseColor) private var appThemeColor

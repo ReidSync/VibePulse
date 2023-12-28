@@ -18,15 +18,7 @@ struct JournalMetaView: View {
     @BindingViewState var title: String
     var feeling: Feelings
     var moodFactors: Set<MoodFactors>
-    var titlePlaceholder: String
-    //let feelings: [Feelings] = Feelings.entries
-    let emojis = [
-      Feelings.sad : "sad",
-      Feelings.angry : "angry",
-      Feelings.neutral : "neutral",
-      Feelings.happy : "happy",
-      Feelings.superhappy : "super_happy"
-    ]
+    var titlePlaceholder: String    
     @BindingViewState var keyboardPadding: CGFloat
   }
   
