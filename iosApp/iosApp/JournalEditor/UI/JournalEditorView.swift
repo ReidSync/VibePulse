@@ -21,6 +21,30 @@ struct JournalEditorView: View {
             .foregroundColor(appThemeColor.vibeA.toColor())
           Spacer()
         }
+        
+        if !viewStore.journal.moodFactors.isEmpty {
+          ScrollView(
+            .horizontal,
+            showsIndicators: false) {
+              LazyHStack {
+                ForEach(Array(viewStore.journal.moodFactors), id: \.self) { moodFactor in
+                  Text(moodFactor.displayName)
+                    .font(.system(size: 16))
+                    .frame(minWidth: 0, maxWidth: .infinity)
+                    .padding(3)
+                    .overlay(
+                      RoundedRectangle(cornerRadius: 20)
+                        .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
+                    )
+                    .foregroundColor(appThemeColor.vibeD.toColor())
+                }
+              }
+              .frame(height: 30)
+              .padding(.leading, 1)
+            }
+            .padding(10)
+        }
+        
         ZStack(alignment: .topLeading) {
           TextEditor(text: viewStore.binding(
             get: \.journal.contents,
@@ -36,22 +60,27 @@ struct JournalEditorView: View {
               .padding(.top, 10)
               .padding(.leading, 5)
           }
-        }
-          
-        //.scrollContentBackground(.hidden)
-        //.background(.red)
+        }          
         .clipShape(RoundedRectangle(cornerRadius: 10))
 
       }
-      .padding(.leading, 10)
-      .padding(.trailing, 10)
+      .padding(15)
+//      .padding(.leading, 10)
+//      .padding(.trailing, 10)
       .background(appThemeColor.background.toColor())
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {
           HStack {
-            Image(systemName: "sun.min.fill")
-              .foregroundColor(appThemeColor.vibeD.toColor())
+            if let emoji = FeelingEmojis[viewStore.journal.feeling] {
+              Image(emoji)
+                .resizable()
+                .frame(width: 32, height: 32)
+                .clipped()
+                .clipShape(Circle())
+                .padding(.trailing, 10)
+            }
+            
             Text(viewStore.journal.date.format(format: "MMMM d, yyyy"))
               .font(.system(size: 23, weight: .bold))
               .foregroundColor(appThemeColor.vibeD.toColor())

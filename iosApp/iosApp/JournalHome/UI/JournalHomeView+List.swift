@@ -43,7 +43,7 @@ extension JournalHomeView {
       if let emoji = FeelingEmojis[journal.feeling] {
         Image(emoji)
           .resizable()
-          .frame(width: 44, height: 44)
+          .frame(width: 50, height: 50)
           .clipped()
           .clipShape(Circle())
           .padding(.trailing, 10)
@@ -73,7 +73,7 @@ extension JournalHomeView {
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding(3)
                     .overlay(
-                      Capsule()
+                      RoundedRectangle(cornerRadius: 20)
                         .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
                     )
                     .foregroundColor(appThemeColor.vibeD.toColor())
