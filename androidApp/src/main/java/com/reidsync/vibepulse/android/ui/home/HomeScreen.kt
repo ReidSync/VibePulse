@@ -184,7 +184,7 @@ fun JournalListItem(
 					painter = painterResource(id = emoji),
 					contentDescription = null,
 					modifier = Modifier
-						.size(70.dp)
+						.size(60.dp)
 						.padding(end = 10.dp)
 					//.border(2.dp, Color.Red)
 				)

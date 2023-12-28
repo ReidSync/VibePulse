@@ -106,7 +106,7 @@ fun Editor(
 					onClearFocus()
 				})
 			}
-			.padding(15.dp),
+			.padding(start = 15.dp, end = 15.dp, bottom = 15.dp, top = 5.dp),
 	) {
 		Text(
 			text = journal.titleWithPlaceHolder,
@@ -154,6 +154,8 @@ fun Editor(
 			colors = OutlinedTextFieldDefaults.colors(
 				focusedBorderColor = AppThemeColor.current.vibePulseColors.listBackground.toColor(),
 				unfocusedBorderColor = AppThemeColor.current.vibePulseColors.listBackground.toColor(),
+				unfocusedTextColor = AppThemeColor.current.vibePulseColors.vibeC.toColor(),
+				focusedTextColor = AppThemeColor.current.vibePulseColors.vibeC.toColor(),
 //				focusedContainerColor = Color.White,
 //				unfocusedContainerColor = Color.White,
 //				unfocusedTextColor = Color.Black,
@@ -163,7 +165,7 @@ fun Editor(
 			placeholder = {
 				Text(
 					text = journal.contentsWithPlaceHolder,
-					color = Color.LightGray
+					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 				)
 			},
 			singleLine = false,
@@ -185,6 +187,7 @@ fun EditorToolbar(
 ) {
 	BaseToolbar(
 		modifier = Modifier
+			//.border(1.dp, Color.Red)
 			.fillMaxWidth()
 			.pointerInput(Unit) {
 				detectTapGestures(onTap = {
@@ -202,7 +205,7 @@ fun EditorToolbar(
 						painter = painterResource(id = emoji),
 						contentDescription = null,
 						modifier = Modifier
-							.size(23.dp)
+							.size(32.dp)
 							.align(Alignment.CenterVertically)
 					)
 				}

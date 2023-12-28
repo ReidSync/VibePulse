@@ -102,8 +102,8 @@ fun TitleField(
 					unfocusedBorderColor = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 					focusedContainerColor = AppThemeColor.current.vibePulseColors.background.toColor(),
 					unfocusedContainerColor = AppThemeColor.current.vibePulseColors.background.toColor(),
-					unfocusedTextColor = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
-					focusedTextColor = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+					unfocusedTextColor = AppThemeColor.current.vibePulseColors.vibeC.toColor(),
+					focusedTextColor = AppThemeColor.current.vibePulseColors.vibeC.toColor(),
 					//cursorColor = Color.Black
 				),
 				placeholder = {

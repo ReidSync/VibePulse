@@ -33,7 +33,7 @@ struct JournalEditorView: View {
                     .frame(minWidth: 0, maxWidth: .infinity)
                     .padding(3)
                     .overlay(
-                      RoundedRectangle(cornerRadius: 20)
+                      RoundedRectangle(cornerRadius: 4)
                         .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
                     )
                     .foregroundColor(appThemeColor.vibeD.toColor())
@@ -51,6 +51,7 @@ struct JournalEditorView: View {
             send: JournalEditor.Action.updateContents)
           )
           .font(.system(size: 20))
+          .foregroundColor(appThemeColor.vibeC.toColor())
           .scrollContentBackground(.hidden)
           .background(appThemeColor.listBackground.toColor())
           if viewStore.journal.contents.isEmpty {
