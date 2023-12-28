@@ -1,7 +1,9 @@
 package com.reidsync.vibepulse.android.ui.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.Arrangement
@@ -17,18 +19,19 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -39,6 +42,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -46,7 +50,9 @@ import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.data.conventions.toColor
+import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.primitives.colors.SolidColor
 import com.reidsync.vibepulse.util.format
 
 /**
@@ -136,7 +142,7 @@ fun JournalList(
 								modifier = Modifier
 									.background(AppThemeColor.current.vibePulseColors.listBackground.toColor())
 									//.border(2.dp, Color.Blue)
-									.height(70.dp)
+									//.height(70.dp)
 									//.padding(bottom = 3.dp)
 									.clickable {
 										onEditJournal(it)
@@ -154,7 +160,6 @@ fun JournalList(
 					}
 				}
 			)
-			//items(journals) {}
 		}
 	}
 }
@@ -165,6 +170,13 @@ fun JournalListItem(
 	modifier: Modifier = Modifier,
 	journal: Journal
 ) {
+	val emojis = mapOf(
+		Feelings.Sad to R.drawable.sad,
+		Feelings.Angry to R.drawable.angry,
+		Feelings.Neutral to R.drawable.neutral,
+		Feelings.Happy to R.drawable.happy,
+		Feelings.SuperHappy to R.drawable.super_happy
+	)
 	Box(
 		modifier = modifier
 			//.clip(shape = RoundedCornerShape(10.dp, 10.dp, 10.dp, 10.dp))
@@ -172,7 +184,19 @@ fun JournalListItem(
 			//.background(Color.White)
 			.padding(10.dp)
 	) {
-		Row {
+		Row(
+			verticalAlignment = Alignment.CenterVertically
+		) {
+			emojis[journal.feeling]?.let { emoji ->
+				Image(
+					painter = painterResource(id = emoji),
+					contentDescription = null,
+					modifier = Modifier
+						.size(70.dp)
+						.padding(end = 10.dp)
+					//.border(2.dp, Color.Red)
+				)
+			}
 			Column(
 				modifier = Modifier
 					.fillMaxHeight(),
@@ -180,33 +204,53 @@ fun JournalListItem(
 				verticalArrangement = Arrangement.Center
 			) {
 				Text(
-					text = journal.titleWithPlaceHolder,
-					fontWeight = FontWeight.Bold,
-					fontSize = 18.sp,
-					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+					text = journal.date.format("EE, MMM d, yyyy   h:mm a"),
+					fontWeight = FontWeight.Light,
+					fontSize = 10.sp,
+					color = AppThemeColor.current.vibePulseColors.vibeC.toColor()
+				)
+
+				Text(
+					text = journal.feeling.displayName,
+					fontWeight = FontWeight.ExtraBold,
+					fontSize = 20.sp,
+					color = AppThemeColor.current.vibePulseColors.vibeB.toColor(),
 					modifier = Modifier
 						.padding(bottom = 10.dp)
 				)
-				Row(
-					//verticalAlignment = Alignment.CenterVertically
-				) {
-					Icon(
-						Icons.Filled.DateRange,
-						contentDescription = "Calendar",
-						modifier = Modifier
-							.size(20.dp)
-							.align(Alignment.Bottom),
-						tint = AppThemeColor.current.vibePulseColors.vibeB.toColor()
-					)
 
-					Spacer(modifier = Modifier.width(5.dp))
-
+				if (journal.title.isNotEmpty()) {
 					Text(
-						text = journal.date.format("EE, MMM d, yyyy   h:mm:ss a"),
-						fontWeight = FontWeight.Light,
-						fontSize = 11.sp,
-						color = AppThemeColor.current.vibePulseColors.vibeC.toColor()
+						text = journal.title,
+						fontWeight = FontWeight.Medium,
+						fontSize = 12.sp,
+						color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+						modifier = Modifier
+							.padding(bottom = 10.dp)
 					)
+				}
+
+				if (journal.moodFactors.isNotEmpty()) {
+					val radius = 20f
+					LazyRow() {
+						this.items(journal.moodFactors.toList()) {
+							Text(
+								text = it.displayName,
+								fontWeight = FontWeight.Normal,
+								fontSize = 12.sp,
+								color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+								modifier = Modifier
+									.clip(RoundedCornerShape(radius))
+									.border(
+										1.dp,
+										AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+										shape = RoundedCornerShape(radius)
+									)
+									.padding(3.dp)
+							)
+							Spacer(modifier = Modifier.width(5.dp))
+						}
+					}
 				}
 			}
 
@@ -242,33 +286,28 @@ fun CreateButton(
 		modifier = modifier,
 		horizontalAlignment = Alignment.CenterHorizontally
 	) {
-		Button(
+		IconButton(
 			onClick = {
 				onCreate()
 			},
-			colors = ButtonDefaults.buttonColors(AppThemeColor.current.vibePulseColors.vibeA.toColor()),
-			shape = CircleShape,
 			modifier = Modifier
 				.size(70.dp)
-				.shadow(10.dp, CircleShape),
+				.shadow(
+					10.dp,
+					CircleShape,
+					spotColor = AppThemeColor.current.vibePulseColors.oppositBackground.toColor()
+				)
+				.background(AppThemeColor.current.vibePulseColors.vibeA.toColor(), CircleShape)
 		) {
 			Icon(
 				Icons.Filled.Add,
 				contentDescription = "Create",
 				modifier = Modifier
-					.size(100.dp)
-				//.background(Color.Red)
+					.size(34.dp),
+				tint = SolidColor.White.toColor()
 			)
 		}
 	}
-}
-
-@Composable
-fun NewJournalSheetToolbar(
-	onNavigateUp: () -> Unit,
-	addNewJournal: (item: Journal) -> Unit
-) {
-
 }
 
 

@@ -31,12 +31,12 @@ data class Journal(
 
 }
 
-enum class Feelings {
-	Sad,
-	Angry,
-	Neutral,
-	Happy,
-	SuperHappy
+enum class Feelings(val displayName: String) {
+	Sad("Sad"),
+	Angry("Angry"),
+	Neutral("Okay"),
+	Happy("Good"),
+	SuperHappy("Awesome")
 }
 
 enum class MoodFactors(val displayName: String) {

@@ -8,6 +8,7 @@ package com.reidsync.vibepulse.primitives.colors
 interface CommonColor {
 	val background: SolidColor
 	val listBackground: SolidColor
+	val oppositBackground: SolidColor
 }
 
 interface VibePulseColor: CommonColor {
@@ -36,6 +37,8 @@ class ResourceColor {
 				get() = SolidColor.DarkBackground
 			override val listBackground: SolidColor
 				get() = SolidColor.DarkListBackground
+			override val oppositBackground: SolidColor
+				get() = SolidColor.LightBackground
 		}
 	)
 
@@ -53,6 +56,8 @@ class ResourceColor {
 				get() = SolidColor.LightBackground
 			override val listBackground: SolidColor
 				get() = SolidColor.LightListBackground
+			override val oppositBackground: SolidColor
+				get() = SolidColor.DarkBackground
 		}
 	)
 
