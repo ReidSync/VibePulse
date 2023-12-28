@@ -191,6 +191,7 @@ fun JournalListItem(
 			}
 			Column(
 				modifier = Modifier
+					.weight(1f)
 					.fillMaxHeight(),
 				horizontalAlignment = Alignment.Start,
 				verticalArrangement = Arrangement.Center
@@ -250,24 +251,16 @@ fun JournalListItem(
 			}
 
 
-			Box(
+			//Spacer(modifier = Modifier.weight(0.1f))
+			Icon(
+				Icons.Default.KeyboardArrowRight,
+				contentDescription = "enter",
 				modifier = Modifier
-					.fillMaxSize(),
-				contentAlignment = Alignment.CenterEnd,
-			) {
-				Icon(
-					Icons.Default.KeyboardArrowRight,
-					contentDescription = "enter",
-					modifier = Modifier
-						//.border(2.dp, Color.Red)
-						//.align(alignment = Alignment.CenterHorizontally)
-						.size(30.dp),
-					tint = Color.LightGray
-				)
-
-			}
-
-
+					//.border(2.dp, Color.Red)
+					//.align(alignment = Alignment.CenterEnd)
+					.size(30.dp),
+				tint = Color.LightGray
+			)
 		}
 	}
 }
