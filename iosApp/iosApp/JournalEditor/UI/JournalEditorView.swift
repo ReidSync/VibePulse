@@ -10,7 +10,12 @@ import ComposableArchitecture
 
 struct JournalEditorView: View {
   @Environment(\.vibePulseColor) private var appThemeColor
-  var store: StoreOf<JournalEditor>
+  let store: StoreOf<JournalEditor>
+  @FocusState var focus: JournalEditor.State.Field?
+  
+  init(store: StoreOf<JournalEditor>) {
+    self.store = store
+  }
   
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
@@ -51,23 +56,23 @@ struct JournalEditorView: View {
             send: JournalEditor.Action.updateContents)
           )
           .font(.system(size: 20))
+          .focused(self.$focus, equals: .editor)
           .foregroundColor(appThemeColor.vibeC.toColor())
           .scrollContentBackground(.hidden)
           .background(appThemeColor.listBackground.toColor())
+          
           if viewStore.journal.contents.isEmpty {
             Text(viewStore.journal.contentsWithPlaceHolder)
               .font(.system(size: 20,weight: .bold))
-              .foregroundColor (Color.primary.opacity (0.25))
+              .foregroundColor (appThemeColor.vibeC.toColor().opacity (0.25))
               .padding(.top, 10)
               .padding(.leading, 5)
           }
         }          
         .clipShape(RoundedRectangle(cornerRadius: 10))
-
       }
+      .bind(viewStore.$focus, to: self.$focus)
       .padding(15)
-//      .padding(.leading, 10)
-//      .padding(.trailing, 10)
       .background(appThemeColor.background.toColor())
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
@@ -97,6 +102,9 @@ struct JournalEditorView: View {
       }
       .task {
         await viewStore.send(.task).finish()
+      }
+      .onTapGesture {
+        self.focus = nil
       }
       .sheet(
         store: self.store.scope(state: \.$destination, action: { .destination($0) }),

@@ -11,6 +11,7 @@ import ComposableArchitecture
 @Reducer
 struct JournalEditor {
   struct State: Equatable {
+    @BindingState var focus: Field? = nil
     @PresentationState var destination: Destination.State?
     var journal: Journal
     //@BindingState var contents: String = ""
@@ -20,16 +21,24 @@ struct JournalEditor {
       //self.contents = journal.contents
       self.destination = nil
     }
+    
+    enum Field: Hashable {
+      case editor
+    }
   }
   
-  enum Action {
+  
+  
+  enum Action: BindableAction {
     case task
     case edit
     case dismissEditingMyJournal
     case doneEditingMyJournal
     case updateContents(String)
+    case binding(BindingAction<State>)
     case destination(PresentationAction<Destination.Action>)
     case delegate(Action.Delegate)
+    
 //    /case view(Action.ViewAction)
     
 //    public enum ViewAction: BindableAction {
@@ -47,6 +56,7 @@ struct JournalEditor {
   
   var body: some Reducer<State, Action> {
     //BindingReducer(action: \.view)
+    BindingReducer()
     
     Reduce { state, action in
       switch action {
@@ -58,6 +68,7 @@ struct JournalEditor {
           }
         }
       case .edit:
+        state.focus = nil
         state.destination = .sheetToEdit(JournalMeta.State(journal: state.journal))
         return .none
 //      case .view(.binding):
@@ -84,6 +95,8 @@ struct JournalEditor {
         }
         state.journal = metaData.journal
         state.destination = nil
+        return .none
+      case .binding:
         return .none
       }
     }
