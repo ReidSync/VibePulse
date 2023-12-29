@@ -36,6 +36,9 @@ struct JournalMetaView: View {
         //.scrollContentBackground(.hidden)
         .background(appThemeColor.background.toColor())
       }
+      .onChange(of: appThemeColor.background) { _, newValue in
+        UINavigationBar.appearance().backgroundColor = UIColor(appThemeColor.background.toColor())
+      }
       .task {
         await viewStore.send(.task).finish()
       }
