@@ -38,7 +38,7 @@ class JournalMetaViewModel(
 	val title: String
 		get() = when (type) {
 			is JournalMetaViewType.Add -> "New Journal"
-			is JournalMetaViewType.Edit -> "Edit"
+			is JournalMetaViewType.Edit -> "Edit my journal"
 		}
 
 	val feelings = Feelings.entries.toTypedArray()
