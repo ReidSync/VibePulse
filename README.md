@@ -18,7 +18,7 @@ This uses the [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.h
 
 | Android    | iOS |
 | ----------- | ----------- |
-| ![](https://github.com/ReidSync/VibePulse/demo-gif/VibePulse_Android.gif) | ![](https://github.com/ReidSync/VibePulse/demo-gif/VibePulse_iOS.gif) |
+| ![](https://github.com/ReidSync/VibePulse/blob/main/demo-gif/VibePulse_Android.gif) | ![](https://github.com/ReidSync/VibePulse/blob/main/demo-gif/VibePulse_iOS.gif) |
 
 ## Todo
 > Everything is a work in progress. The functions could be improved and modified, even if they have already been completed.
