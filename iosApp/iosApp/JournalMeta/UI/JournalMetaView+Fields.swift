@@ -68,11 +68,12 @@ extension JournalMetaView {
                 .scaleEffect(CGFloat(scale))
                 .clipped()
                 .clipShape(Circle())
-                .overlay(
-                  Color.gray
-                    .opacity(isSelected ? 0 : 0.7)
-                    .clipShape(Circle())
-                )
+                .saturation(isSelected ? 1 : 0)
+//                .overlay(
+//                  Color.gray
+//                    .opacity(isSelected ? 0 : 0.7)
+//                    .clipShape(Circle())
+//                )
                 .scaleEffect(CGFloat(scale))
                 .padding(8)
             }
