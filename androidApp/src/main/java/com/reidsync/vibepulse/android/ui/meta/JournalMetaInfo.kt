@@ -143,7 +143,8 @@ fun FeelingsField(
 
 			LazyRow(
 				state = listState,
-				modifier = Modifier.fillMaxWidth(),
+				modifier = Modifier
+					.fillMaxWidth(),
 				horizontalArrangement = Arrangement.Center,
 				//verticalAlignment = Alignment.CenterVertically,
 				contentPadding = PaddingValues(horizontal = 0.dp, vertical = 8.dp)
@@ -205,7 +206,9 @@ fun MoodFactorsField(
 			LazyVerticalStaggeredGrid(
 				columns = StaggeredGridCells.Adaptive(100.dp),
 				verticalItemSpacing = 12.dp,
-				horizontalArrangement = Arrangement.spacedBy(12.dp)
+				horizontalArrangement = Arrangement.spacedBy(12.dp),
+				modifier = Modifier
+					.height((moodFactors.count() / 3 * 6 * 12).dp)
 			) {
 				this.items(moodFactors) { moodFactor ->
 					MoodFactorTextButton(
@@ -264,6 +267,6 @@ fun MoodFactorTextButton(
 				.align(Alignment.Center)
 				.padding(4.dp),
 
-		)
+			)
 	}
 }
