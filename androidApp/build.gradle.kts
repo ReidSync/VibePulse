@@ -51,4 +51,5 @@ dependencies {
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.material)
+    implementation(libs.kotlinx.coroutines.android)
 }
