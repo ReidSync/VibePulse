@@ -49,6 +49,7 @@ import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.data.FeelingEmojis
 import com.reidsync.vibepulse.android.data.conventions.toColor
+import com.reidsync.vibepulse.android.ui.meta.location.CurrentLocationContent
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
@@ -269,4 +270,15 @@ fun MoodFactorTextButton(
 
 			)
 	}
+}
+
+@Composable
+fun WeatherInfoField() {
+	JournalInfoField(
+		title = "Weather",
+		content = {
+			CurrentLocationContent(true)
+		}
+	)
+
 }

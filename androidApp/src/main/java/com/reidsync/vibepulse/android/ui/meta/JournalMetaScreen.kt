@@ -29,6 +29,7 @@ import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.ui.meta.location.CheckLocationPermission
+import com.reidsync.vibepulse.android.ui.meta.location.CurrentLocationContent
 import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.primitives.colors.SolidColor
@@ -109,6 +110,8 @@ fun JournalMetaContents(
 				doneWithClearingFocus()
 			}
 		)
+
+		WeatherInfoField()
 
 		Spacer(Modifier.height(15.dp))
 
