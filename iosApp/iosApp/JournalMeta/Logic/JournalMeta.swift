@@ -7,6 +7,7 @@
 
 import Foundation
 import ComposableArchitecture
+import CoreLocation
 
 @Reducer
 struct JournalMeta {
@@ -17,6 +18,7 @@ struct JournalMeta {
     var feeling: Feelings
     var moodFactors: Set<MoodFactors>
     var titlePlaceHolder: String = ""
+    var weather: String = ""
     @BindingState var keyboardPadding: CGFloat = 0
     
     
@@ -38,10 +40,13 @@ struct JournalMeta {
     case updateJournal(Journal)
     case setFeeling(Feelings)
     case setMoodFactor(moodFactor: MoodFactors, selected: Bool)
+    case getWeatherToday
+    case getWeatherTodayFinish(Result<CLLocationCoordinate2D, Error>)
     case task
   }
   
   @Dependency(\.keyboardResponder) var keyboardResponder
+  @Dependency(\.locationClient) var locationClient
   
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -88,8 +93,25 @@ struct JournalMeta {
         return .send(.updateJournal(state.journal.copy(moodFactors: state.moodFactors)))
       case .binding:
         return .none
+      case .getWeatherTodayFinish(let result):
+        switch result {
+        case .success(let location):
+          state.weather = "\(location.latitude)"
+          return .none
+        case .failure(let error):
+          print(error)
+          return .none
+        }
+      case .getWeatherToday:
+        return .run { send in
+          async let getWeather: Void = send(
+            .getWeatherTodayFinish (
+              Result { try await locationClient.getCurrentLocation() }
+            )
+          )
+          await getWeather
+        }
       }
     }
   }
 }
-

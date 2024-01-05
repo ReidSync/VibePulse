@@ -136,3 +136,31 @@ extension JournalMetaView {
     return Array(repeating: .init(.flexible(), spacing: 10), count: columnCount)
   }
 }
+
+
+extension JournalMetaView {
+  @ViewBuilder
+  internal func weatherFieldView(
+    _ viewStore: ViewStore<JournalMetaView.ViewState, JournalMeta.Action>
+  )-> some View {
+    journalInfoFieldView(title: "Weather") {
+      HStack {
+        Text(viewStore.weather)
+          .padding(5)
+          .overlay(
+            RoundedRectangle(cornerRadius: 2)
+              .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
+          )
+          .foregroundColor(appThemeColor.vibeD.toColor())
+        
+        Button {
+          viewStore.send(.getWeatherToday)
+        } label: {
+          Text("Re")
+        }
+      }
+      //.ignoresSafeArea(.keyboard)
+      
+    }
+  }
+}

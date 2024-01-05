@@ -19,6 +19,7 @@ struct JournalMetaView: View {
     var feeling: Feelings
     var moodFactors: Set<MoodFactors>
     var titlePlaceholder: String    
+    var weather: String
     @BindingViewState var keyboardPadding: CGFloat
   }
   
@@ -29,6 +30,7 @@ struct JournalMetaView: View {
         VStack(spacing: 30) {
           feelingsFieldView(viewStore)
           moodFactorFieldView(viewStore)
+          weatherFieldView(viewStore)
           titleFieldView(viewStore)
         }
         .bind(viewStore.$focus, to: self.$focus)
@@ -62,6 +64,7 @@ extension BindingViewStore<JournalMeta.State> {
       feeling: self.feeling,
       moodFactors: self.moodFactors,
       titlePlaceholder: self.titlePlaceHolder,
+      weather: self.weather,
       keyboardPadding: self.$keyboardPadding
       
     )
