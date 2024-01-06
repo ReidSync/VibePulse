@@ -21,10 +21,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.gms.tasks.CancellationTokenSource
+import com.reidsync.vibepulse.android.AppThemeColor
+import com.reidsync.vibepulse.android.data.conventions.toColor
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -52,8 +55,12 @@ fun CurrentLocationContent(usePreciseLocation: Boolean) {
 			.animateContentSize()
 	) {
 		Text(
-			text = locationInfo
-		)
+			text = locationInfo,
+			fontSize = 16.sp,
+			color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+			modifier = Modifier
+				.padding(4.dp)
+			)
 
 		Button(
 			onClick = {
@@ -78,7 +85,7 @@ fun CurrentLocationContent(usePreciseLocation: Boolean) {
 							priority,
 							CancellationTokenSource().token,
 						).addOnSuccessListener { fetchedLocation ->
-							locationInfo = "(${fetchedLocation.latitude}, ${fetchedLocation.longitude})"
+							locationInfo = String.format("(%.2f, %.2f)", fetchedLocation.latitude, fetchedLocation.longitude)
 						}
 					}
 				}

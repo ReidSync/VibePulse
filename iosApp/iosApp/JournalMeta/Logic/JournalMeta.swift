@@ -95,8 +95,8 @@ struct JournalMeta {
         return .none
       case .getWeatherTodayFinish(let result):
         switch result {
-        case .success(let location):
-          state.weather = "\(location.latitude)"
+        case .success(let location):                    
+          state.weather = String(format: "%.2f, %.2f", location.latitude, location.longitude)
           return .none
         case .failure(let error):
           print(error)
