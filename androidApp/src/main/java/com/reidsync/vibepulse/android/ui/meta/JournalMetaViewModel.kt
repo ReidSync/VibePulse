@@ -10,6 +10,7 @@ import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.JournalLocation
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -107,10 +108,24 @@ class JournalMetaViewModel(
 		updateScreen(_uiState.value.journal.copy(moodFactors = moods))
 	}
 
+	fun updateLocation(latitude: Double, longitude: Double) {
+		val location = JournalLocation(latitude, longitude)
+		updateScreen(_uiState.value.journal.copy(
+			location = location
+		))
+	}
+
+	fun locationPermissions(on: Boolean) {
+		_uiState.update {
+			it.copy(requestLocationPermissions = on)
+		}
+	}
+
 }
 
 data class JournalMetaUIState(
-	val journal: Journal = Journal()
+	val journal: Journal = Journal(),
+	val requestLocationPermissions: Boolean = false
 ) {
 	val title = journal.title
 }

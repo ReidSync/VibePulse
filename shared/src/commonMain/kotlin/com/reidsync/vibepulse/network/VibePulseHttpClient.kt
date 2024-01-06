@@ -62,7 +62,7 @@ class VibePulseHttpClient {
 		}
 
 		val city = "London,uk"
-		val apiKey = "cce28834ea8cd6c7d5f7963d683eeced"
+		val apiKey = ""
 
 		val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey"
 		val result = client.get(url)

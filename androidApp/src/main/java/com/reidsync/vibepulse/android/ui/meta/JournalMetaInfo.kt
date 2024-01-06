@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -273,11 +274,29 @@ fun MoodFactorTextButton(
 }
 
 @Composable
-fun WeatherInfoField() {
+fun WeatherInfoField(
+	journal: Journal,
+	requestPermissions: () -> Unit,
+	update: (Double, Double) -> Unit,
+) {
 	JournalInfoField(
 		title = "Weather",
 		content = {
-			CurrentLocationContent(true)
+			Row {
+				Text(
+					text = String.format("(%.2f, %.2f)", journal.location.latitude, journal.location.longitude),
+					fontSize = 16.sp,
+					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+					modifier = Modifier
+						.padding(4.dp),
+					)
+
+				CurrentLocationContent(
+					requestPermissions,
+					update,
+					true
+				)
+			}
 		}
 	)
 
