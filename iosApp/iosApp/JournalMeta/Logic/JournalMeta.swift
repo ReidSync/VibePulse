@@ -18,7 +18,6 @@ struct JournalMeta {
     var feeling: Feelings
     var moodFactors: Set<MoodFactors>
     var titlePlaceHolder: String = ""
-    var weather: String = ""
     @BindingState var keyboardPadding: CGFloat = 0
     
     
@@ -95,9 +94,10 @@ struct JournalMeta {
         return .none
       case .getWeatherTodayFinish(let result):
         switch result {
-        case .success(let location):                    
-          state.weather = String(format: "%.2f, %.2f", location.latitude, location.longitude)
-          return .none
+        case .success(let location):
+          let journalLocation = JournalLocation(latitude: location.latitude, longitude: location.longitude)
+          return .send(.updateJournal(state.journal.copy(location: journalLocation)))
+          //return .none
         case .failure(let error):
           print(error)
           return .none

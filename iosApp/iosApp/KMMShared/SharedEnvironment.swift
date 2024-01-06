@@ -22,4 +22,5 @@ public let RC = shared.ResourceColorKt.RC
 
 public typealias Feelings = shared.Feelings
 public typealias MoodFactors = shared.MoodFactors
+public typealias JournalLocation = shared.JournalLocation
 

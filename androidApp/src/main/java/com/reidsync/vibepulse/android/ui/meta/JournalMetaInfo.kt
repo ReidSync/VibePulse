@@ -54,6 +54,7 @@ import com.reidsync.vibepulse.android.ui.meta.location.CurrentLocationContent
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
+import com.reidsync.vibepulse.notebook.journal.getString
 
 
 /**
@@ -284,7 +285,7 @@ fun WeatherInfoField(
 		content = {
 			Row {
 				Text(
-					text = String.format("(%.2f, %.2f)", journal.location.latitude, journal.location.longitude),
+					text = journal.location.getString(),
 					fontSize = 16.sp,
 					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 					modifier = Modifier
