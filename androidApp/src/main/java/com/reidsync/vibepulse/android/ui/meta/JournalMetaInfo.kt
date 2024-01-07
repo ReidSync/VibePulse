@@ -285,7 +285,7 @@ fun WeatherInfoField(
 		content = {
 			Row {
 				Text(
-					text = journal.location.getString(),
+					text = journal.location.cityName,
 					fontSize = 16.sp,
 					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 					modifier = Modifier

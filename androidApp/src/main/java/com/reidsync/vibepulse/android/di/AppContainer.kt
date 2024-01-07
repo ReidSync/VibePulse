@@ -1,6 +1,8 @@
 package com.reidsync.vibepulse.android.di
 
 import com.reidsync.vibepulse.android.APP
+import com.reidsync.vibepulse.android.data.repositories.LocationRepository
+import com.reidsync.vibepulse.android.data.repositories.LocationRepositoryImpl
 import com.reidsync.vibepulse.android.data.repositories.impl.LocalNotebookRepository
 import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 
@@ -11,6 +13,8 @@ import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 
 interface AppContainer {
 	val notebookRepository: NotebookRepository
+	val locationRepository: LocationRepository
+
 }
 
 class DefaultAppContainer : AppContainer {
@@ -19,6 +23,12 @@ class DefaultAppContainer : AppContainer {
 			APP.applicationContext.filesDir
 				.resolve("projects")
 				.also { it.mkdirs() }
+		)
+	}
+
+	override val locationRepository: LocationRepository by lazy {
+		LocationRepositoryImpl(
+			APP.applicationContext
 		)
 	}
 }

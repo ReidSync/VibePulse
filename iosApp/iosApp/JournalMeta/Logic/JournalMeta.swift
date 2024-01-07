@@ -95,7 +95,10 @@ struct JournalMeta {
       case .getWeatherTodayFinish(let result):
         switch result {
         case .success(let location):
-          let journalLocation = JournalLocation(latitude: location.latitude, longitude: location.longitude)
+          let journalLocation = JournalLocation(
+            latitude: location.latitude,
+            longitude: location.longitude,
+            cityName: "None")
           return .send(.updateJournal(state.journal.copy(location: journalLocation)))
           //return .none
         case .failure(let error):
