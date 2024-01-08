@@ -134,34 +134,6 @@ class JournalMetaViewModel(
 	private suspend fun getCityName(latitude: Double, longitude: Double): String {
 		val location = locationRepository.getAddress(latitude, longitude).getOrNull()
 		return location ?: "None"
-
-//		if (Build.VERSION.SDK_INT < 33) { // SDK 버전이 33보다 큰 경우에만 아래 함수를 씁니다.
-//			val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-//			return if (addresses.isNotEmpty()) {
-//				addresses[0].locality ?: "Unknown City"
-//			} else {
-//				"Unknown City"
-//			}
-//		}else { // SDK 버전이 33보다 크거나 같은 경우
-//			val geocoder = Geocoder(this, Locale.getDefault())
-//			var address: Address? = null
-//			val geocodeListener = @RequiresApi(33) object : Geocoder.GeocodeListener {
-//				override fun onGeocode(addresses: MutableList<Address>) {
-//					// 주소 리스트를 가지고 할 것을 적어주면 됩니다.
-//					address =  addresses[0];
-//					address?.let {
-//						binding.tvLocationTitle.text = "${it.thoroughfare}" // 예시: 역삼 1동
-//						binding.tvLocationSubtitle.text =
-//							"${it.countryName} ${it.adminArea}" // 예시 : 대한민국 서울특별시
-//					}
-//				}
-//				override fun onError(errorMessage: String?) {
-//					address = null
-//					Toast.makeText(this@MainActivity, "주소가 발견되지 않았습니다.", Toast.LENGTH_LONG).show()
-//				}
-//			}
-//			geocoder.getFromLocation(latitude, longitude, 7, geocodeListener)
-//		}
 	}
 
 }
