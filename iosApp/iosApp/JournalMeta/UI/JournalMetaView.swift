@@ -64,7 +64,7 @@ extension BindingViewStore<JournalMeta.State> {
       feeling: self.feeling,
       moodFactors: self.moodFactors,
       titlePlaceholder: self.titlePlaceHolder,
-      weather:  self.journal.location.getString(),
+      weather:  self.journal.location.cityName,
       keyboardPadding: self.$keyboardPadding
       
     )

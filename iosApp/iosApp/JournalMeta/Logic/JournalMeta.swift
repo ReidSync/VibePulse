@@ -40,7 +40,7 @@ struct JournalMeta {
     case setFeeling(Feelings)
     case setMoodFactor(moodFactor: MoodFactors, selected: Bool)
     case getWeatherToday
-    case getWeatherTodayFinish(Result<CLLocationCoordinate2D, Error>)
+    case getWeatherTodayFinish(Result<JournalLocation, Error>)
     case task
   }
   
@@ -94,11 +94,7 @@ struct JournalMeta {
         return .none
       case .getWeatherTodayFinish(let result):
         switch result {
-        case .success(let location):
-          let journalLocation = JournalLocation(
-            latitude: location.latitude,
-            longitude: location.longitude,
-            cityName: "None")
+        case .success(let journalLocation):
           return .send(.updateJournal(state.journal.copy(location: journalLocation)))
           //return .none
         case .failure(let error):
