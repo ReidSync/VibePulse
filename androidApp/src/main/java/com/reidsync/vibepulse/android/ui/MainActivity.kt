@@ -10,10 +10,10 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibepulse.android.AppThemeColor
-import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.appfeature.AppFeatureScreen
 import com.reidsync.vibepulse.android.ui.appfeature.AppFeatureViewModel
+import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.primitives.colors.RC
 
 class MainActivity : ComponentActivity() {

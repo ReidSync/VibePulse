@@ -29,15 +29,34 @@ kotlin {
             //put your multiplatform dependencies here
             implementation(libs.kotlinx.serialization.json)
             implementation(libs.kotlinx.datetime)
+            implementation(libs.ktor.client.core)
+            implementation(libs.ktor.client.cio)
+            implementation(libs.kotlinx.coroutines.core)
+            implementation(libs.ktor.client.json)
+            implementation(libs.ktor.client.content.negotiation)
+            implementation(libs.ktor.serialization.kotlinx.json)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
         }
 
-        androidTarget() {
-            dependencies {
-                implementation(libs.androidx.runtime)
-            }
+//        androidTarget() {
+//            dependencies {
+//                implementation(libs.androidx.runtime)
+//                implementation(libs.kotlinx.coroutines.android)
+//                implementation("io.ktor:ktor-client-android:2.3.7")
+//                implementation("io.ktor:ktor-client-okhttp:2.3.7")
+//            }
+//        }
+
+        androidMain.dependencies {
+            implementation(libs.androidx.runtime)
+            implementation(libs.kotlinx.coroutines.android)
+            implementation(libs.ktor.client.okhttp)
+        }
+
+        iosMain.dependencies {
+            implementation(libs.ktor.client.darwin)
         }
     }
 }

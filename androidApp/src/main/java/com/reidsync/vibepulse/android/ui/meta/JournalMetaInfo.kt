@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -49,9 +50,11 @@ import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.data.FeelingEmojis
 import com.reidsync.vibepulse.android.data.conventions.toColor
+import com.reidsync.vibepulse.android.ui.meta.location.CurrentLocationContent
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
+import com.reidsync.vibepulse.notebook.journal.getString
 
 
 /**
@@ -269,4 +272,33 @@ fun MoodFactorTextButton(
 
 			)
 	}
+}
+
+@Composable
+fun WeatherInfoField(
+	journal: Journal,
+	requestPermissions: () -> Unit,
+	update: (Double, Double) -> Unit,
+) {
+	JournalInfoField(
+		title = "Weather",
+		content = {
+			Row {
+				Text(
+					text = journal.location.cityName,
+					fontSize = 16.sp,
+					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
+					modifier = Modifier
+						.padding(4.dp),
+					)
+
+				CurrentLocationContent(
+					requestPermissions,
+					update,
+					true
+				)
+			}
+		}
+	)
+
 }

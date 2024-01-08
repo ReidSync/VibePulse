@@ -45,10 +45,12 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
 	implementation(libs.androidx.navigation.compose)
-	debugImplementation(libs.compose.ui.tooling)
+    implementation(libs.play.services.location)
+    debugImplementation(libs.compose.ui.tooling)
     implementation(libs.kotlinx.datetime)
     implementation(libs.accompanist.navigation.material)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.runtime)
     implementation(libs.androidx.material)
+    implementation(libs.kotlinx.coroutines.android)
 }

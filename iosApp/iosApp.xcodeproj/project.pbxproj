@@ -40,6 +40,7 @@
 		30D7F8502B15CA270022746D /* FileIOClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F84F2B15CA270022746D /* FileIOClient.swift */; };
 		30D7F8522B15CC9C0022746D /* URL+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8512B15CC9C0022746D /* URL+Extension.swift */; };
 		30D7F8572B15F5460022746D /* KeyboardResponder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D7F8562B15F5460022746D /* KeyboardResponder.swift */; };
+		30D91EAF2B46AF8800009AE1 /* LocationClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D91EAE2B46AF8800009AE1 /* LocationClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		30D7F84F2B15CA270022746D /* FileIOClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileIOClient.swift; sourceTree = "<group>"; };
 		30D7F8512B15CC9C0022746D /* URL+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URL+Extension.swift"; sourceTree = "<group>"; };
 		30D7F8562B15F5460022746D /* KeyboardResponder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardResponder.swift; sourceTree = "<group>"; };
+		30D91EAE2B46AF8800009AE1 /* LocationClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationClient.swift; sourceTree = "<group>"; };
+		30D91EB02B4806B900009AE1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +149,7 @@
 		30793EE72B0DF060008E8A16 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				30D91EB02B4806B900009AE1 /* Info.plist */,
 				30793EE82B0DF060008E8A16 /* iosApp.swift */,
 				30817BA32B358C6700650BF8 /* Extensions */,
 				30CBA0922B316FF800A6B884 /* KMMShared */,
@@ -192,6 +196,7 @@
 				30817B9C2B3574E700650BF8 /* Journal */,
 				30D7F8562B15F5460022746D /* KeyboardResponder.swift */,
 				30D7F84F2B15CA270022746D /* FileIOClient.swift */,
+				30D91EAE2B46AF8800009AE1 /* LocationClient.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -497,6 +502,7 @@
 				30D7F8572B15F5460022746D /* KeyboardResponder.swift in Sources */,
 				30817B9B2B3574AB00650BF8 /* JournalClient.swift in Sources */,
 				30817BA52B358C7B00650BF8 /* Color+Extensions.swift in Sources */,
+				30D91EAF2B46AF8800009AE1 /* LocationClient.swift in Sources */,
 				30793F1B2B0DF6DA008E8A16 /* AppFeature.swift in Sources */,
 				30D7F8432B0F595E0022746D /* JournalHome.swift in Sources */,
 				30D7F8502B15CA270022746D /* FileIOClient.swift in Sources */,
@@ -686,6 +692,12 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = CLAuthorizationStatus;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to provide you with a weather forecast!";
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location to provide you with a weather forecast!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide you with a weather forecast!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -724,6 +736,12 @@
 					"$(SRCROOT)/../shared/build/xcode-frameworks/$(CONFIGURATION)/$(SDK_NAME)",
 				);
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = iosApp/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "";
+				INFOPLIST_KEY_LSApplicationCategoryType = CLAuthorizationStatus;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "We need your location to provide you with a weather forecast!";
+				INFOPLIST_KEY_NSLocationUsageDescription = "We need your location to provide you with a weather forecast!";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need your location to provide you with a weather forecast!";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

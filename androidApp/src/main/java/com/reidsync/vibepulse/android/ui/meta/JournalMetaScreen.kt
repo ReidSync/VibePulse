@@ -28,6 +28,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
+import com.reidsync.vibepulse.android.ui.meta.location.CheckLocationPermission
 import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.primitives.colors.SolidColor
@@ -44,6 +45,12 @@ fun JournalMetaScreen(
 	onNavigateUp: () -> Unit,
 ) {
 	val uiState by viewModel.uiState.collectAsState()
+
+	if (uiState.requestLocationPermissions) {
+		CheckLocationPermission()
+		viewModel.locationPermissions(false)
+	}
+
 	Column(
 		modifier = Modifier
 			.background(AppThemeColor.current.vibePulseColors.background.toColor())
@@ -103,6 +110,17 @@ fun JournalMetaContents(
 			journal = journal,
 			update = { moodFactors, selected ->
 				viewModel.updateMoodFactors(moodFactors, selected)
+				doneWithClearingFocus()
+			}
+		)
+
+		WeatherInfoField(
+			journal = journal,
+			requestPermissions = {
+				viewModel.locationPermissions(true)
+			},
+			update = { latitude, longitude ->
+				viewModel.updateLocation(latitude, longitude)
 				doneWithClearingFocus()
 			}
 		)

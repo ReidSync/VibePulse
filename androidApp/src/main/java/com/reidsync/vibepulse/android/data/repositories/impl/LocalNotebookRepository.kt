@@ -51,7 +51,7 @@ class LocalNotebookRepository constructor(private val projectsRoot: File): Noteb
 	override suspend fun load(): Result<Notebook> {
 		val file = projectsRoot.resolve("my-journals.json")
 		return runCatching {
-			val content = file.readText()
+				val content = file.readText()
 			_notebook.update {
 				//val data = Json.decodeFromString<Notebook>(content)
 				val data = deserializeToNotebook(content).getOrThrow()
