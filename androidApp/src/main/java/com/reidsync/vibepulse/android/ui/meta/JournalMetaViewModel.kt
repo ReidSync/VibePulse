@@ -1,9 +1,5 @@
 package com.reidsync.vibepulse.android.ui.meta
 
-import android.location.Address
-import android.location.Geocoder
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -13,10 +9,12 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.repositories.LocationRepository
 import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
+import com.reidsync.vibepulse.network.weather.WeatherInfoService
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.JournalLocation
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
+import com.reidsync.vibepulse.notebook.journal.asJournalWeather
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -119,8 +117,10 @@ class JournalMetaViewModel(
 		viewModelScope.launch {
 			val cityName = getCityName(latitude, longitude)
 			val location = JournalLocation(latitude, longitude, cityName)
+			val weather = WeatherInfoService().getWeatherResponse(latitude, longitude).asJournalWeather()
 			updateScreen(_uiState.value.journal.copy(
-				location = location
+				location = location,
+				weather = weather
 			))
 		}
 	}

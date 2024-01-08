@@ -32,10 +32,8 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,11 +49,9 @@ import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.data.FeelingEmojis
 import com.reidsync.vibepulse.android.data.conventions.toColor
-import com.reidsync.vibepulse.network.VibePulseHttpClient
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.primitives.colors.SolidColor
 import com.reidsync.vibepulse.util.format
-import kotlinx.coroutines.launch
 
 /**
  * Created by Reid on 2023/12/12.
@@ -68,13 +64,6 @@ fun HomeScreen(
 	onCreateNewJournal: (Journal) -> Unit,
 	onEditJournal: (Journal) -> Unit
 ) {
-	val scope = rememberCoroutineScope()
-	//var text by remember { mutableStateOf("Loading") }
-	LaunchedEffect(true) {
-		scope.launch {
-			VibePulseHttpClient().getWeather()
-		}
-	}
 	val uiState by viewModel.uiState.collectAsState()
 	Column(
 		modifier = Modifier

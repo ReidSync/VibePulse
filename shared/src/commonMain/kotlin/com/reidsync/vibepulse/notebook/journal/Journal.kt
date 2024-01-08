@@ -21,7 +21,7 @@ data class Journal(
 	val feeling: Feelings = Feelings.Neutral,
 	val moodFactors: Set<MoodFactors> = emptySet(),
 	val location: JournalLocation = JournalLocation(),
-	val weather: Int = 0,
+	val weather: JournalWeather = JournalWeather(),
 	val contents: String = ""
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
