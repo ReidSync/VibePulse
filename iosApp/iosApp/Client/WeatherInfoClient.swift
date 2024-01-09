@@ -19,7 +19,13 @@ extension WeatherInfoClient: DependencyKey {
       // I had to make `getWeatherInfo` run in MainActor
       // because suspend functions should be called in Main thread...
       // I think this is a big ristriction and a problem.
-      getWeatherInfo: { @MainActor latitude, longitude in
+      // -----------
+      //getWeatherInfo: { @MainActor latitude, longitude in
+      
+      // I resoloved a restriction by adding `Addingkotlin.native.binary.objcExportSuspendFunctionLaunchThreadRestriction=none`
+      // to gradle.properties.
+      // But it still causes a slight UI pausing.
+      getWeatherInfo: { latitude, longitude in
         try await weatherInfoService.getWeatherResponse(latitude: latitude, longitude: longitude).asJournalWeather()
       }
     )
