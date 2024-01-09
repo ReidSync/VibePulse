@@ -26,4 +26,5 @@ public typealias JournalLocation = shared.JournalLocation
 public typealias JournalWeather = shared.JournalWeather
 public typealias WeatherResponse = shared.WeatherResponse
 public typealias WeatherInfoService = shared.WeatherInfoService
+public typealias WeatherCode = shared.WeatherCode
 
