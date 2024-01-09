@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3022A3972B4D2F51006BD87B /* Weather.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3022A3962B4D2F51006BD87B /* Weather.xcassets */; };
 		305AA9EB2B4C280100C1EEE7 /* WeatherInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AA9EA2B4C280100C1EEE7 /* WeatherInfoClient.swift */; };
 		30793EE92B0DF060008E8A16 /* iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30793EE82B0DF060008E8A16 /* iosApp.swift */; };
 		30793EED2B0DF061008E8A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30793EEC2B0DF061008E8A16 /* Assets.xcassets */; };
@@ -62,6 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3022A3962B4D2F51006BD87B /* Weather.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Weather.xcassets; sourceTree = "<group>"; };
 		305AA9EA2B4C280100C1EEE7 /* WeatherInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoClient.swift; sourceTree = "<group>"; };
 		30793EE52B0DF060008E8A16 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30793EE82B0DF060008E8A16 /* iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosApp.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 			children = (
 				30793F1C2B0E2DE9008E8A16 /* Colors.xcassets */,
 				30793EEC2B0DF061008E8A16 /* Assets.xcassets */,
+				3022A3962B4D2F51006BD87B /* Weather.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -451,6 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3022A3972B4D2F51006BD87B /* Weather.xcassets in Resources */,
 				30793F1D2B0E2DE9008E8A16 /* Colors.xcassets in Resources */,
 				30793EF02B0DF061008E8A16 /* Preview Assets.xcassets in Resources */,
 				30793EED2B0DF061008E8A16 /* Assets.xcassets in Resources */,
