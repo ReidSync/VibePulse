@@ -40,12 +40,13 @@ struct JournalMeta {
     case setFeeling(Feelings)
     case setMoodFactor(moodFactor: MoodFactors, selected: Bool)
     case getWeatherToday
-    case getWeatherTodayFinish(Result<JournalLocation, Error>)
+    case getWeatherTodayFinish(Result<(JournalLocation, JournalWeather), Error>)
     case task
   }
   
   @Dependency(\.keyboardResponder) var keyboardResponder
   @Dependency(\.locationClient) var locationClient
+  @Dependency(\.weatherInfoClient) var weatherInfoClient
   
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -53,7 +54,7 @@ struct JournalMeta {
       switch action {
       case .task:
         return .run { send in
-          await try withThrowingTaskGroup(of: Void.self) { group in
+          try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
               for await _ in await self.keyboardResponder.willShow() {
                 await send(.binding(.set(\.$keyboardPadding, keyboardResponder.height())))
@@ -94,8 +95,10 @@ struct JournalMeta {
         return .none
       case .getWeatherTodayFinish(let result):
         switch result {
-        case .success(let journalLocation):
-          return .send(.updateJournal(state.journal.copy(location: journalLocation)))
+        case .success(let (location, weather)):
+          print(location)
+          print(weather)
+          return .send(.updateJournal(state.journal.copy(location: location, weather: weather)))
           //return .none
         case .failure(let error):
           print(error)
@@ -103,9 +106,13 @@ struct JournalMeta {
         }
       case .getWeatherToday:
         return .run { send in
+          let location = try await locationClient.getCurrentLocation()
+          let weather = try await weatherInfoClient.getWeatherInfo(location.latitude, location.longitude)
+          
           async let getWeather: Void = send(
+            
             .getWeatherTodayFinish (
-              Result { try await locationClient.getCurrentLocation() }
+              Result { (location, weather) }
             )
           )
           await getWeather

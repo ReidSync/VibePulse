@@ -24,4 +24,6 @@ public typealias Feelings = shared.Feelings
 public typealias MoodFactors = shared.MoodFactors
 public typealias JournalLocation = shared.JournalLocation
 public typealias JournalWeather = shared.JournalWeather
+public typealias WeatherResponse = shared.WeatherResponse
+public typealias WeatherInfoService = shared.WeatherInfoService
 
