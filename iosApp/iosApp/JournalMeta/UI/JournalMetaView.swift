@@ -28,17 +28,19 @@ struct JournalMetaView: View {
   var body: some View {
     WithViewStore(self.store, observe: \.view, send: { $0 }) { viewStore in
       ZStack {
-        appThemeColor.background.toColor().edgesIgnoringSafeArea(.all)
-        VStack(spacing: 30) {
-          feelingsFieldView(viewStore)
-          moodFactorFieldView(viewStore)
-          weatherFieldView(viewStore)
-          titleFieldView(viewStore)
+        ScrollView (.vertical, showsIndicators: false) {
+          appThemeColor.background.toColor().edgesIgnoringSafeArea(.all)
+          VStack(spacing: 30) {
+            feelingsFieldView(viewStore)
+            moodFactorFieldView(viewStore)
+            weatherFieldView(viewStore)
+            titleFieldView(viewStore)
+          }
+          .bind(viewStore.$focus, to: self.$focus)
+          .padding(20)
         }
-        .bind(viewStore.$focus, to: self.$focus)
-        .padding(20)
         //.scrollContentBackground(.hidden)
-        .background(appThemeColor.background.toColor())
+        //.background(appThemeColor.background.toColor())
       }
       .onAppear() {
         UINavigationBar.appearance().backgroundColor = UIColor(appThemeColor.background.toColor())
@@ -49,7 +51,8 @@ struct JournalMetaView: View {
       .task {
         await viewStore.send(.task).finish()
       }
-      .padding(.bottom, viewStore.keyboardPadding)
+      //.padding(.bottom, viewStore.keyboardPadding)
+      .background(appThemeColor.background.toColor())
       .onTapGesture {
         self.focus = nil
       }
