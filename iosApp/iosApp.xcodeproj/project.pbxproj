@@ -721,7 +721,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = reid.example.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = reid.test.app.antongubarenko.LocationSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

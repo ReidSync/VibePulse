@@ -49,7 +49,8 @@ struct JournalHome {
       case .createButtonTapped:
         state.destination = .sheetToAdd(
           JournalMeta.State(
-            journal: Journal.companion.makeInstance()
+            journal: Journal.companion.makeInstance(),
+            type: JournalMetaViewType.Add()
           ))
         return .none
         

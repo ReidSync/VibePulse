@@ -30,8 +30,8 @@ import com.reidsync.vibepulse.android.ui.home.HomeScreen
 import com.reidsync.vibepulse.android.ui.home.HomeViewModel
 import com.reidsync.vibepulse.android.ui.meta.JournalMetaScreen
 import com.reidsync.vibepulse.android.ui.meta.JournalMetaViewModel
-import com.reidsync.vibepulse.android.ui.meta.JournalMetaViewType
 import com.reidsync.vibepulse.android.util.MyApplicationTheme
+import com.reidsync.vibepulse.notebook.journal.JournalMetaViewType
 
 /**
  * Created by Reid on 2023/12/13.

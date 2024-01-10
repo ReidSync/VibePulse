@@ -16,48 +16,48 @@ let FeelingEmojis = [
   Feelings.superhappy : "super_happy"
 ]
 
-// (WeatherCode.)\b([A-Z])(\w+)([A-Z]) -> $1\l$2$3$4
+// (WeatherCodeInfo.)\b([A-Z])(\w+)([A-Z]) -> $1\l$2$3$4
 let WeatherIcons = [
-  WeatherCode.unknown : "weather",
+  WeatherCodeInfo.unknown : "weather",
   
-  WeatherCode.clearSkyDay : "day",
-  WeatherCode.clearSkyNight : "night",
+  WeatherCodeInfo.clearSkyDay : "day",
+  WeatherCodeInfo.clearSkyNight : "night",
   
-  WeatherCode.mainlyClearDay : "cloudy_day_1",
-  WeatherCode.partlyCloudyDay : "cloudy_day_2",
-  WeatherCode.overcastDay : "cloudy_day_3",
+  WeatherCodeInfo.mainlyClearDay : "cloudy_day_1",
+  WeatherCodeInfo.partlyCloudyDay : "cloudy_day_2",
+  WeatherCodeInfo.overcastDay : "cloudy_day_3",
   
-  WeatherCode.mainlyClearNight : "cloudy_night_1",
-  WeatherCode.partlyCloudyNight : "cloudy_night_2",
-  WeatherCode.overcastNight : "cloudy_night_3",
+  WeatherCodeInfo.mainlyClearNight : "cloudy_night_1",
+  WeatherCodeInfo.partlyCloudyNight : "cloudy_night_2",
+  WeatherCodeInfo.overcastNight : "cloudy_night_3",
   
-  WeatherCode.fogAndDepositingRimeFogDay : "cloudy_day_3",
-  WeatherCode.fogAndDepositingRimeFogNight : "cloudy_night_3",
+  WeatherCodeInfo.fogAndDepositingRimeFogDay : "cloudy_day_3",
+  WeatherCodeInfo.fogAndDepositingRimeFogNight : "cloudy_night_3",
   
-  WeatherCode.drizzleLightDay : "rainy_1",
-  WeatherCode.drizzleModerateDay : "rainy_2",
-  WeatherCode.drizzleDenseDay : "rainy_3",
-  WeatherCode.drizzleLightNight : "rainy_4",
-  WeatherCode.drizzleModerateNight : "rainy_5",
-  WeatherCode.drizzleDenseNight : "rainy_6",
+  WeatherCodeInfo.drizzleLightDay : "rainy_1",
+  WeatherCodeInfo.drizzleModerateDay : "rainy_2",
+  WeatherCodeInfo.drizzleDenseDay : "rainy_3",
+  WeatherCodeInfo.drizzleLightNight : "rainy_4",
+  WeatherCodeInfo.drizzleModerateNight : "rainy_5",
+  WeatherCodeInfo.drizzleDenseNight : "rainy_6",
   
-  WeatherCode.freezingDrizzleLightDay : "snowy_1",
-  WeatherCode.freezingDrizzleDenseDay : "snowy_3",
-  WeatherCode.freezingDrizzleLightNight : "snowy_4",
-  WeatherCode.freezingDrizzleDenseNight : "snowy_6",
+  WeatherCodeInfo.freezingDrizzleLightDay : "snowy_1",
+  WeatherCodeInfo.freezingDrizzleDenseDay : "snowy_3",
+  WeatherCodeInfo.freezingDrizzleLightNight : "snowy_4",
+  WeatherCodeInfo.freezingDrizzleDenseNight : "snowy_6",
   
-  WeatherCode.rainSlightDay : "rainy_1",
-  WeatherCode.rainModerateDay : "rainy_2",
-  WeatherCode.rainHeavyDay : "rainy_3",
-  WeatherCode.rainSlightNight : "rainy_4",
-  WeatherCode.rainModerateNight : "rainy_5",
-  WeatherCode.rainHeavyNight : "rainy_6",
+  WeatherCodeInfo.rainSlightDay : "rainy_1",
+  WeatherCodeInfo.rainModerateDay : "rainy_2",
+  WeatherCodeInfo.rainHeavyDay : "rainy_3",
+  WeatherCodeInfo.rainSlightNight : "rainy_4",
+  WeatherCodeInfo.rainModerateNight : "rainy_5",
+  WeatherCodeInfo.rainHeavyNight : "rainy_6",
   
-  WeatherCode.freezingRainLightDay : "snowy_1",
-  WeatherCode.freezingRainHeavyDay : "snowy_3",
-  WeatherCode.freezingRainLightNight : "snowy_4",
-  WeatherCode.freezingRainHeavyNight : "snowy_6",  
+  WeatherCodeInfo.freezingRainLightDay : "snowy_1",
+  WeatherCodeInfo.freezingRainHeavyDay : "snowy_3",
+  WeatherCodeInfo.freezingRainLightNight : "snowy_4",
+  WeatherCodeInfo.freezingRainHeavyNight : "snowy_6",
   
-  WeatherCode.snowFallSlightDay : "snowy_1",
-  WeatherCode.snowFallSlightNight : "snowy_1"
+  WeatherCodeInfo.snowFallSlightDay : "snowy_1",
+  WeatherCodeInfo.snowFallSlightNight : "snowy_1"
 ]

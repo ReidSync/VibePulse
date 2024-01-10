@@ -31,6 +31,7 @@ import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.ui.meta.location.CheckLocationPermission
 import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.JournalMetaViewType
 import com.reidsync.vibepulse.primitives.colors.SolidColor
 
 /**
@@ -116,6 +117,7 @@ fun JournalMetaContents(
 
 		WeatherInfoField(
 			journal = journal,
+			showRefresh = viewModel.type == JournalMetaViewType.Add,
 			requestPermissions = {
 				viewModel.locationPermissions(true)
 			},

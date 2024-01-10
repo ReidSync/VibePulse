@@ -12,7 +12,7 @@ import kotlinx.serialization.Serializable
 data class JournalLocation(
 	val latitude: Double = 0.0,
 	val longitude: Double = 0.0,
-	val cityName: String = ""
+	val cityName: String = "Unknown"
 )
 
 expect fun JournalLocation.getString(): String

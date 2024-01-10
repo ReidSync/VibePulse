@@ -7,15 +7,7 @@ import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
-import io.ktor.serialization.kotlinx.json.*
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.IO
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.suspendCancellableCoroutine
-import kotlin.coroutines.resume
-import kotlin.coroutines.suspendCoroutine
+import io.ktor.serialization.kotlinx.json.json
 
 /**
  * Created by Reid on 2024/01/02.
@@ -31,6 +23,7 @@ class WeatherInfoService {
 		private const val LATITUDE = "latitude"
 		private const val LONGITUDE = "longitude"
 		private const val IS_DAY = "is_day"
+
 		//current=temperature_2m,is_day,weather_code
 		private const val CURRENT_INFO = "$CURRENT=$TEMP,$IS_DAY,$WEATHER_CODE"
 	}
@@ -47,7 +40,6 @@ class WeatherInfoService {
 		}
 	}
 
-	@OptIn(DelicateCoroutinesApi::class)
 	suspend fun getWeatherResponse(latitude: Double, longitude: Double): WeatherResponse {
 		val url = apiURL(latitude, longitude)
 		println("weather request URL : $url")

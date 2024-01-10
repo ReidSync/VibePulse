@@ -17,48 +17,49 @@ val FeelingEmojis = mapOf(
 	Feelings.SuperHappy to R.drawable.super_happy
 )
 
+
 val WeatherIcons = mapOf(
 	WeatherCodeInfo.Unknown to R.drawable.weather,
 
-	WeatherCodeInfo.ClearSkyDay to R.drawable.day,
-	WeatherCodeInfo.ClearSkyNight to R.drawable.night,
+	WeatherCodeInfo.CLEAR_SKY_DAY to R.drawable.day,
+	WeatherCodeInfo.CLEAR_SKY_NIGHT to R.drawable.night,
 
-	WeatherCodeInfo.MainlyClearDay to R.drawable.cloudy_day_1,
-	WeatherCodeInfo.PartlyCloudyDay to R.drawable.cloudy_day_2,
-	WeatherCodeInfo.OvercastDay to R.drawable.cloudy_day_3,
+	WeatherCodeInfo.MAINLY_CLEAR_DAY to R.drawable.cloudy_day_1,
+	WeatherCodeInfo.PARTLY_CLOUDY_DAY to R.drawable.cloudy_day_2,
+	WeatherCodeInfo.OVERCAST_DAY to R.drawable.cloudy_day_3,
 
-	WeatherCodeInfo.MainlyClearNight to R.drawable.cloudy_night_1,
-	WeatherCodeInfo.PartlyCloudyNight to R.drawable.cloudy_night_2,
-	WeatherCodeInfo.OvercastNight to R.drawable.cloudy_night_3,
+	WeatherCodeInfo.MAINLY_CLEAR_NIGHT to R.drawable.cloudy_night_1,
+	WeatherCodeInfo.PARTLY_CLOUDY_NIGHT to R.drawable.cloudy_night_2,
+	WeatherCodeInfo.OVERCAST_NIGHT to R.drawable.cloudy_night_3,
 
-	WeatherCodeInfo.FogAndDepositingRimeFogDay to R.drawable.cloudy_day_3,
-	WeatherCodeInfo.FogAndDepositingRimeFogNight to R.drawable.cloudy_night_3,
+	WeatherCodeInfo.FOG_AND_DEPOSITING_RIME_FOG_DAY to R.drawable.cloudy_day_3,
+	WeatherCodeInfo.FOG_AND_DEPOSITING_RIME_FOG_NIGHT to R.drawable.cloudy_night_3,
 
-	WeatherCodeInfo.DrizzleLightDay to R.drawable.rainy_1,
-	WeatherCodeInfo.DrizzleModerateDay to R.drawable.rainy_2,
-	WeatherCodeInfo.DrizzleDenseDay to R.drawable.rainy_3,
-	WeatherCodeInfo.DrizzleLightNight to R.drawable.rainy_4,
-	WeatherCodeInfo.DrizzleModerateNight to R.drawable.rainy_5,
-	WeatherCodeInfo.DrizzleDenseNight to R.drawable.rainy_6,
+	WeatherCodeInfo.DRIZZLE_LIGHT_DAY to R.drawable.rainy_1,
+	WeatherCodeInfo.DRIZZLE_MODERATE_DAY to R.drawable.rainy_2,
+	WeatherCodeInfo.DRIZZLE_DENSE_DAY to R.drawable.rainy_3,
+	WeatherCodeInfo.DRIZZLE_LIGHT_NIGHT to R.drawable.rainy_4,
+	WeatherCodeInfo.DRIZZLE_MODERATE_NIGHT to R.drawable.rainy_5,
+	WeatherCodeInfo.DRIZZLE_DENSE_NIGHT to R.drawable.rainy_6,
 
-	WeatherCodeInfo.FreezingDrizzleLightDay to R.drawable.snowy_1,
-	WeatherCodeInfo.FreezingDrizzleDenseDay to R.drawable.snowy_3,
-	WeatherCodeInfo.FreezingDrizzleLightNight to R.drawable.snowy_4,
-	WeatherCodeInfo.FreezingDrizzleDenseNight to R.drawable.snowy_6,
+	WeatherCodeInfo.FREEZING_DRIZZLE_LIGHT_DAY to R.drawable.snowy_1,
+	WeatherCodeInfo.FREEZING_DRIZZLE_DENSE_DAY to R.drawable.snowy_3,
+	WeatherCodeInfo.FREEZING_DRIZZLE_LIGHT_NIGHT to R.drawable.snowy_4,
+	WeatherCodeInfo.FREEZING_DRIZZLE_DENSE_NIGHT to R.drawable.snowy_6,
 
-	WeatherCodeInfo.RainSlightDay to R.drawable.rainy_1,
-	WeatherCodeInfo.RainModerateDay to R.drawable.rainy_2,
-	WeatherCodeInfo.RainHeavyDay to R.drawable.rainy_3,
-	WeatherCodeInfo.RainSlightNight to R.drawable.rainy_4,
-	WeatherCodeInfo.RainModerateNight to R.drawable.rainy_5,
-	WeatherCodeInfo.RainHeavyNight to R.drawable.rainy_6,
+	WeatherCodeInfo.RAIN_SLIGHT_DAY to R.drawable.rainy_1,
+	WeatherCodeInfo.RAIN_MODERATE_DAY to R.drawable.rainy_2,
+	WeatherCodeInfo.RAIN_HEAVY_DAY to R.drawable.rainy_3,
+	WeatherCodeInfo.RAIN_SLIGHT_NIGHT to R.drawable.rainy_4,
+	WeatherCodeInfo.RAIN_MODERATE_NIGHT to R.drawable.rainy_5,
+	WeatherCodeInfo.RAIN_HEAVY_NIGHT to R.drawable.rainy_6,
 
-	WeatherCodeInfo.FreezingRainLightDay to R.drawable.snowy_1,
-	WeatherCodeInfo.FreezingRainHeavyDay to R.drawable.snowy_3,
-	WeatherCodeInfo.FreezingRainLightNight to R.drawable.snowy_4,
-	WeatherCodeInfo.FreezingRainHeavyNight to R.drawable.snowy_6,
+	WeatherCodeInfo.FREEZING_RAIN_LIGHT_DAY to R.drawable.snowy_1,
+	WeatherCodeInfo.FREEZING_RAIN_HEAVY_DAY to R.drawable.snowy_3,
+	WeatherCodeInfo.FREEZING_RAIN_LIGHT_NIGHT to R.drawable.snowy_4,
+	WeatherCodeInfo.FREEZING_RAIN_HEAVY_NIGHT to R.drawable.snowy_6,
 
 
-	WeatherCodeInfo.SnowFallSlightDay to R.drawable.snowy_1,
-	WeatherCodeInfo.SnowFallSlightNight to R.drawable.snowy_1
+	WeatherCodeInfo.SNOW_FALL_SLIGHT_DAY to R.drawable.snowy_1,
+	WeatherCodeInfo.SNOW_FALL_SLIGHT_NIGHT to R.drawable.snowy_1
 )

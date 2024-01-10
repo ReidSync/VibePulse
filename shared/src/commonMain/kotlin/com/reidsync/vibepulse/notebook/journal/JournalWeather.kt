@@ -1,5 +1,6 @@
 package com.reidsync.vibepulse.notebook.journal
 
+import com.reidsync.vibepulse.network.weather.WeatherCodeInfo
 import com.reidsync.vibepulse.network.weather.model.WeatherResponse
 import kotlinx.serialization.Serializable
 
@@ -10,11 +11,11 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class JournalWeather(
-	val weatherCode: Int = 0
+	val weatherInfo: WeatherCodeInfo = WeatherCodeInfo.Unknown
 )
 
 fun WeatherResponse.asJournalWeather(): JournalWeather {
-	return JournalWeather(
-		weatherCode = this.current.weatherCode
+	return JournalWeather(weatherInfo
+	= (WeatherCodeInfo from Pair(current.weatherCode, current.isDay)) ?: WeatherCodeInfo.Unknown
 	)
 }

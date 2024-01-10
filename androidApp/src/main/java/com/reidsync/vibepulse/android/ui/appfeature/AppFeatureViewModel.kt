@@ -7,8 +7,8 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
-import com.reidsync.vibepulse.android.ui.meta.JournalMetaViewType
 import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.JournalMetaViewType
 
 /**
  * Created by Reid on 2023/12/13.

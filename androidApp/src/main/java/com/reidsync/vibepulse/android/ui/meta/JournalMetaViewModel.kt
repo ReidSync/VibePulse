@@ -13,6 +13,7 @@ import com.reidsync.vibepulse.network.weather.WeatherInfoService
 import com.reidsync.vibepulse.notebook.journal.Feelings
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.JournalLocation
+import com.reidsync.vibepulse.notebook.journal.JournalMetaViewType
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
 import com.reidsync.vibepulse.notebook.journal.asJournalWeather
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -143,10 +144,4 @@ data class JournalMetaUIState(
 	val requestLocationPermissions: Boolean = false
 ) {
 	val title = journal.title
-}
-
-sealed class JournalMetaViewType {
-	data object Add : JournalMetaViewType()
-	data object Edit : JournalMetaViewType()
-
 }

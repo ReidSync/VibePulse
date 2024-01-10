@@ -145,22 +145,37 @@ extension JournalMetaView {
   )-> some View {
     journalInfoFieldView(title: "Weather") {
       HStack {
-        Text(viewStore.weather)
+        if let emoji = WeatherIcons[viewStore.weather.weatherInfo] {
+          Image(emoji)
+            .resizable()
+            .scaledToFill()
+            .frame(width: 72, height: 72)
+            .padding(8)
+        }
+        
+        Text(viewStore.location)
+          .font(.system(size: 18))
           .padding(5)
-          .overlay(
-            RoundedRectangle(cornerRadius: 2)
-              .stroke(appThemeColor.vibeD.toColor(), lineWidth: 1)
-          )
           .foregroundColor(appThemeColor.vibeD.toColor())
         
-        Button {
-          viewStore.send(.getWeatherToday)
-        } label: {
-          Text("Re")
+        Spacer()
+        
+        if viewStore.type == JournalMetaViewType.Add() {
+          Button(action: {
+            viewStore.send(.getWeatherToday)
+          }) {
+            Text("Refresh")
+              .font(.system(size: 13))
+              .frame(minWidth: 0, maxWidth: 50)
+              .padding()
+              .background(
+                RoundedRectangle(cornerRadius: 20)
+                  .fill(appThemeColor.vibeA.toColor())
+              )
+              .foregroundColor(appThemeColor.vibeC.toColor())
+          }
         }
       }
-      //.ignoresSafeArea(.keyboard)
-      
     }
   }
 }

@@ -1,5 +1,6 @@
 package com.reidsync.vibepulse.notebook.journal
 
+import com.reidsync.vibepulse.network.weather.WeatherCodeInfo
 import kotlinx.datetime.toLocalDateTime
 import com.reidsync.vibepulse.primitives.uuid.UUID
 import com.reidsync.vibepulse.primitives.uuid.randomUUID

@@ -13,6 +13,7 @@ import CoreLocation
 struct JournalMeta {
   struct State: Equatable {
     var journal: Journal
+    let type: JournalMetaViewType
     @BindingState var focus: Field? = nil
     @BindingState var title: String
     var feeling: Feelings
@@ -21,8 +22,9 @@ struct JournalMeta {
     @BindingState var keyboardPadding: CGFloat = 0
     
     
-    init(journal: Journal) {
+    init(journal: Journal, type: JournalMetaViewType) {
       self.journal = journal
+      self.type = type
       self.title = journal.title
       self.titlePlaceHolder = journal.titleWithPlaceHolder
       self.feeling = journal.feeling
