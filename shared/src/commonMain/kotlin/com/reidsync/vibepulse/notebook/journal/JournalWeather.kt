@@ -19,3 +19,10 @@ fun WeatherResponse.asJournalWeather(): JournalWeather {
 	= (WeatherCodeInfo from Pair(current.weatherCode, current.isDay)) ?: WeatherCodeInfo.Unknown
 	)
 }
+
+sealed class GettingWeatherState {
+	data object Loading : GettingWeatherState()
+	data class Success(val data: JournalWeather) : GettingWeatherState()
+	data object Done : GettingWeatherState()
+	data class Error(val error: Throwable) : GettingWeatherState()
+}

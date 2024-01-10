@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
@@ -55,6 +54,7 @@ import com.reidsync.vibepulse.android.data.WeatherIcons
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.meta.location.CurrentLocationContent
 import com.reidsync.vibepulse.notebook.journal.Feelings
+import com.reidsync.vibepulse.notebook.journal.GettingWeatherState
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
 
@@ -279,6 +279,7 @@ fun MoodFactorTextButton(
 @Composable
 fun WeatherInfoField(
 	journal: Journal,
+	gettingUIState: GettingWeatherState,
 	showRefresh: Boolean,
 	requestPermissions: () -> Unit,
 	update: (Double, Double) -> Unit,
@@ -315,6 +316,7 @@ fun WeatherInfoField(
 
 				if (showRefresh) {
 					CurrentLocationContent(
+						gettingUIState,
 						requestPermissions,
 						update,
 						true

@@ -11,6 +11,7 @@ import com.reidsync.vibepulse.android.data.repositories.LocationRepository
 import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
 import com.reidsync.vibepulse.network.weather.WeatherInfoService
 import com.reidsync.vibepulse.notebook.journal.Feelings
+import com.reidsync.vibepulse.notebook.journal.GettingWeatherState
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.JournalLocation
 import com.reidsync.vibepulse.notebook.journal.JournalMetaViewType
@@ -89,18 +90,18 @@ class JournalMetaViewModel(
 		}
 	}
 
-	fun updateScreen(journal: Journal) {
+	private fun updateJournal(journal: Journal) {
 		_uiState.update {
 			it.copy(journal = journal)
 		}
 	}
 
 	fun updateTitle(title: String) {
-		updateScreen(_uiState.value.journal.copy(title = title))
+		updateJournal(_uiState.value.journal.copy(title = title))
 	}
 
 	fun updateFeeling(feeling: Feelings) {
-		updateScreen(_uiState.value.journal.copy(feeling = feeling))
+		updateJournal(_uiState.value.journal.copy(feeling = feeling))
 	}
 
 	fun updateMoodFactors(moodFactors: MoodFactors, selected: Boolean) {
@@ -111,7 +112,7 @@ class JournalMetaViewModel(
 		else {
 			moods.remove(moodFactors)
 		}
-		updateScreen(_uiState.value.journal.copy(moodFactors = moods))
+		updateJournal(_uiState.value.journal.copy(moodFactors = moods))
 	}
 
 	fun updateLocation(latitude: Double, longitude: Double) {
@@ -119,16 +120,25 @@ class JournalMetaViewModel(
 			val cityName = getCityName(latitude, longitude)
 			val location = JournalLocation(latitude, longitude, cityName)
 			val weather = WeatherInfoService().getWeatherResponse(latitude, longitude).asJournalWeather()
-			updateScreen(_uiState.value.journal.copy(
+			updateJournal(_uiState.value.journal.copy(
 				location = location,
 				weather = weather
 			))
+			_uiState.update {
+				it.copy(
+					requestLocationPermissions = false,
+					weatherState = GettingWeatherState.Success(weather)
+				)
+			}
 		}
 	}
 
 	fun locationPermissions(on: Boolean) {
 		_uiState.update {
-			it.copy(requestLocationPermissions = on)
+			it.copy(
+				requestLocationPermissions = on,
+				weatherState = if (on) GettingWeatherState.Loading else it.weatherState
+			)
 		}
 	}
 
@@ -141,7 +151,8 @@ class JournalMetaViewModel(
 
 data class JournalMetaUIState(
 	val journal: Journal = Journal(),
-	val requestLocationPermissions: Boolean = false
+	val requestLocationPermissions: Boolean = false,
+	val weatherState: GettingWeatherState = GettingWeatherState.Done
 ) {
 	val title = journal.title
 }

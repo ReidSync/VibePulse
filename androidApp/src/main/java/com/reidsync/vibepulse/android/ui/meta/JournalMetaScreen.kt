@@ -49,7 +49,6 @@ fun JournalMetaScreen(
 
 	if (uiState.requestLocationPermissions) {
 		CheckLocationPermission()
-		viewModel.locationPermissions(false)
 	}
 
 	Column(
@@ -63,7 +62,8 @@ fun JournalMetaScreen(
 		)
 		JournalMetaContents(
 			journal = uiState.journal,
-			viewModel = viewModel
+			viewModel = viewModel,
+			uiState = uiState
 		)
 
 	}
@@ -72,7 +72,8 @@ fun JournalMetaScreen(
 @Composable
 fun JournalMetaContents(
 	journal: Journal,
-	viewModel: JournalMetaViewModel
+	viewModel: JournalMetaViewModel,
+	uiState: JournalMetaUIState
 ) {
 
 	val focusManager = LocalFocusManager.current
@@ -117,6 +118,7 @@ fun JournalMetaContents(
 
 		WeatherInfoField(
 			journal = journal,
+			gettingUIState = uiState.weatherState,
 			showRefresh = viewModel.type == JournalMetaViewType.Add,
 			requestPermissions = {
 				viewModel.locationPermissions(true)
