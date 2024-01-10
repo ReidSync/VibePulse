@@ -34,24 +34,6 @@ data class Journal(
 
 }
 
-enum class Feelings(val displayName: String) {
-	Sad("Sad"),
-	Angry("Angry"),
-	Neutral("Okay"),
-	Happy("Good"),
-	SuperHappy("Awesome")
-}
-
-enum class MoodFactors(val displayName: String) {
-	Work("Work"), Friends("Friend"), Family("Family"),
-	Relationships("Relationships"),
-	Drink("Drink"), Food("Food"), Exercise("Exercise"),
-	Hobbies("Hobbies"), Finances("Finances"), Sleep("Sleep"),
-	Education("Education"), Weather("Weather"),
-	Music("Music"), Travel("Travel"), Health("Health"),
-	Nothing("Nothing")
-}
-
 val Journal.Companion.mock: Journal
 	get() = Journal(
 		id = UUID.randomUUID(),

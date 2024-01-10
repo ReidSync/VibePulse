@@ -50,7 +50,7 @@ struct JournalHome {
         state.destination = .sheetToAdd(
           JournalMeta.State(
             journal: Journal.companion.makeInstance(),
-            type: JournalMetaViewType.Add()
+            type: .add
           ))
         return .none
         

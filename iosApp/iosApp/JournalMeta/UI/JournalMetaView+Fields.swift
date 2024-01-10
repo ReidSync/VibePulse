@@ -160,7 +160,7 @@ extension JournalMetaView {
         
         Spacer()
         
-        if viewStore.type == JournalMetaViewType.Add() {
+        if viewStore.type == .add {
           Button(action: {
             viewStore.send(.getWeatherToday)
           }) {

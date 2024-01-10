@@ -69,7 +69,7 @@ struct JournalEditor {
         }
       case .edit:
         state.focus = nil
-        state.destination = .sheetToEdit(JournalMeta.State(journal: state.journal, type: JournalMetaViewType.Edit()))
+        state.destination = .sheetToEdit(JournalMeta.State(journal: state.journal, type: .edit))
         return .none
 //      case .view(.binding):
 //        //state.journal.contents = state.contents

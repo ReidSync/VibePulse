@@ -5,7 +5,6 @@ package com.reidsync.vibepulse.notebook.journal
  * Copyright (c) 2024 Reid Byun. All rights reserved.
  */
 
-sealed class JournalMetaViewType {
-	data object Add : JournalMetaViewType()
-	data object Edit : JournalMetaViewType()
+enum class JournalMetaViewType {
+	Add, Edit
 }

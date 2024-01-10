@@ -38,13 +38,13 @@ class JournalMetaViewModel(
 	val dismiss: String = "Dismiss"
 	val submit: String
 		get() = when (type) {
-			is JournalMetaViewType.Add -> "Add"
-			is JournalMetaViewType.Edit -> "Done"
+			JournalMetaViewType.Add -> "Add"
+			JournalMetaViewType.Edit -> "Done"
 		}
 	val title: String
 		get() = when (type) {
-			is JournalMetaViewType.Add -> "New Journal"
-			is JournalMetaViewType.Edit -> "Edit my journal"
+			JournalMetaViewType.Add -> "New Journal"
+			JournalMetaViewType.Edit -> "Edit my journal"
 		}
 
 	val feelings = Feelings.entries.toTypedArray()
@@ -75,13 +75,13 @@ class JournalMetaViewModel(
 
 	fun submitAction() {
 		when (type) {
-			is JournalMetaViewType.Add -> {
+			JournalMetaViewType.Add -> {
 				viewModelScope.launch {
 					notebookRepository.add(uiState.value.journal)
 				}
 			}
 
-			is JournalMetaViewType.Edit -> {
+			JournalMetaViewType.Edit -> {
 				viewModelScope.launch {
 					notebookRepository.update(uiState.value.journal)
 				}

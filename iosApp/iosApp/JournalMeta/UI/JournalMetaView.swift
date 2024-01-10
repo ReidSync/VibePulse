@@ -80,7 +80,7 @@ extension BindingViewStore<JournalMeta.State> {
 
 #Preview {
   JournalMetaView(
-    store: Store(initialState: JournalMeta.State(journal: Journal.companion.mock, type: JournalMetaViewType.Add())) {
+    store: Store(initialState: JournalMeta.State(journal: Journal.companion.mock, type: .add)) {
       JournalMeta()
     })
 }
