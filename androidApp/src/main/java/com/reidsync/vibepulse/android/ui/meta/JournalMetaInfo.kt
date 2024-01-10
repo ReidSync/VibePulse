@@ -282,7 +282,8 @@ fun WeatherInfoField(
 	gettingUIState: GettingWeatherState,
 	showRefresh: Boolean,
 	requestPermissions: () -> Unit,
-	update: (Double, Double) -> Unit,
+	updateLocationAndWeather: (Double, Double) -> Unit,
+	updateGettingWeatherState: (GettingWeatherState) -> Unit,
 ) {
 	JournalInfoField(
 		title = "Weather",
@@ -318,7 +319,8 @@ fun WeatherInfoField(
 					CurrentLocationContent(
 						gettingUIState,
 						requestPermissions,
-						update,
+						updateLocationAndWeather,
+						updateGettingWeatherState,
 						true
 					)
 				}

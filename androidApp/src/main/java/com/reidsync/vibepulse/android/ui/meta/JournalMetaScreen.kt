@@ -123,10 +123,11 @@ fun JournalMetaContents(
 			requestPermissions = {
 				viewModel.locationPermissions(true)
 			},
-			update = { latitude, longitude ->
-				viewModel.updateLocation(latitude, longitude)
+			updateLocationAndWeather = { latitude, longitude ->
+				viewModel.updateLocationAndWeather(latitude, longitude)
 				doneWithClearingFocus()
-			}
+			},
+			updateGettingWeatherState = viewModel::updateWeatherState
 		)
 
 		Spacer(Modifier.height(15.dp))

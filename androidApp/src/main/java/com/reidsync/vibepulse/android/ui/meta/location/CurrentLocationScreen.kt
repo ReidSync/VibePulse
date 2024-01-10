@@ -45,7 +45,8 @@ import kotlinx.coroutines.launch
 fun CurrentLocationContent(
 	gettingUIState: GettingWeatherState,
 	requestPermissions: () -> Unit,
-	update: (Double, Double) -> Unit,
+	updateLocationAndWeather: (Double, Double) -> Unit,
+	updateGettingWeatherState: (GettingWeatherState) -> Unit,
 	usePreciseLocation: Boolean
 ) {
 	val scope = rememberCoroutineScope()
@@ -96,8 +97,11 @@ fun CurrentLocationContent(
 										CancellationTokenSource().token,
 									)
 									.addOnSuccessListener { fetchedLocation ->
-										update(fetchedLocation.latitude, fetchedLocation.longitude)
+										updateLocationAndWeather(fetchedLocation.latitude, fetchedLocation.longitude)
 										//locationInfo = String.format("(%.2f, %.2f)", fetchedLocation.latitude, fetchedLocation.longitude)
+									}
+									.addOnFailureListener {
+										updateGettingWeatherState(GettingWeatherState.Error(it))
 									}
 							}
 						}

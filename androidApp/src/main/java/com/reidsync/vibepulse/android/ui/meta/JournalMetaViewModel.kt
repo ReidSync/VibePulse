@@ -115,21 +115,43 @@ class JournalMetaViewModel(
 		updateJournal(_uiState.value.journal.copy(moodFactors = moods))
 	}
 
-	fun updateLocation(latitude: Double, longitude: Double) {
+	fun updateLocationAndWeather(latitude: Double, longitude: Double) {
 		viewModelScope.launch {
 			val cityName = getCityName(latitude, longitude)
 			val location = JournalLocation(latitude, longitude, cityName)
-			val weather = WeatherInfoService().getWeatherResponse(latitude, longitude).asJournalWeather()
-			updateJournal(_uiState.value.journal.copy(
-				location = location,
-				weather = weather
-			))
-			_uiState.update {
-				it.copy(
-					requestLocationPermissions = false,
-					weatherState = GettingWeatherState.Success(weather)
-				)
-			}
+			 WeatherInfoService().getWeatherResponse(latitude, longitude)
+				.onSuccess { weatherResponse ->
+					val weather = weatherResponse.asJournalWeather()
+					updateJournal(_uiState.value.journal.copy(
+						location = location,
+						weather = weather
+					))
+					_uiState.update {
+						it.copy(
+							requestLocationPermissions = false
+						)
+					}
+					updateWeatherState(GettingWeatherState.Success(weather))
+				}
+				.onFailure { error ->
+					updateJournal(_uiState.value.journal.copy(
+						location = location
+					))
+					_uiState.update {
+						it.copy(
+							requestLocationPermissions = false
+						)
+					}
+					updateWeatherState(GettingWeatherState.Error(error))
+				}
+		}
+	}
+
+	fun updateWeatherState(weatherState: GettingWeatherState) {
+		_uiState.update {
+			it.copy(
+				weatherState = weatherState
+			)
 		}
 	}
 

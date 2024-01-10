@@ -3,6 +3,7 @@ package com.reidsync.vibepulse.network.weather
 import com.reidsync.vibepulse.network.weather.model.WeatherResponse
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
+import io.ktor.client.plugins.HttpResponseValidator
 import io.ktor.client.plugins.HttpTimeout
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
@@ -30,6 +31,7 @@ class WeatherInfoService {
 
 	private val client by lazy {
 		HttpClient {
+			expectSuccess = true
 			install(ContentNegotiation) {
 				json()
 			}
@@ -37,10 +39,17 @@ class WeatherInfoService {
 			install(HttpTimeout) {
 				requestTimeoutMillis = 3000
 			}
+
+			HttpResponseValidator {
+				handleResponseExceptionWithRequest { exception, request ->
+					println(exception)
+					throw exception
+				}
+			}
 		}
 	}
 
-	suspend fun getWeatherResponse(latitude: Double, longitude: Double): WeatherResponse {
+	suspend fun getWeatherResponse(latitude: Double, longitude: Double): Result<WeatherResponse> {
 		val url = apiURL(latitude, longitude)
 		println("weather request URL : $url")
 		// The code below works, but it is different from my intended purpose.
@@ -58,9 +67,13 @@ class WeatherInfoService {
 //				}
 //			}
 //		}
-		return client.get(url).let {
-			it.bodyAsText().also { json -> println("VibePulseHttpClient: $json") }
-			it.body()
+
+		// replace try-catch with runCatching
+		return runCatching {
+			client.get(url).let {
+				it.bodyAsText().also { json -> println("VibePulseHttpClient: $json") }
+				it.body()
+			}
 		}
 	}
 
