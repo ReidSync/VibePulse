@@ -1,6 +1,8 @@
 package com.reidsync.vibepulse.network.weather
 
 import com.reidsync.vibepulse.network.weather.model.WeatherResponse
+import com.reidsync.vibepulse.notebook.journal.JournalSerializationException
+import com.reidsync.vibepulse.notebook.journal.deserializeToJournal
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.HttpResponseValidator
@@ -9,6 +11,7 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.request.get
 import io.ktor.client.statement.bodyAsText
 import io.ktor.serialization.kotlinx.json.json
+import kotlin.coroutines.cancellation.CancellationException
 
 /**
  * Created by Reid on 2024/01/02.
@@ -69,13 +72,20 @@ class WeatherInfoService {
 //		}
 
 		// replace try-catch with runCatching
-		return runCatching {
+		return runCatching<WeatherInfoService, WeatherResponse> {
 			client.get(url).let {
 				it.bodyAsText().also { json -> println("VibePulseHttpClient: $json") }
 				it.body()
 			}
+		}.onFailure {
+			throw WeatherInfoServiceException(it.message)
 		}
 	}
+
+	// for iOS call
+	@Throws(WeatherInfoServiceException::class, CancellationException::class)
+	suspend fun getWeatherResponseOrThrow(latitude: Double, longitude: Double)
+	= getWeatherResponse(latitude, longitude).getOrThrow()
 
 	private fun apiURL(
 		latitude: Double,
@@ -86,3 +96,6 @@ class WeatherInfoService {
 	// https://api.open-meteo.com/v1/forecast?latitude=37.32&longitude=127.09&current=temperature_2m%2Cis_day&hourly=temperature_2m&daily=temperature_2m_max%2Ctemperature_2m_min&timezone=Africa%2FCairo&forecast_days=1
 	// https://api.open-meteo.com/v1/forecast?latitude=37.32&longitude=127.09&current=temperature_2m%2Cis_day&hourly=temperature_2m&daily=temperature_2m_max%2Ctemperature_2m_min&timezone=Japan&forecast_days=1&&current_weather=true
 }
+
+
+class WeatherInfoServiceException(message: String? = null) : Exception(message)

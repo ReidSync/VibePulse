@@ -22,6 +22,7 @@ struct JournalMetaView: View {
     var titlePlaceholder: String    
     var weather: JournalWeather
     var location: String
+    @BindingViewState var gettingWeatherState: GettingWeatherState
     @BindingViewState var keyboardPadding: CGFloat
   }
   
@@ -72,6 +73,7 @@ extension BindingViewStore<JournalMeta.State> {
       titlePlaceholder: self.titlePlaceHolder,
       weather:  self.journal.weather,
       location: self.journal.location.cityName,
+      gettingWeatherState: self.$gettingWeatherState,
       keyboardPadding: self.$keyboardPadding
       
     )

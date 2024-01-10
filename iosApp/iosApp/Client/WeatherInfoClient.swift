@@ -9,12 +9,13 @@ import Foundation
 import Dependencies
 
 struct WeatherInfoClient: Sendable {
-  var getWeatherInfo: @Sendable (Double, Double) async throws -> JournalWeather
+  var getWeatherInfo: @Sendable (Double, Double) async -> Result<JournalWeather, WeatherInfoServiceException>
 }
 
 extension WeatherInfoClient: DependencyKey {
   static var liveValue: Self {
     let weatherInfoService = WeatherInfoService()
+    
     return Self(
       // I had to make `getWeatherInfo` run in MainActor
       // because suspend functions should be called in Main thread...
@@ -26,7 +27,23 @@ extension WeatherInfoClient: DependencyKey {
       // to gradle.properties.
       // But it still causes a slight UI pausing.
       getWeatherInfo: { latitude, longitude in
-        try await weatherInfoService.getWeatherResponse(latitude: latitude, longitude: longitude).asJournalWeather()
+        do {
+          let result = try await weatherInfoService.getWeatherResponseOrThrow(latitude: latitude, longitude: longitude).asJournalWeather()
+          
+          return .success(result)
+        }
+        catch {
+          guard let error = error as? WeatherInfoServiceException else {
+            return .failure(WeatherInfoServiceException(message: "Unknow error"))
+          }
+          return .failure(error)
+        }
+        
+        //try await weatherInfoService.getWeatherResponse(latitude: latitude, longitude: longitude)
+//        weatherInfoService.getWeatherResponse(latitude: latitude, longitude: longitude) {r,e in
+//          print(r)
+//          print(e)
+//        }
       }
     )
   }

@@ -20,6 +20,7 @@ struct JournalMeta {
     var moodFactors: Set<MoodFactors>
     var titlePlaceHolder: String = ""
     @BindingState var keyboardPadding: CGFloat = 0
+    @BindingState var gettingWeatherState: GettingWeatherState = .Done()
     
     
     init(journal: Journal, type: JournalMetaViewType) {
@@ -42,7 +43,7 @@ struct JournalMeta {
     case setFeeling(Feelings)
     case setMoodFactor(moodFactor: MoodFactors, selected: Bool)
     case getWeatherToday
-    case getWeatherTodayFinish(Result<(JournalLocation, JournalWeather), Error>)
+    case getWeatherTodayFinish(Result<(JournalLocation, JournalWeather), WeatherInfoServiceException>)
     case task
   }
   
@@ -100,24 +101,44 @@ struct JournalMeta {
         case .success(let (location, weather)):
           print(location)
           print(weather)
+          state.gettingWeatherState = GettingWeatherState.Success(data: weather)
           return .send(.updateJournal(state.journal.copy(location: location, weather: weather)))
           //return .none
         case .failure(let error):
+          state.gettingWeatherState = GettingWeatherState.Error(error: error)
           print(error)
           return .none
         }
       case .getWeatherToday:
+        state.gettingWeatherState = .Loading()
         return .run { send in
-          let location = try await locationClient.getCurrentLocation()
-          let weather = try await weatherInfoClient.getWeatherInfo(location.latitude, location.longitude)
+          guard let location: JournalLocation = await {
+            do {
+              return try await locationClient.getCurrentLocation()
+            }
+            catch {
+              await send(.getWeatherTodayFinish(.failure(.init(message: error.localizedDescription))))
+              return nil
+            }
+          }() else {
+            return
+          }
           
-          async let getWeather: Void = send(
-            
-            .getWeatherTodayFinish (
-              Result { (location, weather) }
-            )
-          )
-          await getWeather
+          let weatherResult = await weatherInfoClient.getWeatherInfo(location.latitude, location.longitude)
+          
+          switch weatherResult {
+          case .success(let weather):
+            await send(.getWeatherTodayFinish(.success((location, weather))))
+          case .failure(let message):
+            await send(.getWeatherTodayFinish(.failure(message)))
+          }
+          
+//          async let getWeather: Void = send(
+//            .getWeatherTodayFinish (
+//              Result { (location, weather) }
+//            )
+//          )
+//          await getWeather
         }
       }
     }

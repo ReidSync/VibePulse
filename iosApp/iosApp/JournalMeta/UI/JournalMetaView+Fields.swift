@@ -150,12 +150,12 @@ extension JournalMetaView {
             .resizable()
             .scaledToFill()
             .frame(width: 72, height: 72)
-            .padding(8)
+          //.padding(8)
         }
         
         Text(viewStore.location)
           .font(.system(size: 18))
-          .padding(5)
+        //.padding(5)
           .foregroundColor(appThemeColor.vibeD.toColor())
         
         Spacer()
@@ -164,18 +164,49 @@ extension JournalMetaView {
           Button(action: {
             viewStore.send(.getWeatherToday)
           }) {
-            Text("Refresh")
-              .font(.system(size: 13))
-              .frame(minWidth: 0, maxWidth: 50)
-              .padding()
-              .background(
-                RoundedRectangle(cornerRadius: 20)
-                  .fill(appThemeColor.vibeA.toColor())
-              )
-              .foregroundColor(appThemeColor.vibeC.toColor())
+            switch viewStore.gettingWeatherState {
+            case is GettingWeatherState.Done:
+              WeatherInteractionView("Refresh")
+              
+            case is GettingWeatherState.Loading:
+              ProgressView()
+                .progressViewStyle(CircularProgressViewStyle(tint: appThemeColor.vibeC.toColor()))
+                .frame(width: 60, height: 10)
+                .padding()
+                .background(
+                  RoundedRectangle(cornerRadius: 20)
+                    .fill(appThemeColor.vibeA.toColor())
+                )
+            
+            //case let weatherError as GettingWeatherState.Error:
+            case is GettingWeatherState.Error:
+              //weatherError.error // Alert?
+              WeatherInteractionView("Error")
+         
+            //case let weather as GettingWeatherState.Success:
+            case is GettingWeatherState.Success:
+              //weather.data
+              WeatherInteractionView("Success")
+            default:
+              EmptyView()
+            }
           }
         }
       }
     }
+  }
+  
+  internal func WeatherInteractionView(
+    _ text: String
+  )-> some View {
+    Text(text)
+      .font(.system(size: 13))
+      .frame(minWidth: 0, maxWidth: 60)
+      .padding()
+      .background(
+        RoundedRectangle(cornerRadius: 20)
+          .fill(appThemeColor.vibeA.toColor())
+      )
+      .foregroundColor(appThemeColor.vibeC.toColor())
   }
 }

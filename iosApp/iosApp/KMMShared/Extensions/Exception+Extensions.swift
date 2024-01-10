@@ -9,3 +9,4 @@ import Foundation
 import shared
 
 extension JournalSerializationException: Error {}
+extension WeatherInfoServiceException: Error {}

@@ -28,3 +28,7 @@ public typealias WeatherResponse = shared.WeatherResponse
 public typealias WeatherInfoService = shared.WeatherInfoService
 public typealias WeatherCodeInfo = shared.WeatherCodeInfo
 public typealias JournalMetaViewType = shared.JournalMetaViewType
+public typealias WeatherInfoServiceException = shared.WeatherInfoServiceException
+public typealias GettingWeatherState = shared.GettingWeatherState
+
+
