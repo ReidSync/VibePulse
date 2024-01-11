@@ -37,7 +37,7 @@ Shared theme color resource | :heavy_check_mark:
 Common data models | :heavy_check_mark:
 User login with Firebase auth | 
 Store user data in Firestore |
-Show weather information |
+Show weather information | :heavy_check_mark:
 Track & analyze mood patterns | 
 Screen for tracking & analyzing mood patterns |
 Save each journal in a separate file |
