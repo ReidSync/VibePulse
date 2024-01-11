@@ -13,16 +13,19 @@ import CoreLocation
 struct JournalMeta {
   struct State: Equatable {
     var journal: Journal
+    let type: JournalMetaViewType
     @BindingState var focus: Field? = nil
     @BindingState var title: String
     var feeling: Feelings
     var moodFactors: Set<MoodFactors>
     var titlePlaceHolder: String = ""
     @BindingState var keyboardPadding: CGFloat = 0
+    @BindingState var gettingWeatherState: GettingWeatherState = .Done()
     
     
-    init(journal: Journal) {
+    init(journal: Journal, type: JournalMetaViewType) {
       self.journal = journal
+      self.type = type
       self.title = journal.title
       self.titlePlaceHolder = journal.titleWithPlaceHolder
       self.feeling = journal.feeling
@@ -40,12 +43,13 @@ struct JournalMeta {
     case setFeeling(Feelings)
     case setMoodFactor(moodFactor: MoodFactors, selected: Bool)
     case getWeatherToday
-    case getWeatherTodayFinish(Result<JournalLocation, Error>)
+    case getWeatherTodayFinish(Result<(JournalLocation, JournalWeather), WeatherInfoServiceException>)
     case task
   }
   
   @Dependency(\.keyboardResponder) var keyboardResponder
   @Dependency(\.locationClient) var locationClient
+  @Dependency(\.weatherInfoClient) var weatherInfoClient
   
   var body: some Reducer<State, Action> {
     BindingReducer()
@@ -53,7 +57,7 @@ struct JournalMeta {
       switch action {
       case .task:
         return .run { send in
-          await try withThrowingTaskGroup(of: Void.self) { group in
+          try await withThrowingTaskGroup(of: Void.self) { group in
             group.addTask {
               for await _ in await self.keyboardResponder.willShow() {
                 await send(.binding(.set(\.$keyboardPadding, keyboardResponder.height())))
@@ -94,21 +98,47 @@ struct JournalMeta {
         return .none
       case .getWeatherTodayFinish(let result):
         switch result {
-        case .success(let journalLocation):
-          return .send(.updateJournal(state.journal.copy(location: journalLocation)))
+        case .success(let (location, weather)):
+          print(location)
+          print(weather)
+          state.gettingWeatherState = GettingWeatherState.Success(data: weather)
+          return .send(.updateJournal(state.journal.copy(location: location, weather: weather)))
           //return .none
         case .failure(let error):
+          state.gettingWeatherState = GettingWeatherState.Error(error: error)
           print(error)
           return .none
         }
       case .getWeatherToday:
+        state.gettingWeatherState = .Loading()
         return .run { send in
-          async let getWeather: Void = send(
-            .getWeatherTodayFinish (
-              Result { try await locationClient.getCurrentLocation() }
-            )
-          )
-          await getWeather
+          guard let location: JournalLocation = await {
+            do {
+              return try await locationClient.getCurrentLocation()
+            }
+            catch {
+              await send(.getWeatherTodayFinish(.failure(.init(message: error.localizedDescription))))
+              return nil
+            }
+          }() else {
+            return
+          }
+          
+          let weatherResult = await weatherInfoClient.getWeatherInfo(location.latitude, location.longitude)
+          
+          switch weatherResult {
+          case .success(let weather):
+            await send(.getWeatherTodayFinish(.success((location, weather))))
+          case .failure(let message):
+            await send(.getWeatherTodayFinish(.failure(message)))
+          }
+          
+//          async let getWeather: Void = send(
+//            .getWeatherTodayFinish (
+//              Result { (location, weather) }
+//            )
+//          )
+//          await getWeather
         }
       }
     }

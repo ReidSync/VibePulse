@@ -23,4 +23,12 @@ public let RC = shared.ResourceColorKt.RC
 public typealias Feelings = shared.Feelings
 public typealias MoodFactors = shared.MoodFactors
 public typealias JournalLocation = shared.JournalLocation
+public typealias JournalWeather = shared.JournalWeather
+public typealias WeatherResponse = shared.WeatherResponse
+public typealias WeatherInfoService = shared.WeatherInfoService
+public typealias WeatherCodeInfo = shared.WeatherCodeInfo
+public typealias JournalMetaViewType = shared.JournalMetaViewType
+public typealias WeatherInfoServiceException = shared.WeatherInfoServiceException
+public typealias GettingWeatherState = shared.GettingWeatherState
+
 

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3022A3972B4D2F51006BD87B /* Weather.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3022A3962B4D2F51006BD87B /* Weather.xcassets */; };
+		305AA9EB2B4C280100C1EEE7 /* WeatherInfoClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 305AA9EA2B4C280100C1EEE7 /* WeatherInfoClient.swift */; };
 		30793EE92B0DF060008E8A16 /* iosApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30793EE82B0DF060008E8A16 /* iosApp.swift */; };
 		30793EED2B0DF061008E8A16 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30793EEC2B0DF061008E8A16 /* Assets.xcassets */; };
 		30793EF02B0DF061008E8A16 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30793EEF2B0DF061008E8A16 /* Preview Assets.xcassets */; };
@@ -61,6 +63,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3022A3962B4D2F51006BD87B /* Weather.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Weather.xcassets; sourceTree = "<group>"; };
+		305AA9EA2B4C280100C1EEE7 /* WeatherInfoClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherInfoClient.swift; sourceTree = "<group>"; };
 		30793EE52B0DF060008E8A16 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30793EE82B0DF060008E8A16 /* iosApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iosApp.swift; sourceTree = "<group>"; };
 		30793EEC2B0DF061008E8A16 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 				30D7F8562B15F5460022746D /* KeyboardResponder.swift */,
 				30D7F84F2B15CA270022746D /* FileIOClient.swift */,
 				30D91EAE2B46AF8800009AE1 /* LocationClient.swift */,
+				305AA9EA2B4C280100C1EEE7 /* WeatherInfoClient.swift */,
 			);
 			path = Client;
 			sourceTree = "<group>";
@@ -206,6 +211,7 @@
 			children = (
 				30793F1C2B0E2DE9008E8A16 /* Colors.xcassets */,
 				30793EEC2B0DF061008E8A16 /* Assets.xcassets */,
+				3022A3962B4D2F51006BD87B /* Weather.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -448,6 +454,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3022A3972B4D2F51006BD87B /* Weather.xcassets in Resources */,
 				30793F1D2B0E2DE9008E8A16 /* Colors.xcassets in Resources */,
 				30793EF02B0DF061008E8A16 /* Preview Assets.xcassets in Resources */,
 				30793EED2B0DF061008E8A16 /* Assets.xcassets in Resources */,
@@ -520,6 +527,7 @@
 				30817B972B318E4C00650BF8 /* Journal+Extensions.swift in Sources */,
 				30817BA02B3576C500650BF8 /* JournalClient+mock.swift in Sources */,
 				30D7F84C2B109C0C0022746D /* JournalMeta.swift in Sources */,
+				305AA9EB2B4C280100C1EEE7 /* WeatherInfoClient.swift in Sources */,
 				30817B952B318D7900650BF8 /* Exception+Extensions.swift in Sources */,
 				30817BB92B3D7CA400650BF8 /* JournalHomeView+List.swift in Sources */,
 			);
@@ -713,7 +721,7 @@
 					"-framework",
 					shared,
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = reid.example.iosApp;
+				PRODUCT_BUNDLE_IDENTIFIER = reid.test.app.antongubarenko.LocationSimulator;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

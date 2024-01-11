@@ -14,29 +14,34 @@ struct JournalMetaView: View {
   @FocusState var focus: JournalMeta.State.Field?
   
   struct ViewState: Equatable {
+    let type: JournalMetaViewType
     @BindingViewState var focus: JournalMeta.State.Field?
     @BindingViewState var title: String
     var feeling: Feelings
     var moodFactors: Set<MoodFactors>
     var titlePlaceholder: String    
-    var weather: String
+    var weather: JournalWeather
+    var location: String
+    @BindingViewState var gettingWeatherState: GettingWeatherState
     @BindingViewState var keyboardPadding: CGFloat
   }
   
   var body: some View {
     WithViewStore(self.store, observe: \.view, send: { $0 }) { viewStore in
       ZStack {
-        appThemeColor.background.toColor().edgesIgnoringSafeArea(.all)
-        VStack(spacing: 30) {
-          feelingsFieldView(viewStore)
-          moodFactorFieldView(viewStore)
-          weatherFieldView(viewStore)
-          titleFieldView(viewStore)
+        ScrollView (.vertical, showsIndicators: false) {
+          appThemeColor.background.toColor().edgesIgnoringSafeArea(.all)
+          VStack(spacing: 30) {
+            feelingsFieldView(viewStore)
+            moodFactorFieldView(viewStore)
+            weatherFieldView(viewStore)
+            titleFieldView(viewStore)
+          }
+          .bind(viewStore.$focus, to: self.$focus)
+          .padding(20)
         }
-        .bind(viewStore.$focus, to: self.$focus)
-        .padding(20)
         //.scrollContentBackground(.hidden)
-        .background(appThemeColor.background.toColor())
+        //.background(appThemeColor.background.toColor())
       }
       .onAppear() {
         UINavigationBar.appearance().backgroundColor = UIColor(appThemeColor.background.toColor())
@@ -47,7 +52,8 @@ struct JournalMetaView: View {
       .task {
         await viewStore.send(.task).finish()
       }
-      .padding(.bottom, viewStore.keyboardPadding)
+      //.padding(.bottom, viewStore.keyboardPadding)
+      .background(appThemeColor.background.toColor())
       .onTapGesture {
         self.focus = nil
       }
@@ -59,12 +65,15 @@ struct JournalMetaView: View {
 extension BindingViewStore<JournalMeta.State> {
   var view: JournalMetaView.ViewState {
     JournalMetaView.ViewState(
+      type: self.type,
       focus: self.$focus,
       title: self.$title,
       feeling: self.feeling,
       moodFactors: self.moodFactors,
       titlePlaceholder: self.titlePlaceHolder,
-      weather:  self.journal.location.cityName,
+      weather:  self.journal.weather,
+      location: self.journal.location.cityName,
+      gettingWeatherState: self.$gettingWeatherState,
       keyboardPadding: self.$keyboardPadding
       
     )
@@ -73,7 +82,7 @@ extension BindingViewStore<JournalMeta.State> {
 
 #Preview {
   JournalMetaView(
-    store: Store(initialState: JournalMeta.State(journal: Journal.companion.mock)) {
+    store: Store(initialState: JournalMeta.State(journal: Journal.companion.mock, type: .add)) {
       JournalMeta()
     })
 }

@@ -1,5 +1,6 @@
 package com.reidsync.vibepulse.notebook.journal
 
+import com.reidsync.vibepulse.network.weather.WeatherCodeInfo
 import kotlinx.datetime.toLocalDateTime
 import com.reidsync.vibepulse.primitives.uuid.UUID
 import com.reidsync.vibepulse.primitives.uuid.randomUUID
@@ -21,7 +22,7 @@ data class Journal(
 	val feeling: Feelings = Feelings.Neutral,
 	val moodFactors: Set<MoodFactors> = emptySet(),
 	val location: JournalLocation = JournalLocation(),
-	val weather: Int = 0,
+	val weather: JournalWeather = JournalWeather(),
 	val contents: String = ""
 ) {
 	val titleWithPlaceHolder = title.ifEmpty { "New Journal" }
@@ -31,24 +32,6 @@ data class Journal(
 		fun makeInstance(): Journal = Journal()
 	}
 
-}
-
-enum class Feelings(val displayName: String) {
-	Sad("Sad"),
-	Angry("Angry"),
-	Neutral("Okay"),
-	Happy("Good"),
-	SuperHappy("Awesome")
-}
-
-enum class MoodFactors(val displayName: String) {
-	Work("Work"), Friends("Friend"), Family("Family"),
-	Relationships("Relationships"),
-	Drink("Drink"), Food("Food"), Exercise("Exercise"),
-	Hobbies("Hobbies"), Finances("Finances"), Sleep("Sleep"),
-	Education("Education"), Weather("Weather"),
-	Music("Music"), Travel("Travel"), Health("Health"),
-	Nothing("Nothing")
 }
 
 val Journal.Companion.mock: Journal

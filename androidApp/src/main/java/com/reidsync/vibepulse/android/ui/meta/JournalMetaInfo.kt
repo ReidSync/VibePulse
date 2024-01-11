@@ -1,6 +1,7 @@
 package com.reidsync.vibepulse.android.ui.meta
 
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -49,12 +50,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.data.FeelingEmojis
+import com.reidsync.vibepulse.android.data.WeatherIcons
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.meta.location.CurrentLocationContent
 import com.reidsync.vibepulse.notebook.journal.Feelings
+import com.reidsync.vibepulse.notebook.journal.GettingWeatherState
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
-import com.reidsync.vibepulse.notebook.journal.getString
 
 
 /**
@@ -277,26 +279,51 @@ fun MoodFactorTextButton(
 @Composable
 fun WeatherInfoField(
 	journal: Journal,
+	gettingUIState: GettingWeatherState,
+	showRefresh: Boolean,
 	requestPermissions: () -> Unit,
-	update: (Double, Double) -> Unit,
+	updateLocationAndWeather: (Double, Double) -> Unit,
+	updateGettingWeatherState: (GettingWeatherState) -> Unit,
 ) {
 	JournalInfoField(
 		title = "Weather",
 		content = {
-			Row {
+			Row(
+				modifier = Modifier
+					.animateContentSize(),
+					//.border(1.dp, Color.Red),
+				verticalAlignment = Alignment.CenterVertically
+			) {
+
+				WeatherIcons[journal.weather.weatherInfo]?.let { weatherIcon ->
+					Image(
+						painter = painterResource(id = weatherIcon),
+						contentDescription = null,
+						modifier = Modifier
+							.size(72.dp)
+							.padding(end = 10.dp)
+					)
+				}
+
 				Text(
 					text = journal.location.cityName,
-					fontSize = 16.sp,
+					fontSize = 18.sp,
 					color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 					modifier = Modifier
-						.padding(4.dp),
-					)
-
-				CurrentLocationContent(
-					requestPermissions,
-					update,
-					true
+						.padding(end = 10.dp),
 				)
+
+				Spacer(modifier = Modifier.weight(1f))
+
+				if (showRefresh) {
+					CurrentLocationContent(
+						gettingUIState,
+						requestPermissions,
+						updateLocationAndWeather,
+						updateGettingWeatherState,
+						true
+					)
+				}
 			}
 		}
 	)

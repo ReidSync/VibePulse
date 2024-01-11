@@ -1,9 +1,5 @@
 package com.reidsync.vibepulse.android.ui.meta
 
-import android.location.Address
-import android.location.Geocoder
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
@@ -13,10 +9,14 @@ import androidx.lifecycle.viewmodel.viewModelFactory
 import com.reidsync.vibepulse.android.VibePulseApplication
 import com.reidsync.vibepulse.android.data.repositories.LocationRepository
 import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
+import com.reidsync.vibepulse.network.weather.WeatherInfoService
 import com.reidsync.vibepulse.notebook.journal.Feelings
+import com.reidsync.vibepulse.notebook.journal.GettingWeatherState
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.notebook.journal.JournalLocation
+import com.reidsync.vibepulse.notebook.journal.JournalMetaViewType
 import com.reidsync.vibepulse.notebook.journal.MoodFactors
+import com.reidsync.vibepulse.notebook.journal.asJournalWeather
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -39,13 +39,13 @@ class JournalMetaViewModel(
 	val dismiss: String = "Dismiss"
 	val submit: String
 		get() = when (type) {
-			is JournalMetaViewType.Add -> "Add"
-			is JournalMetaViewType.Edit -> "Done"
+			JournalMetaViewType.Add -> "Add"
+			JournalMetaViewType.Edit -> "Done"
 		}
 	val title: String
 		get() = when (type) {
-			is JournalMetaViewType.Add -> "New Journal"
-			is JournalMetaViewType.Edit -> "Edit my journal"
+			JournalMetaViewType.Add -> "New Journal"
+			JournalMetaViewType.Edit -> "Edit my journal"
 		}
 
 	val feelings = Feelings.entries.toTypedArray()
@@ -76,13 +76,13 @@ class JournalMetaViewModel(
 
 	fun submitAction() {
 		when (type) {
-			is JournalMetaViewType.Add -> {
+			JournalMetaViewType.Add -> {
 				viewModelScope.launch {
 					notebookRepository.add(uiState.value.journal)
 				}
 			}
 
-			is JournalMetaViewType.Edit -> {
+			JournalMetaViewType.Edit -> {
 				viewModelScope.launch {
 					notebookRepository.update(uiState.value.journal)
 				}
@@ -90,18 +90,18 @@ class JournalMetaViewModel(
 		}
 	}
 
-	fun updateScreen(journal: Journal) {
+	private fun updateJournal(journal: Journal) {
 		_uiState.update {
 			it.copy(journal = journal)
 		}
 	}
 
 	fun updateTitle(title: String) {
-		updateScreen(_uiState.value.journal.copy(title = title))
+		updateJournal(_uiState.value.journal.copy(title = title))
 	}
 
 	fun updateFeeling(feeling: Feelings) {
-		updateScreen(_uiState.value.journal.copy(feeling = feeling))
+		updateJournal(_uiState.value.journal.copy(feeling = feeling))
 	}
 
 	fun updateMoodFactors(moodFactors: MoodFactors, selected: Boolean) {
@@ -112,69 +112,69 @@ class JournalMetaViewModel(
 		else {
 			moods.remove(moodFactors)
 		}
-		updateScreen(_uiState.value.journal.copy(moodFactors = moods))
+		updateJournal(_uiState.value.journal.copy(moodFactors = moods))
 	}
 
-	fun updateLocation(latitude: Double, longitude: Double) {
+	fun updateLocationAndWeather(latitude: Double, longitude: Double) {
 		viewModelScope.launch {
 			val cityName = getCityName(latitude, longitude)
 			val location = JournalLocation(latitude, longitude, cityName)
-			updateScreen(_uiState.value.journal.copy(
-				location = location
-			))
+			 WeatherInfoService().getWeatherResponse(latitude, longitude)
+				.onSuccess { weatherResponse ->
+					val weather = weatherResponse.asJournalWeather()
+					updateJournal(_uiState.value.journal.copy(
+						location = location,
+						weather = weather
+					))
+					_uiState.update {
+						it.copy(
+							requestLocationPermissions = false
+						)
+					}
+					updateWeatherState(GettingWeatherState.Success(weather))
+				}
+				.onFailure { error ->
+					updateJournal(_uiState.value.journal.copy(
+						location = location
+					))
+					_uiState.update {
+						it.copy(
+							requestLocationPermissions = false
+						)
+					}
+					updateWeatherState(GettingWeatherState.Error(error))
+				}
+		}
+	}
+
+	fun updateWeatherState(weatherState: GettingWeatherState) {
+		_uiState.update {
+			it.copy(
+				weatherState = weatherState
+			)
 		}
 	}
 
 	fun locationPermissions(on: Boolean) {
 		_uiState.update {
-			it.copy(requestLocationPermissions = on)
+			it.copy(
+				requestLocationPermissions = on,
+				weatherState = if (on) GettingWeatherState.Loading else it.weatherState
+			)
 		}
 	}
 
 	private suspend fun getCityName(latitude: Double, longitude: Double): String {
 		val location = locationRepository.getAddress(latitude, longitude).getOrNull()
 		return location ?: "None"
-
-//		if (Build.VERSION.SDK_INT < 33) { // SDK 버전이 33보다 큰 경우에만 아래 함수를 씁니다.
-//			val addresses = geocoder.getFromLocation(latitude, longitude, 1)
-//			return if (addresses.isNotEmpty()) {
-//				addresses[0].locality ?: "Unknown City"
-//			} else {
-//				"Unknown City"
-//			}
-//		}else { // SDK 버전이 33보다 크거나 같은 경우
-//			val geocoder = Geocoder(this, Locale.getDefault())
-//			var address: Address? = null
-//			val geocodeListener = @RequiresApi(33) object : Geocoder.GeocodeListener {
-//				override fun onGeocode(addresses: MutableList<Address>) {
-//					// 주소 리스트를 가지고 할 것을 적어주면 됩니다.
-//					address =  addresses[0];
-//					address?.let {
-//						binding.tvLocationTitle.text = "${it.thoroughfare}" // 예시: 역삼 1동
-//						binding.tvLocationSubtitle.text =
-//							"${it.countryName} ${it.adminArea}" // 예시 : 대한민국 서울특별시
-//					}
-//				}
-//				override fun onError(errorMessage: String?) {
-//					address = null
-//					Toast.makeText(this@MainActivity, "주소가 발견되지 않았습니다.", Toast.LENGTH_LONG).show()
-//				}
-//			}
-//			geocoder.getFromLocation(latitude, longitude, 7, geocodeListener)
-//		}
 	}
 
 }
 
 data class JournalMetaUIState(
 	val journal: Journal = Journal(),
-	val requestLocationPermissions: Boolean = false
+	val requestLocationPermissions: Boolean = false,
+	val weatherState: GettingWeatherState = GettingWeatherState.Done
 ) {
 	val title = journal.title
-}
-
-sealed class JournalMetaViewType {
-	data object Add : JournalMetaViewType()
-	data object Edit : JournalMetaViewType()
-
 }

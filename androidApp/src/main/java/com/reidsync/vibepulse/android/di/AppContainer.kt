@@ -2,9 +2,9 @@ package com.reidsync.vibepulse.android.di
 
 import com.reidsync.vibepulse.android.APP
 import com.reidsync.vibepulse.android.data.repositories.LocationRepository
-import com.reidsync.vibepulse.android.data.repositories.LocationRepositoryImpl
 import com.reidsync.vibepulse.android.data.repositories.impl.LocalNotebookRepository
 import com.reidsync.vibepulse.android.data.repositories.NotebookRepository
+import com.reidsync.vibepulse.android.data.repositories.impl.LocationRepositoryImpl
 
 /**
  * Created by Reid on 2023/12/13.

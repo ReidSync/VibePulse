@@ -17,7 +17,7 @@ extension Journal {
     feeling: Feelings? = nil,
     moodFactors: Set<MoodFactors>? = nil,
     location: JournalLocation? = nil,
-    weather: Int? = nil,
+    weather: JournalWeather? = nil,
     contents: String? = nil
   )-> Journal {    
     return doCopy(
@@ -27,7 +27,7 @@ extension Journal {
       feeling: feeling ?? self.feeling,
       moodFactors: moodFactors ?? self.moodFactors,
       location: location ?? self.location,
-      weather: Int32(weather ?? Int(self.weather)),
+      weather: weather ?? self.weather,
       contents: contents ?? self.contents)
   }
 }

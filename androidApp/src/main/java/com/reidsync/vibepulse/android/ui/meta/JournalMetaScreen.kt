@@ -31,6 +31,7 @@ import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.android.ui.meta.location.CheckLocationPermission
 import com.reidsync.vibepulse.android.util.MyApplicationTheme
 import com.reidsync.vibepulse.notebook.journal.Journal
+import com.reidsync.vibepulse.notebook.journal.JournalMetaViewType
 import com.reidsync.vibepulse.primitives.colors.SolidColor
 
 /**
@@ -48,7 +49,6 @@ fun JournalMetaScreen(
 
 	if (uiState.requestLocationPermissions) {
 		CheckLocationPermission()
-		viewModel.locationPermissions(false)
 	}
 
 	Column(
@@ -62,7 +62,8 @@ fun JournalMetaScreen(
 		)
 		JournalMetaContents(
 			journal = uiState.journal,
-			viewModel = viewModel
+			viewModel = viewModel,
+			uiState = uiState
 		)
 
 	}
@@ -71,7 +72,8 @@ fun JournalMetaScreen(
 @Composable
 fun JournalMetaContents(
 	journal: Journal,
-	viewModel: JournalMetaViewModel
+	viewModel: JournalMetaViewModel,
+	uiState: JournalMetaUIState
 ) {
 
 	val focusManager = LocalFocusManager.current
@@ -116,13 +118,16 @@ fun JournalMetaContents(
 
 		WeatherInfoField(
 			journal = journal,
+			gettingUIState = uiState.weatherState,
+			showRefresh = viewModel.type == JournalMetaViewType.Add,
 			requestPermissions = {
 				viewModel.locationPermissions(true)
 			},
-			update = { latitude, longitude ->
-				viewModel.updateLocation(latitude, longitude)
+			updateLocationAndWeather = { latitude, longitude ->
+				viewModel.updateLocationAndWeather(latitude, longitude)
 				doneWithClearingFocus()
-			}
+			},
+			updateGettingWeatherState = viewModel::updateWeatherState
 		)
 
 		Spacer(Modifier.height(15.dp))
