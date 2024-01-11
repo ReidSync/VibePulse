@@ -48,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.R
 import com.reidsync.vibepulse.android.data.FeelingEmojis
+import com.reidsync.vibepulse.android.data.WeatherIcons
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.notebook.journal.Journal
 import com.reidsync.vibepulse.primitives.colors.SolidColor
@@ -196,21 +197,41 @@ fun JournalListItem(
 				horizontalAlignment = Alignment.Start,
 				verticalArrangement = Arrangement.Center
 			) {
-				Text(
-					text = journal.date.format("EE, MMM d, yyyy   h:mm a"),
-					fontWeight = FontWeight.Light,
-					fontSize = 10.sp,
-					color = AppThemeColor.current.vibePulseColors.vibeC.toColor()
-				)
+				Row(
+					horizontalArrangement = Arrangement.Start
+				) {
+					WeatherIcons[journal.weather.weatherInfo]?.let { weatherIcon ->
+						Image(
+							painter = painterResource(id = weatherIcon),
+							contentDescription = null,
+							modifier = Modifier
+								.size(36.dp)
+								//.padding(end = 10.dp)
+						)
+					}
 
-				Text(
-					text = journal.feeling.displayName,
-					fontWeight = FontWeight.ExtraBold,
-					fontSize = 20.sp,
-					color = AppThemeColor.current.vibePulseColors.vibeB.toColor(),
-					modifier = Modifier
-						//.padding(bottom = 10.dp)
-				)
+					Column(
+						horizontalAlignment = Alignment.Start,
+						verticalArrangement = Arrangement.Center
+					) {
+						Text(
+							text = journal.date.format("EE, MMM d, yyyy   h:mm a"),
+							fontWeight = FontWeight.Light,
+							fontSize = 10.sp,
+							color = AppThemeColor.current.vibePulseColors.vibeC.toColor()
+						)
+
+						Text(
+							text = journal.feeling.displayName,
+							fontWeight = FontWeight.ExtraBold,
+							fontSize = 20.sp,
+							color = AppThemeColor.current.vibePulseColors.vibeB.toColor(),
+							modifier = Modifier
+							//.padding(bottom = 10.dp)
+						)
+					}
+				}
+
 
 				if (journal.title.isNotEmpty()) {
 					Text(
@@ -219,7 +240,7 @@ fun JournalListItem(
 						fontSize = 14.sp,
 						color = AppThemeColor.current.vibePulseColors.vibeD.toColor(),
 						modifier = Modifier
-							//.padding(bottom = 10.dp)
+						//.padding(bottom = 10.dp)
 					)
 				}
 
@@ -308,8 +329,9 @@ fun CreateButton(
 //			color = Color(0xFFF2F2F7)
 //		) {
 //			HomeScreen(
-//				viewModel(factory = HomeViewModel.Factory),
-//				onCreateNewJournal = {}
+//				viewModel = viewModel(factory = HomeViewModel.Factory),
+//				onCreateNewJournal = {},
+//				onEditJournal = {}
 //			)
 //		}
 //	}

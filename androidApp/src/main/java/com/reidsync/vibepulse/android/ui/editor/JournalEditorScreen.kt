@@ -43,6 +43,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.reidsync.vibepulse.android.AppThemeColor
 import com.reidsync.vibepulse.android.data.FeelingEmojis
+import com.reidsync.vibepulse.android.data.WeatherIcons
 import com.reidsync.vibepulse.android.data.conventions.toColor
 import com.reidsync.vibepulse.android.ui.common.BaseToolbar
 import com.reidsync.vibepulse.notebook.journal.Journal
@@ -108,12 +109,26 @@ fun Editor(
 			}
 			.padding(start = 15.dp, end = 15.dp, bottom = 15.dp, top = 5.dp),
 	) {
-		Text(
-			text = journal.titleWithPlaceHolder,
-			fontWeight = FontWeight.Bold,
-			fontSize = 25.sp,
-			color = AppThemeColor.current.vibePulseColors.vibeA.toColor()
-		)
+		Row {
+			FeelingEmojis[journal.feeling]?.let { emoji ->
+				Image(
+					painter = painterResource(id = emoji),
+					contentDescription = null,
+					modifier = Modifier
+						.padding(end = 20.dp)
+						.size(25.dp)
+						.align(Alignment.CenterVertically)
+				)
+			}
+
+			Text(
+				text = journal.titleWithPlaceHolder,
+				fontWeight = FontWeight.Bold,
+				fontSize = 25.sp,
+				color = AppThemeColor.current.vibePulseColors.vibeA.toColor()
+			)
+		}
+
 
 		if (journal.moodFactors.isNotEmpty()) {
 			val radius = 20f
@@ -194,19 +209,19 @@ fun EditorToolbar(
 					onClearFocus()
 				})
 			}
-			.padding(10.dp)
+			.padding(top = 10.dp, bottom = 10.dp, end = 10.dp)
 			.height(40.dp),
 		title = {
 			Row(
 				modifier = it
 			) {
-				FeelingEmojis[journal.feeling]?.let { emoji ->
+				WeatherIcons[journal.weather.weatherInfo]?.let { weatherIcon ->
 					Image(
-						painter = painterResource(id = emoji),
+						painter = painterResource(id = weatherIcon),
 						contentDescription = null,
 						modifier = Modifier
-							.size(32.dp)
-							.align(Alignment.CenterVertically)
+							.size(36.dp)
+						//.padding(end = 10.dp)
 					)
 				}
 				Spacer(modifier = Modifier.width(10.dp))
