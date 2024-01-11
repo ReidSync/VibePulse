@@ -49,13 +49,30 @@ extension JournalHomeView {
           .padding(.trailing, 10)
       }
       
+      
       VStack(alignment: .leading, spacing: 0) {
-        Text(journal.date.format(format: ("EE, MMM d, yyyy   h:mm a")))
-          .font(.system(size: 10, weight: .light))
-          .foregroundColor(appThemeColor.vibeC.toColor())
-        Text(journal.feeling.displayName)
-          .font(.system(size: 20, weight: .bold))
-          .foregroundColor(appThemeColor.vibeB.toColor())
+        HStack(alignment: .top, spacing: 0) {
+          if let weatherIcon = WeatherIcons[journal.weather.weatherInfo] {
+            Image(weatherIcon)
+              .resizable()
+              .scaledToFill()
+              .frame(width: 36, height: 36)
+              //.padding(.leading, 20)
+          }
+          
+          VStack(alignment: .leading, spacing: 0) {
+            Text(journal.date.format(format: ("EE, MMM d, yyyy   h:mm a")))
+              .font(.system(size: 10, weight: .light))
+              .foregroundColor(appThemeColor.vibeC.toColor())
+            Text(journal.feeling.displayName)
+              .font(.system(size: 20, weight: .bold))
+              .foregroundColor(appThemeColor.vibeB.toColor())
+          }
+          
+          
+            
+          Spacer()
+        }
         
         if !journal.title.isEmpty {
           Text(journal.titleWithPlaceHolder)

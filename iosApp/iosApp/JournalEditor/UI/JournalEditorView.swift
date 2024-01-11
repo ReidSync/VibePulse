@@ -20,7 +20,15 @@ struct JournalEditorView: View {
   var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       VStack(spacing: 0) {
-        HStack {
+        HStack(spacing: 0) {
+          if let emoji = FeelingEmojis[viewStore.journal.feeling] {
+            Image(emoji)
+              .resizable()
+              .scaledToFill()
+              .frame(width: 25, height: 25)
+              .padding(.trailing, 20)
+          }
+          
           Text(viewStore.journal.titleWithPlaceHolder)
             .font(.system(size: 25, weight: .bold))
             .foregroundColor(appThemeColor.vibeA.toColor())
@@ -77,14 +85,13 @@ struct JournalEditorView: View {
       .navigationBarTitleDisplayMode(.inline)
       .toolbar {
         ToolbarItem(placement: .principal) {
-          HStack {
-            if let emoji = FeelingEmojis[viewStore.journal.feeling] {
-              Image(emoji)
+          HStack(spacing: 0) {
+            if let weatherIcon = WeatherIcons[viewStore.journal.weather.weatherInfo] {
+              Image(weatherIcon)
                 .resizable()
-                .frame(width: 32, height: 32)
-                .clipped()
-                .clipShape(Circle())
-                .padding(.trailing, 10)
+                .scaledToFill()
+                .frame(width: 36, height: 36)
+                .padding(.trailing, 20)
             }
             
             Text(viewStore.journal.date.format(format: "MMMM d, yyyy"))

@@ -145,13 +145,15 @@ extension JournalMetaView {
   )-> some View {
     journalInfoFieldView(title: "Weather") {
       HStack {
-        if let emoji = WeatherIcons[viewStore.weather.weatherInfo] {
-          Image(emoji)
-            .resizable()
-            .scaledToFill()
-            .frame(width: 72, height: 72)
-          //.padding(8)
-        }
+        let weatherIcon = 
+        WeatherIcons[viewStore.weather.weatherInfo] ??
+        WeatherIcons[WeatherCodeInfo.unknown] ?? 
+        "weather" // expect unreachable.
+        
+        Image(weatherIcon)
+          .resizable()
+          .scaledToFill()
+          .frame(width: 72, height: 72)
         
         Text(viewStore.location)
           .font(.system(size: 18))
@@ -210,3 +212,5 @@ extension JournalMetaView {
       .foregroundColor(appThemeColor.vibeC.toColor())
   }
 }
+
+
