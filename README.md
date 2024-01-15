@@ -23,25 +23,25 @@ This uses the [Kotlin Multiplatform](https://kotlinlang.org/docs/multiplatform.h
 ## Todo
 > Everything is a work in progress. The functions could be improved and modified, even if they have already been completed.
 
-Function | Done
-:------------ | :-------------
-Home screen with a journal list | :heavy_check_mark:
-Screen for editing journal contents | :heavy_check_mark:
-Journal metadata screen | :heavy_check_mark:
-Add a new journal | :heavy_check_mark:
-Edit a journal metadata | :heavy_check_mark:
-Support dark and light themes | :heavy_check_mark:
-Check feelings | :heavy_check_mark:
-Check mood factors | :heavy_check_mark:
-Shared theme color resource | :heavy_check_mark:
-Common data models | :heavy_check_mark:
-User login with Firebase auth | 
-Store user data in Firestore |
-Show weather information | :heavy_check_mark:
-Track & analyze mood patterns | 
-Screen for tracking & analyzing mood patterns |
-Save each journal in a separate file |
-Attractive app design |
+Function | Done | Note
+:------------ | :------------- | :-------------
+Home screen with a journal list | :heavy_check_mark: | 
+Screen for editing journal contents | :heavy_check_mark: | 
+Journal metadata screen | :heavy_check_mark: | 
+Add a new journal | :heavy_check_mark: | 
+Edit a journal metadata | :heavy_check_mark: | 
+Support dark and light themes | :heavy_check_mark: | 
+Check feelings | :heavy_check_mark: | 
+Check mood factors | :heavy_check_mark: | 
+Shared theme color resource | :heavy_check_mark: | 
+Common data models | :heavy_check_mark: | 
+User login with Firebase auth |  | 
+Store user data in Firestore | | 
+Show weather information | :heavy_check_mark: | https://open-meteo.com/
+Track & analyze mood patterns |  | 
+Screen for tracking & analyzing mood patterns | | 
+Save each journal in a separate file | | 
+Attractive app design | | 
 
 
 
